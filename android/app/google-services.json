@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "656291213374",
+    "project_id": "wildwestflutter",
+    "storage_bucket": "wildwestflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656291213374:android:c1f0e17724b03d2983e16f",
+        "android_client_info": {
+          "package_name": "com.creativegames.wildwest_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656291213374-7qn3oifm64613snse2cr8aroia3jqdrm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.creativegames.wildwest_flutter",
+            "certificate_hash": "395ba792da99f06fa1ca41cfd3baaba16a58fbbe"
+          }
+        },
+        {
+          "client_id": "656291213374-t1cn0kq2n7tn2g7es1lpkolithlm6gvb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-Yf274IUZr92U6POfdRY8yi9HAJXGhEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "656291213374-t1cn0kq2n7tn2g7es1lpkolithlm6gvb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
