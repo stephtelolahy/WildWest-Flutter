@@ -1,26 +1,18 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:wildwest_flutter/game_page.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(App());
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        brightness: Brightness.dark,
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: GamePage(),
     );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Container());
   }
 }

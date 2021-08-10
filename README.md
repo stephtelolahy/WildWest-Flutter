@@ -1,6 +1,11 @@
 # wildwest_flutter
 
-A new Flutter project.
+Responsive Board for Bang! card Game
+
+# TODO
+
+- Board portrait only
+- Adapt to screen size
 
 ## Getting Started
 
