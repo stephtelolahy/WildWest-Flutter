@@ -11,19 +11,9 @@ class CardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Draggable(
       data: name,
-      childWhenDragging: Container(
-        height: height,
-        width: width,
-        child: Card(
-          elevation: 2.0,
-          color: Colors.grey,
-          child: Center(
-            child: Text("empty"),
-          ),
-        ),
-      ),
+      childWhenDragging: SizedBox.shrink(),
       feedback: Transform.scale(
-          scale: 1.0,
+          scale: 1.2,
           child: Container(
               height: height,
               width: width,

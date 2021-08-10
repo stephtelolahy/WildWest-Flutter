@@ -47,22 +47,24 @@ class GamePage extends StatelessWidget {
     );
   }
 
+  Widget _buildHand(BuildContext context) {
+    return Container(
+      height: 150,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(3, (index) => _buildCard(context, index)),
+      ),
+    );
+  }
+
   Widget _buildMessage(BuildContext context) {
     final message =
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at sodales augue. Maecenas consequat odio in enim fringilla, id dapibus neque commodo.";
-    return Expanded(child: Text(message));
-  }
-
-  Widget _buildHand(BuildContext context) {
-    return Container(
-      height: 260,
-      child: GridView.count(
-        childAspectRatio: 0.75,
-        physics: NeverScrollableScrollPhysics(),
-        crossAxisCount: 4,
-        children: List.generate(8, (index) => _buildCard(context, index)),
-      ),
-    );
+    return Expanded(
+        child: Padding(
+      padding: EdgeInsets.all(8),
+      child: Text(message),
+    ));
   }
 
   Widget _buildCard(BuildContext context, int index) {
