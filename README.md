@@ -1,8 +1,8 @@
-# wildwest_flutter
+# WildWest-Flutter
 
-Responsive Board for Bang! card Game
+Responsive Board for card Game
 
-# TODO
+# Backlog
 
 - Board portrait only
 - Adapt to screen size
