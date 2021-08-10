@@ -49,12 +49,13 @@ class GamePage extends StatelessWidget {
 
   Widget _buildHand(BuildContext context) {
     return Container(
-      height: 150,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: List.generate(3, (index) => _buildCard(context, index)),
-      ),
-    );
+        height: 125,
+        child: Stack(
+          children: List.generate(
+              5,
+              (index) => Positioned(
+                  left: (70.0 * index), child: _buildCard(context, index))),
+        ));
   }
 
   Widget _buildMessage(BuildContext context) {

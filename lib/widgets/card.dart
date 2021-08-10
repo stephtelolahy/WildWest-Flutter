@@ -29,6 +29,7 @@ class CardWidget extends StatelessWidget {
         width: width,
         child: Card(
           elevation: 2.0,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           color: Colors.blue,
           child: Center(child: Text(name)),
         ),
