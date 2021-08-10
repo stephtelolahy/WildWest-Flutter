@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wildwest_flutter/widgets/card.dart';
 
 class GamePage extends StatelessWidget {
   @override
@@ -75,14 +76,6 @@ class GamePage extends StatelessWidget {
   }
 
   Widget _buildCard(BuildContext context, int index) {
-    return Card(
-      child: Container(
-        width: 90,
-        height: 125,
-        child: Center(
-          child: Text('card $index'),
-        ),
-      ),
-    );
+    return CardWidget(name: "card $index", width: 90, height: 125);
   }
 }
