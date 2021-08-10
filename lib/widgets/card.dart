@@ -23,7 +23,7 @@ class CardWidget extends StatelessWidget {
         ),
       ),
       feedback: Transform.scale(
-          scale: 1.4,
+          scale: 1.0,
           child: Container(
               height: height,
               width: width,
