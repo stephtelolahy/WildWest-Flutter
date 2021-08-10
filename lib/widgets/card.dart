@@ -10,7 +10,7 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Draggable(
-      data: "data",
+      data: name,
       childWhenDragging: Container(
         height: height,
         width: width,
@@ -22,16 +22,18 @@ class CardWidget extends StatelessWidget {
           ),
         ),
       ),
-      feedback: Container(
-          height: height,
-          width: width,
-          child: Card(
-            elevation: 2.0,
-            color: Colors.blue,
-            child: Center(
-              child: Text(name),
-            ),
-          )),
+      feedback: Transform.scale(
+          scale: 1.4,
+          child: Container(
+              height: height,
+              width: width,
+              child: Card(
+                elevation: 2.0,
+                color: Colors.amber,
+                child: Center(
+                  child: Text(name),
+                ),
+              ))),
       child: Container(
         height: height,
         width: width,
