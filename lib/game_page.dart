@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wildwest_flutter/widgets/discard.dart';
 import 'package:wildwest_flutter/widgets/hand.dart';
+import 'package:wildwest_flutter/widgets/others.dart';
 import 'package:wildwest_flutter/widgets/player.dart';
 
 class GamePage extends StatelessWidget {
@@ -13,21 +14,12 @@ class GamePage extends StatelessWidget {
         body: SafeArea(
       child: Column(
         children: [
-          _buildOther(context),
+          OthersWidget(),
           DiscardWidget(),
           _buildYou(context),
           HandWidget(),
         ],
       ),
-    ));
-  }
-
-  Widget _buildOther(BuildContext context) {
-    final players = List.generate(6, (index) => _buildPlayer(context, index));
-    return Container(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: players,
     ));
   }
 
