@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wildwest_flutter/misc/size_utils.dart';
-import 'package:wildwest_flutter/widgets/player.dart';
+import 'package:wildwest_flutter/pages/game/widgets/player.dart';
 
 class OthersWidget extends StatelessWidget {
   static const double PLAYER_WIDTH = 80;

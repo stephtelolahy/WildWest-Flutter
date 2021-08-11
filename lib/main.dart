@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wildwest_flutter/game_page.dart';
+import 'package:wildwest_flutter/pages/game/game_page.dart';
 
 void main() => runApp(App());
 
