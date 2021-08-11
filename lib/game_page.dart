@@ -5,6 +5,10 @@ import 'package:wildwest_flutter/widgets/card.dart';
 import 'package:wildwest_flutter/widgets/player.dart';
 
 class GamePage extends StatelessWidget {
+  static const double CARD_WIDTH = 96;
+  static const double CARD_HEIGHT = 144;
+  static const double CARD_SPACING = 2;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +26,7 @@ class GamePage extends StatelessWidget {
 
   Widget _buildOther(BuildContext context) {
     final players = List.generate(6, (index) => _buildPlayer(context, index));
-    return IntrinsicHeight(
+    return Container(
         child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: players,
@@ -36,13 +40,17 @@ class GamePage extends StatelessWidget {
   Widget _buildDeck(BuildContext context) {
     return Expanded(
       child: Center(
-        child: _buildCard(context, -1),
+        child: CardWidget(
+          name: 'discard',
+          size: Size(CARD_WIDTH, CARD_HEIGHT),
+          sizeWhenDragging: Size(CARD_WIDTH, CARD_HEIGHT),
+        ),
       ),
     );
   }
 
   Widget _buildYou(BuildContext context) {
-    return IntrinsicHeight(
+    return Container(
       child: Row(
         children: [_buildMessage(context), _buildPlayer(context, -1)],
       ),
@@ -50,24 +58,24 @@ class GamePage extends StatelessWidget {
   }
 
   Widget _buildHand(BuildContext context) {
-    final itemsCount = 10;
-    final spacing = 2;
+    final itemsCount = 2;
     final screenW = MediaQuery.of(context).size.width;
-    final double cardMaxWidth = 100;
-    final double cardWidth = (screenW - itemsCount * spacing) / itemsCount;
-    final double width = min(cardWidth, cardMaxWidth);
+    final double cardWidth = (screenW - itemsCount * CARD_SPACING) / itemsCount;
+    final double width = min(cardWidth, CARD_WIDTH);
 
     return Container(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(
           itemsCount,
           (index) => CardWidget(
-              name: 'card $index',
-              width: width,
-              height: 125,
-              floatingWidth: cardMaxWidth)),
-    ));
+            name: 'card $index',
+            size: Size(width, CARD_HEIGHT),
+            sizeWhenDragging: Size(CARD_WIDTH, CARD_HEIGHT),
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _buildMessage(BuildContext context) {
@@ -78,10 +86,5 @@ class GamePage extends StatelessWidget {
       padding: EdgeInsets.all(8),
       child: Text(message),
     ));
-  }
-
-  Widget _buildCard(BuildContext context, int index) {
-    return CardWidget(
-        name: 'card $index', width: 100, height: 125, floatingWidth: 100);
   }
 }

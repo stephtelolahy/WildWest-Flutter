@@ -1,40 +1,46 @@
 import 'package:flutter/material.dart';
 
 class CardWidget extends StatelessWidget {
+  static const double CARD_ELEVATION = 2;
+  static const double CARD_RADIUS = 4;
+  static const double CARD_SCALE_WHEN_DRAGGING = 1.2;
+
   final String name;
-  final double width;
-  final double height;
-  final double floatingWidth;
+  final Size size;
+  final Size sizeWhenDragging;
 
   CardWidget(
-      {required this.name,
-      required this.width,
-      required this.floatingWidth,
-      required this.height});
+      {required this.name, required this.size, required this.sizeWhenDragging});
 
   @override
   Widget build(BuildContext context) {
     return Draggable(
       data: name,
       childWhenDragging: SizedBox.shrink(),
+      // childWhenDragging:
+      // Container(color: Colors.red, height: size.height, width: size.width),
       feedback: Transform.scale(
-          scale: 1.2,
-          child: Container(
-              height: height,
-              width: floatingWidth,
-              child: Card(
-                elevation: 2.0,
-                color: Colors.amber,
-                child: Center(
-                  child: Text(name),
-                ),
-              ))),
+          scale: CARD_SCALE_WHEN_DRAGGING,
+          child: Transform.translate(
+              offset: Offset((size.width - sizeWhenDragging.width) * 0.5,
+                  -size.height * 0.5),
+              child: Container(
+                  height: sizeWhenDragging.height,
+                  width: sizeWhenDragging.width,
+                  child: Card(
+                    elevation: CARD_ELEVATION,
+                    color: Colors.amber,
+                    child: Center(
+                      child: Text(name),
+                    ),
+                  )))),
       child: Container(
-        height: height,
-        width: width,
+        height: size.height,
+        width: size.width,
         child: Card(
-          elevation: 2.0,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+          elevation: CARD_ELEVATION,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(CARD_RADIUS)),
           color: Colors.blue,
           child: Center(child: Text(name)),
         ),
