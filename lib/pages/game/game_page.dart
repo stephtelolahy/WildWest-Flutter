@@ -29,14 +29,10 @@ class _GameView extends StatelessWidget {
   }
 
   Widget _buildGameBoard(BuildContext context, GameState state) {
-    final topDiscard = state.discard.isNotEmpty ? state.discard.last : null;
     return Column(
       children: [
         OthersWidget(),
-        DiscardWidget(
-          deckCount: state.deck.length,
-          topDiscard: topDiscard,
-        ),
+        DiscardWidget(discard: state.discard),
         YouWidget(),
         HandWidget(cards: state.hand),
       ],

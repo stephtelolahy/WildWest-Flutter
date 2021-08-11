@@ -13,6 +13,7 @@ class HandWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: CARD_HEIGHT,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
