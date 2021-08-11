@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:wildwest_flutter/widgets/card.dart';
 import 'package:wildwest_flutter/widgets/player.dart';
@@ -48,14 +50,24 @@ class GamePage extends StatelessWidget {
   }
 
   Widget _buildHand(BuildContext context) {
+    final itemsCount = 10;
+    final spacing = 2;
+    final screenW = MediaQuery.of(context).size.width;
+    final double cardMaxWidth = 100;
+    final double cardWidth = (screenW - itemsCount * spacing) / itemsCount;
+    final double width = min(cardWidth, cardMaxWidth);
+
     return Container(
-        height: 125,
-        child: Stack(
-          children: List.generate(
-              5,
-              (index) => Positioned(
-                  left: (70.0 * index), child: _buildCard(context, index))),
-        ));
+        child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(
+          itemsCount,
+          (index) => CardWidget(
+              name: 'card $index',
+              width: width,
+              height: 125,
+              floatingWidth: cardMaxWidth)),
+    ));
   }
 
   Widget _buildMessage(BuildContext context) {
@@ -69,6 +81,7 @@ class GamePage extends StatelessWidget {
   }
 
   Widget _buildCard(BuildContext context, int index) {
-    return CardWidget(name: 'card $index', width: 100, height: 125);
+    return CardWidget(
+        name: 'card $index', width: 100, height: 125, floatingWidth: 100);
   }
 }
