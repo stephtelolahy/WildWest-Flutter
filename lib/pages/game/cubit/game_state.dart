@@ -2,12 +2,15 @@ part of 'game_cubit.dart';
 
 @immutable
 class GameState {
-  final String? discard;
+  final String? played;
+  final List<String> discard;
   final List<String> hand;
+  final List<String> others;
 
-  GameState({this.discard, required this.hand});
-
-  GameState.initial()
-      : this.discard = null,
-        this.hand = [];
+  GameState({
+    required this.others,
+    required this.played,
+    required this.discard,
+    required this.hand,
+  });
 }

@@ -1,17 +1,21 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class PlayerWidget extends StatelessWidget {
-  final String name;
-  final double width;
-  final double height;
+  static const double PLAYER_WIDTH = 80;
+  static const double PLAYER_HEIGHT = 100;
 
-  PlayerWidget({required this.name, required this.width, required this.height});
+  final String name;
+  final double maxWidth;
+
+  PlayerWidget({required this.name, this.maxWidth = PLAYER_WIDTH});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width,
-      height: height,
+      width: min(PLAYER_WIDTH, maxWidth),
+      height: PLAYER_HEIGHT,
       child: Card(
         child: Center(
           child: Text(name, textAlign: TextAlign.center),

@@ -11,7 +11,7 @@ class YouWidget extends StatelessWidget {
       child: Row(
         children: [
           _buildMessage(context),
-          PlayerWidget(name: 'you', width: PLAYER_WIDTH, height: PLAYER_HEIGHT)
+          PlayerWidget(name: 'you'),
         ],
       ),
     );

@@ -3,25 +3,19 @@ import 'package:wildwest_flutter/misc/size_utils.dart';
 import 'package:wildwest_flutter/pages/game/widgets/player.dart';
 
 class OthersWidget extends StatelessWidget {
-  static const double PLAYER_WIDTH = 80;
-  static const double PLAYER_HEIGHT = 100;
+  final List<String> players;
+
+  OthersWidget(this.players);
 
   @override
   Widget build(BuildContext context) {
-    final playersCount = 5;
-
-    final players = List.generate(
-      playersCount,
-      (index) => PlayerWidget(
-        name: 'player $index',
-        width: SizeUtils.itemWidthInARow(context, playersCount, PLAYER_WIDTH),
-        height: PLAYER_HEIGHT,
-      ),
-    );
+    final maxWidth = SizeUtils.maxItemWidthInARow(context, players.length);
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: players,
+        children: players
+            .map((e) => PlayerWidget(name: e, maxWidth: maxWidth))
+            .toList(),
       ),
     );
   }

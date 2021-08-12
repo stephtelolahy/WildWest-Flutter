@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wildwest_flutter/pages/game/cubit/game_cubit.dart';
+import 'package:wildwest_flutter/pages/game/widgets/card.dart';
 
-class DiscardWidget extends StatelessWidget {
-  static const double CARD_WIDTH = 60;
-  static const double CARD_HEIGHT = 80;
+class PlaygroundWidget extends StatelessWidget {
+  static const double DISCARD_WIDTH = 60;
+  static const double DECK_WIDTH = 80;
+  static const double DECK_HEIGHT = 80;
 
   final String? discard;
+  final String? played;
 
-  DiscardWidget({required this.discard});
+  PlaygroundWidget({required this.discard, required this.played});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,11 @@ class DiscardWidget extends StatelessWidget {
                   ),
                   Align(
                     alignment: Alignment.centerRight,
-                    child: _buildDiscard(context),
+                    child: _buildDiscardedCardOrNull(context),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: _buildPlayedCardOrNull(context),
                   ),
                 ],
               ));
@@ -39,27 +46,24 @@ class DiscardWidget extends StatelessWidget {
   }
 
   Widget _buildDeck(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          primary: Colors.blue, fixedSize: Size(CARD_WIDTH, CARD_HEIGHT)),
+    return FloatingActionButton(
+      backgroundColor: Colors.blue,
+      foregroundColor: Colors.white,
       onPressed: () => context.read<GameCubit>().draw(),
-      child: Text("Deck"),
+      child: Icon(Icons.add),
     );
   }
 
-  Widget _buildDiscard(BuildContext context) {
-    final card = discard;
-    if (card != null) {
-      return Container(
-        color: Colors.blue,
-        child: Center(
-          child: Text(card),
-        ),
-        width: CARD_WIDTH,
-        height: CARD_HEIGHT,
-      );
-    } else {
-      return SizedBox.shrink();
-    }
+  Widget _buildPlayedCardOrNull(BuildContext context) {
+    return played != null ? CardWidget(name: played!) : SizedBox.shrink();
+  }
+
+  Widget _buildDiscardedCardOrNull(BuildContext context) {
+    return discard != null
+        ? CardWidget(
+            name: discard!,
+            maxWidth: DISCARD_WIDTH,
+          )
+        : SizedBox.shrink();
   }
 }
