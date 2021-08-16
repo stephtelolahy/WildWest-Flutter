@@ -20,7 +20,7 @@ class AnimatedCardState extends State<AnimatedCard>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: 400),
       vsync: this,
     )..addListener(() {
         setState(() {});
@@ -59,15 +59,17 @@ class AnimatedCardState extends State<AnimatedCard>
     final opacity = _opacity?.value ?? 0.0;
     final name = _card ?? '';
     return AnimatedBuilder(
+      animation: _controller,
       builder: (context, child) => Positioned(
         left: left,
         top: top,
         child: Opacity(
           opacity: opacity,
-          child: CardWidget(name: name),
+          child: IgnorePointer(
+            child: CardWidget(name: name, color: Colors.amber),
+          ),
         ),
       ),
-      animation: _controller,
     );
   }
 
@@ -77,23 +79,29 @@ class AnimatedCardState extends State<AnimatedCard>
       required GlobalKey toKey}) async {
     _card = card;
 
-    final beginBox = fromKey.currentContext?.findRenderObject() as RenderBox;
-    Offset beginOffset = beginBox.localToGlobal(Offset.zero);
-
-    final endBox = toKey.currentContext?.findRenderObject() as RenderBox;
-    Offset endOffset = endBox.localToGlobal(Offset.zero);
-
+    final beginOffset = offsetForCardCenteredAt(fromKey);
+    final endOffset = offsetForCardCenteredAt(toKey);
     _offset = Tween<Offset>(begin: beginOffset, end: endOffset).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Interval(
           0.0,
-          0.5,
+          1.0,
           curve: Curves.ease,
         ),
       ),
     );
 
     await _controller.forward(from: 0.0);
+  }
+
+  static Offset offsetForCardCenteredAt(GlobalKey key) {
+    final box = key.currentContext?.findRenderObject() as RenderBox;
+    final offset = box.localToGlobal(Offset.zero);
+    final centerX = offset.dx + box.size.width / 2.0;
+    final centerY = offset.dy + box.size.height / 2.0;
+    final left = centerX - CardWidget.CARD_WIDTH / 2.0;
+    final top = centerY - CardWidget.CARD_HEIGHT / 2.0;
+    return Offset(left, top);
   }
 }

@@ -6,7 +6,6 @@ import 'package:wildwest_flutter/misc/size_utils.dart';
 import 'package:wildwest_flutter/pages/game/cubit/game_cubit.dart';
 import 'package:wildwest_flutter/pages/game/widgets/animated_card.dart';
 import 'package:wildwest_flutter/pages/game/widgets/card.dart';
-import 'package:wildwest_flutter/pages/game/widgets/card_placeholder.dart';
 import 'package:wildwest_flutter/pages/game/widgets/player.dart';
 
 class GamePage extends StatelessWidget {
@@ -25,7 +24,7 @@ class _GameView extends StatelessWidget {
   final _keyDeck = GlobalKey();
   final _keyYou = GlobalKey();
   final _keyAnimated = GlobalKey<AnimatedCardState>();
-  final _keysHand = List.generate(20, (index) => GlobalKey());
+  final _keyHand = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -140,24 +139,17 @@ class _GameView extends StatelessWidget {
     ));
   }
 
-  Widget _buildHand(BuildContext context, List<String?> cards) {
+  Widget _buildHand(BuildContext context, List<String> cards) {
     final maxWidth = SizeUtils.maxItemWidthInARow(context, cards.length);
     return Container(
+      key: _keyHand,
       height: CardWidget.CARD_HEIGHT,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
           cards.length,
-          (index) {
-            final name = cards[index];
-            final key = _keysHand[index];
-            if (name != null) {
-              return CardWidget(
-                  key: key, name: name, maxWidth: maxWidth, draggable: true);
-            } else {
-              return CardPlaceholder(key: key, maxWidth: maxWidth);
-            }
-          },
+          (index) => CardWidget(
+              name: cards[index], maxWidth: maxWidth, draggable: true),
         ),
       ),
     );
@@ -166,10 +158,9 @@ class _GameView extends StatelessWidget {
   void _handleEvent(BuildContext context, GameState state) {
     final event = state.event;
     if (event is GameEventDraw) {
-      final keyTarget = _keysHand[state.hand.length - 1];
       _keyAnimated.currentState
-          ?.animate(card: event.card, fromKey: _keyDeck, toKey: keyTarget)
-          .then((_) => context.read<GameCubit>().completeCurrentEvent());
+          ?.animate(card: event.card, fromKey: _keyDeck, toKey: _keyHand)
+          .then((_) => context.read<GameCubit>().update());
     }
   }
 }

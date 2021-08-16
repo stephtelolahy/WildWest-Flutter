@@ -4,7 +4,7 @@ part of 'game_cubit.dart';
 class GameState {
   final String? played;
   final List<String> discard;
-  final List<String?> hand;
+  final List<String> hand;
   final List<String> others;
   final GameEvent? event;
 

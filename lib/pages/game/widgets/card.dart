@@ -12,12 +12,14 @@ class CardWidget extends StatelessWidget {
   final String name;
   final double maxWidth;
   final bool draggable;
+  final Color color;
 
   CardWidget({
     Key? key,
     required this.name,
     this.maxWidth = CARD_WIDTH,
     this.draggable = false,
+    this.color = Colors.blue,
   }) : super(key: key);
 
   @override
@@ -34,7 +36,7 @@ class CardWidget extends StatelessWidget {
         elevation: CARD_ELEVATION,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(CARD_RADIUS)),
-        color: Colors.blue,
+        color: color,
         child: Center(child: Text(name, textAlign: TextAlign.center)),
       ),
     );
