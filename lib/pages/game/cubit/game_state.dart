@@ -4,7 +4,7 @@ part of 'game_cubit.dart';
 class GameState {
   final String? played;
   final List<String> discard;
-  final List<String> hand;
+  final List<String?> hand;
   final List<String> others;
   final GameEvent? event;
 
@@ -17,4 +17,12 @@ class GameState {
   });
 }
 
-enum GameEvent { draw, play }
+abstract class GameEvent {}
+
+class GameEventDraw extends GameEvent {
+  final String card;
+
+  GameEventDraw({required this.card});
+}
+
+class GameEventPlay extends GameEvent {}

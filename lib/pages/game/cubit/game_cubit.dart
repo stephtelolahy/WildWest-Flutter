@@ -18,6 +18,22 @@ class GameCubit extends Cubit<GameState> {
     return "card $_counter";
   }
 
+  void completeCurrentEvent() {
+    final event = state.event;
+    if (event is GameEventDraw) {
+      var hand = state.hand;
+      hand.removeWhere((e) => e == null);
+      hand.add(event.card);
+
+      emit(GameState(
+          others: state.others,
+          played: state.played,
+          discard: state.discard,
+          hand: hand,
+          event: null));
+    }
+  }
+
   void play(String card) {
     var hand = state.hand;
     hand.remove(card);
@@ -33,7 +49,7 @@ class GameCubit extends Cubit<GameState> {
       played: card,
       discard: discard,
       hand: hand,
-      event: GameEvent.play,
+      event: GameEventPlay(),
     ));
   }
 
@@ -43,8 +59,8 @@ class GameCubit extends Cubit<GameState> {
         others: state.others,
         played: state.played,
         discard: state.discard,
-        hand: state.hand + [_getDeckCard()],
-        event: GameEvent.draw,
+        hand: state.hand + [null],
+        event: GameEventDraw(card: _getDeckCard()),
       ),
     );
   }
