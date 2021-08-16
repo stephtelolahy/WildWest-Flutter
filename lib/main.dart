@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wildwest_flutter/pages/game/game_page.dart';
+import 'package:wildwest_flutter/pages/animation/animation_page.dart';
 
 void main() => runApp(App());
 
@@ -12,7 +12,7 @@ class App extends StatelessWidget {
         brightness: Brightness.dark,
         primarySwatch: Colors.blue,
       ),
-      home: GamePage(),
+      home: AnimationPage(), //GamePage(),
     );
   }
 }
