@@ -14,10 +14,11 @@ class CardWidget extends StatelessWidget {
   final bool draggable;
 
   CardWidget({
+    Key? key,
     required this.name,
     this.maxWidth = CARD_WIDTH,
     this.draggable = false,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

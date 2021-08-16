@@ -9,21 +9,13 @@ class GameCubit extends Cubit<GameState> {
             others: List.generate(6, (index) => 'player $index'),
             played: null,
             discard: [],
-            hand: []));
+            hand: [],
+            event: null));
 
   int _counter = 0;
   String _getDeckCard() {
     _counter++;
     return "card $_counter";
-  }
-
-  void draw() {
-    emit(GameState(
-      others: state.others,
-      played: state.played,
-      discard: state.discard,
-      hand: state.hand + [_getDeckCard()],
-    ));
   }
 
   void play(String card) {
@@ -41,6 +33,19 @@ class GameCubit extends Cubit<GameState> {
       played: card,
       discard: discard,
       hand: hand,
+      event: GameEvent.play,
     ));
+  }
+
+  void draw() {
+    emit(
+      GameState(
+        others: state.others,
+        played: state.played,
+        discard: state.discard,
+        hand: state.hand + [_getDeckCard()],
+        event: GameEvent.draw,
+      ),
+    );
   }
 }
