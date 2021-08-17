@@ -54,9 +54,9 @@ class AnimatedCardState extends State<AnimatedCard>
 
   @override
   Widget build(BuildContext context) {
-    final left = _offset?.value.dx;
-    final top = _offset?.value.dy;
-    final opacity = _opacity?.value ?? 0.0;
+    final left = (_offset?.value.dx ?? 0) - CardWidget.CARD_WIDTH / 2;
+    final top = (_offset?.value.dy ?? 0) - CardWidget.CARD_HEIGHT / 2;
+    final opacity = _opacity?.value ?? 0;
     final name = _card ?? '';
     return AnimatedBuilder(
       animation: _controller,
@@ -77,14 +77,11 @@ class AnimatedCardState extends State<AnimatedCard>
   void animate(
       {required Duration duration,
       required String card,
-      required GlobalKey fromKey,
-      required GlobalKey toKey}) async {
+      required Offset from,
+      required Offset to}) async {
     _controller.duration = duration;
     _card = card;
-
-    final beginOffset = _offsetForCardCenteredAt(fromKey);
-    final endOffset = _offsetForCardCenteredAt(toKey);
-    _offset = Tween<Offset>(begin: beginOffset, end: endOffset).animate(
+    _offset = Tween<Offset>(begin: from, end: to).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Interval(
@@ -96,15 +93,5 @@ class AnimatedCardState extends State<AnimatedCard>
     );
 
     await _controller.forward(from: 0.0);
-  }
-
-  static Offset _offsetForCardCenteredAt(GlobalKey key) {
-    final box = key.currentContext?.findRenderObject() as RenderBox;
-    final offset = box.localToGlobal(Offset.zero);
-    final centerX = offset.dx + box.size.width / 2.0;
-    final centerY = offset.dy + box.size.height / 2.0;
-    final left = centerX - CardWidget.CARD_WIDTH / 2.0;
-    final top = centerY - CardWidget.CARD_HEIGHT / 2.0;
-    return Offset(left, top);
   }
 }

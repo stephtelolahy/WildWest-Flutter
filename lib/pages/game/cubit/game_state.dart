@@ -32,3 +32,10 @@ class GameEventDiscardHand extends GameEvent {
 
   GameEventDiscardHand({required this.card});
 }
+
+class GameEventPlay extends GameEvent {
+  final String card;
+  final Offset center;
+
+  GameEventPlay({required this.card, required this.center});
+}

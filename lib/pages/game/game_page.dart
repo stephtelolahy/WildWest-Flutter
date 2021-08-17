@@ -23,6 +23,7 @@ class _GameView extends StatelessWidget {
   static const double DECK_WIDTH = 60;
   static const double DISCARD_WIDTH = 60;
 
+  final _keyPlayground = GlobalKey();
   final _keyDeck = GlobalKey();
   final _keyDiscard = GlobalKey();
   final _keyPlayed = GlobalKey();
@@ -54,9 +55,11 @@ class _GameView extends StatelessWidget {
     return Column(
       children: [
         _buildOthers(context, state.others),
-        _buildPlayground(context,
-            discard: state.discard.lastOrNull, played: state.played),
-        _buildYou(context),
+        _buildPlayground(
+          context,
+          discard: state.discard.lastOrNull,
+          played: state.played,
+        ),
         _buildHand(context, state.hand),
       ],
     );
@@ -77,9 +80,24 @@ class _GameView extends StatelessWidget {
   Widget _buildPlayground(BuildContext context,
       {String? discard, String? played}) {
     return Expanded(
+      key: _keyPlayground,
       child: DragTarget(
         onWillAccept: (data) => true,
-        onAccept: (data) => context.read<GameCubit>().play(data as String),
+        onAcceptWithDetails: (details) {
+          final playgroundOffset = _keyPlayground.offset();
+          final centerX = playgroundOffset.dx +
+              details.offset.dx +
+              CardWidget.CARD_WIDTH / 2;
+          final draggingDY = CardWidget.CARD_DRAGGING_HEIGHT *
+              CardWidget.CARD_DRAGGING_SHIFT_Y;
+          final centerY = playgroundOffset.dx +
+              details.offset.dy +
+              CardWidget.CARD_HEIGHT / 2 +
+              draggingDY;
+          final center = Offset(centerX, centerY);
+          final card = details.data as String;
+          context.read<GameCubit>().play(card: card, center: center);
+        },
         builder: (context, candidateItems, rejectedItems) {
           final highlighted = candidateItems.isNotEmpty;
           final color = highlighted ? Colors.white12 : Colors.transparent;
@@ -99,6 +117,10 @@ class _GameView extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: _buildDiscard(context, discard),
                   ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: _buildYou(context),
+                  )
                 ],
               ));
         },
@@ -172,19 +194,25 @@ class _GameView extends StatelessWidget {
 
   void _handleEvent(BuildContext context, GameState state) {
     final event = state.event;
-    if (event is GameEventDrawDeck) {
+    if (event is GameEventPlay) {
+      _keyAnimated.currentState?.animate(
+          duration: event.duration,
+          card: event.card,
+          from: event.center,
+          to: _keyPlayed.center());
+    } else if (event is GameEventDrawDeck) {
       _keyAnimated.currentState?.animate(
         duration: event.duration,
         card: event.card,
-        fromKey: _keyDeck,
-        toKey: _keyHand,
+        from: _keyDeck.center(),
+        to: _keyHand.center(),
       );
     } else if (event is GameEventDiscardHand) {
       _keyAnimated.currentState?.animate(
           duration: event.duration,
           card: event.card,
-          fromKey: _keyHand,
-          toKey: _keyDiscard);
+          from: _keyHand.center(),
+          to: _keyDiscard.center());
     }
   }
 

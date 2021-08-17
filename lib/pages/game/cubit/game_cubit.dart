@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 part 'game_state.dart';
@@ -18,22 +19,31 @@ class GameCubit extends Cubit<GameState> {
     return "card $_counter";
   }
 
-  void play(String card) {
+  void play({required String card, required Offset center}) {
     final hand = state.hand..remove(card);
-
-    final discard = state.discard;
-    final played = state.played;
-    if (played != null) {
-      discard.add(played);
-    }
-
+    final event = GameEventPlay(card: card, center: center);
     emit(GameState(
       others: state.others,
-      played: card,
-      discard: discard,
+      played: state.played,
+      discard: state.discard,
       hand: hand,
-      event: null,
+      event: event,
     ));
+
+    Future.delayed(event.duration, () {
+      final discard = state.discard;
+      final played = state.played;
+      if (played != null) {
+        discard.add(played);
+      }
+
+      emit(GameState(
+          others: state.others,
+          played: event.card,
+          discard: discard,
+          hand: state.hand,
+          event: null));
+    });
   }
 
   void drawDeck() {

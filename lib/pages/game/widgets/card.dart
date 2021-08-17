@@ -7,7 +7,10 @@ class CardWidget extends StatelessWidget {
   static const double CARD_HEIGHT = 144;
   static const double CARD_ELEVATION = 2;
   static const double CARD_RADIUS = 4;
-  static const double CARD_SCALE_WHEN_DRAGGING = 1.2;
+  static const double CARD_DRAGGING_SCALE = 1.25;
+  static const double CARD_DRAGGING_WIDTH = CARD_WIDTH * CARD_DRAGGING_SCALE;
+  static const double CARD_DRAGGING_HEIGHT = CARD_HEIGHT * CARD_DRAGGING_SCALE;
+  static const double CARD_DRAGGING_SHIFT_Y = -0.5;
 
   final String name;
   final double maxWidth;
@@ -44,13 +47,13 @@ class CardWidget extends StatelessWidget {
 
   Widget _buildDraggable(BuildContext context) {
     final draggingDx =
-        (maxWidth < CARD_WIDTH) ? (maxWidth - CARD_WIDTH) * 0.5 : 0.0;
-    final draggingDY = -CARD_HEIGHT * 0.5;
+        (maxWidth < CARD_WIDTH) ? (maxWidth - CARD_WIDTH) / 2 : 0.0;
+    final draggingDY = CARD_HEIGHT * CARD_DRAGGING_SHIFT_Y;
     return Draggable(
         data: name,
         childWhenDragging: SizedBox.shrink(),
         feedback: Transform.scale(
-          scale: CARD_SCALE_WHEN_DRAGGING,
+          scale: CARD_DRAGGING_SCALE,
           child: Transform.translate(
             offset: Offset(draggingDx, draggingDY),
             child: Container(
