@@ -36,6 +36,10 @@ class _GameView extends StatelessWidget {
             AnimatedCard(key: _keyAnimated)
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _showActions(context),
+          child: Icon(Icons.play_arrow_outlined),
+        ),
       ),
       listener: (context, state) => SchedulerBinding.instance
           ?.addPostFrameCallback((_) => _handleEvent(context, state)),
@@ -99,12 +103,10 @@ class _GameView extends StatelessWidget {
   }
 
   Widget _buildDeck(BuildContext context) {
-    return FloatingActionButton(
+    return CardWidget(
       key: _keyDeck,
-      backgroundColor: Colors.blue,
-      foregroundColor: Colors.white,
-      onPressed: () => context.read<GameCubit>().draw(),
-      child: Icon(Icons.add),
+      name: 'deck',
+      maxWidth: DISCARD_WIDTH,
     );
   }
 
@@ -158,9 +160,16 @@ class _GameView extends StatelessWidget {
   void _handleEvent(BuildContext context, GameState state) {
     final event = state.event;
     if (event is GameEventDraw) {
-      _keyAnimated.currentState
-          ?.animate(card: event.card, fromKey: _keyDeck, toKey: _keyHand)
-          .then((_) => context.read<GameCubit>().update());
+      _keyAnimated.currentState?.animate(
+        duration: event.duration,
+        card: event.card,
+        fromKey: _keyDeck,
+        toKey: _keyHand,
+      );
     }
+  }
+
+  void _showActions(BuildContext context) {
+    context.read<GameCubit>().draw();
   }
 }

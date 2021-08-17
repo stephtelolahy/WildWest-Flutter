@@ -13,21 +13,9 @@ class GameCubit extends Cubit<GameState> {
             event: null));
 
   int _counter = 0;
-  String _getDeckCard() {
+  String _pullDeck() {
     _counter++;
     return "card $_counter";
-  }
-
-  void update() {
-    final event = state.event;
-    if (event is GameEventDraw) {
-      emit(GameState(
-          others: state.others,
-          played: state.played,
-          discard: state.discard,
-          hand: state.hand + [event.card],
-          event: null));
-    }
   }
 
   void play(String card) {
@@ -49,14 +37,24 @@ class GameCubit extends Cubit<GameState> {
   }
 
   void draw() {
+    final event = GameEventDraw(card: _pullDeck());
     emit(
       GameState(
-        others: state.others,
-        played: state.played,
-        discard: state.discard,
-        hand: state.hand,
-        event: GameEventDraw(card: _getDeckCard()),
-      ),
+          others: state.others,
+          played: state.played,
+          discard: state.discard,
+          hand: state.hand,
+          event: event),
+    );
+
+    Future.delayed(
+      event.duration,
+      () => emit(GameState(
+          others: state.others,
+          played: state.played,
+          discard: state.discard,
+          hand: state.hand + [event.card],
+          event: null)),
     );
   }
 }

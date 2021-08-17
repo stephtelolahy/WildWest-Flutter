@@ -10,7 +10,7 @@ class AnimatedCard extends StatefulWidget {
 }
 
 class AnimatedCardState extends State<AnimatedCard>
-    with SingleTickerProviderStateMixin<AnimatedCard> {
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   Animation<double>? _opacity;
   Animation<Offset>? _offset;
@@ -20,7 +20,7 @@ class AnimatedCardState extends State<AnimatedCard>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(milliseconds: 400),
+      duration: Duration.zero,
       vsync: this,
     )..addListener(() {
         setState(() {});
@@ -65,22 +65,25 @@ class AnimatedCardState extends State<AnimatedCard>
         top: top,
         child: Opacity(
           opacity: opacity,
-          child: IgnorePointer(
-            child: CardWidget(name: name, color: Colors.amber),
-          ),
+          child: child,
         ),
+      ),
+      child: IgnorePointer(
+        child: CardWidget(name: name, color: Colors.amber),
       ),
     );
   }
 
-  Future<void> animate(
-      {required String card,
+  void animate(
+      {required Duration duration,
+      required String card,
       required GlobalKey fromKey,
       required GlobalKey toKey}) async {
+    _controller.duration = duration;
     _card = card;
 
-    final beginOffset = offsetForCardCenteredAt(fromKey);
-    final endOffset = offsetForCardCenteredAt(toKey);
+    final beginOffset = _offsetForCardCenteredAt(fromKey);
+    final endOffset = _offsetForCardCenteredAt(toKey);
     _offset = Tween<Offset>(begin: beginOffset, end: endOffset).animate(
       CurvedAnimation(
         parent: _controller,
@@ -95,7 +98,7 @@ class AnimatedCardState extends State<AnimatedCard>
     await _controller.forward(from: 0.0);
   }
 
-  static Offset offsetForCardCenteredAt(GlobalKey key) {
+  static Offset _offsetForCardCenteredAt(GlobalKey key) {
     final box = key.currentContext?.findRenderObject() as RenderBox;
     final offset = box.localToGlobal(Offset.zero);
     final centerX = offset.dx + box.size.width / 2.0;

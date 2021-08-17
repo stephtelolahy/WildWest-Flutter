@@ -17,7 +17,9 @@ class GameState {
   });
 }
 
-abstract class GameEvent {}
+abstract class GameEvent {
+  final Duration duration = Duration(milliseconds: 400);
+}
 
 class GameEventDraw extends GameEvent {
   final String card;
