@@ -32,12 +32,12 @@ class GameCubit extends Cubit<GameState> {
       played: card,
       discard: discard,
       hand: hand,
-      event: GameEventPlay(),
+      event: null,
     ));
   }
 
-  void draw() {
-    final event = GameEventDraw(card: _pullDeck());
+  void drawDeck() {
+    final event = GameEventDrawDeck(card: _pullDeck());
     emit(
       GameState(
           others: state.others,
@@ -54,6 +54,33 @@ class GameCubit extends Cubit<GameState> {
           played: state.played,
           discard: state.discard,
           hand: state.hand + [event.card],
+          event: null)),
+    );
+  }
+
+  void discardHand() {
+    final card = state.hand.first;
+    final event = GameEventDiscardHand(card: card);
+
+    final hand = state.hand;
+    hand.remove(card);
+
+    emit(
+      GameState(
+          others: state.others,
+          played: state.played,
+          discard: state.discard,
+          hand: hand,
+          event: event),
+    );
+
+    Future.delayed(
+      event.duration,
+      () => emit(GameState(
+          others: state.others,
+          played: state.played,
+          discard: state.discard + [event.card],
+          hand: state.hand,
           event: null)),
     );
   }

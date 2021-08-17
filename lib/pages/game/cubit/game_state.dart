@@ -21,10 +21,14 @@ abstract class GameEvent {
   final Duration duration = Duration(milliseconds: 400);
 }
 
-class GameEventDraw extends GameEvent {
+class GameEventDrawDeck extends GameEvent {
   final String card;
 
-  GameEventDraw({required this.card});
+  GameEventDrawDeck({required this.card});
 }
 
-class GameEventPlay extends GameEvent {}
+class GameEventDiscardHand extends GameEvent {
+  final String card;
+
+  GameEventDiscardHand({required this.card});
+}

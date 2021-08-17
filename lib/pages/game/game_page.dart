@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,9 +20,12 @@ class GamePage extends StatelessWidget {
 }
 
 class _GameView extends StatelessWidget {
+  static const double DECK_WIDTH = 60;
   static const double DISCARD_WIDTH = 60;
 
   final _keyDeck = GlobalKey();
+  final _keyDiscard = GlobalKey();
+  final _keyPlayed = GlobalKey();
   final _keyYou = GlobalKey();
   final _keyAnimated = GlobalKey<AnimatedCardState>();
   final _keyHand = GlobalKey();
@@ -88,12 +92,12 @@ class _GameView extends StatelessWidget {
                     child: _buildDeck(context),
                   ),
                   Align(
-                    alignment: Alignment.centerRight,
-                    child: _buildDiscardedCardOrNull(context, discard),
+                    alignment: Alignment.center,
+                    child: _buildPlayed(context, played),
                   ),
                   Align(
-                    alignment: Alignment.center,
-                    child: _buildPlayedCardOrNull(context, played),
+                    alignment: Alignment.centerRight,
+                    child: _buildDiscard(context, discard),
                   ),
                 ],
               ));
@@ -106,18 +110,27 @@ class _GameView extends StatelessWidget {
     return CardWidget(
       key: _keyDeck,
       name: 'deck',
-      maxWidth: DISCARD_WIDTH,
+      maxWidth: DECK_WIDTH,
     );
   }
 
-  Widget _buildPlayedCardOrNull(BuildContext context, String? card) {
-    return card != null ? CardWidget(name: card) : SizedBox.shrink();
+  Widget _buildPlayed(BuildContext context, String? card) {
+    return Container(
+      key: _keyPlayed,
+      width: CardWidget.CARD_WIDTH,
+      height: CardWidget.CARD_HEIGHT,
+      child: card != null ? CardWidget(name: card) : null,
+    );
   }
 
-  Widget _buildDiscardedCardOrNull(BuildContext context, String? card) {
-    return card != null
-        ? CardWidget(name: card, maxWidth: DISCARD_WIDTH)
-        : SizedBox.shrink();
+  Widget _buildDiscard(BuildContext context, String? card) {
+    return Container(
+      key: _keyDiscard,
+      width: DISCARD_WIDTH,
+      height: CardWidget.CARD_HEIGHT,
+      child:
+          card != null ? CardWidget(name: card, maxWidth: DISCARD_WIDTH) : null,
+    );
   }
 
   Widget _buildYou(BuildContext context) {
@@ -159,17 +172,45 @@ class _GameView extends StatelessWidget {
 
   void _handleEvent(BuildContext context, GameState state) {
     final event = state.event;
-    if (event is GameEventDraw) {
+    if (event is GameEventDrawDeck) {
       _keyAnimated.currentState?.animate(
         duration: event.duration,
         card: event.card,
         fromKey: _keyDeck,
         toKey: _keyHand,
       );
+    } else if (event is GameEventDiscardHand) {
+      _keyAnimated.currentState?.animate(
+          duration: event.duration,
+          card: event.card,
+          fromKey: _keyHand,
+          toKey: _keyDiscard);
     }
   }
 
   void _showActions(BuildContext context) {
-    context.read<GameCubit>().draw();
+    final actions = ['drawDeck', 'discardHand'];
+
+    showCupertinoModalPopup<String>(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        title: const Text('Title'),
+        message: const Text('Message'),
+        actions: actions
+            .map((e) => CupertinoActionSheetAction(
+                  child: Text(e),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop(e);
+                  },
+                ))
+            .toList(),
+      ),
+    ).then((value) {
+      if (value == 'drawDeck') {
+        context.read<GameCubit>().drawDeck();
+      } else if (value == 'discardHand') {
+        context.read<GameCubit>().discardHand();
+      }
+    });
   }
 }
