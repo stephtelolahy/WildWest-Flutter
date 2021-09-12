@@ -21,12 +21,10 @@ class GamePage extends StatelessWidget {
 
 class _GameView extends StatelessWidget {
   static const double DECK_WIDTH = 60;
-  static const double DISCARD_WIDTH = 60;
 
   final _keyPlayground = GlobalKey();
   final _keyDeck = GlobalKey();
   final _keyDiscard = GlobalKey();
-  final _keyPlayed = GlobalKey();
   final _keyYou = GlobalKey();
   final _keyAnimated = GlobalKey<AnimatedCardState>();
   final _keyHand = GlobalKey();
@@ -58,7 +56,6 @@ class _GameView extends StatelessWidget {
         _buildPlayground(
           context,
           discard: state.discard.lastOrNull,
-          played: state.played,
         ),
         _buildHand(context, state.hand),
       ],
@@ -77,8 +74,7 @@ class _GameView extends StatelessWidget {
     );
   }
 
-  Widget _buildPlayground(BuildContext context,
-      {String? discard, String? played}) {
+  Widget _buildPlayground(BuildContext context, {String? discard}) {
     return Expanded(
       key: _keyPlayground,
       child: DragTarget(
@@ -111,10 +107,6 @@ class _GameView extends StatelessWidget {
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: _buildPlayed(context, played),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
                     child: _buildDiscard(context, discard),
                   ),
                   Align(
@@ -136,22 +128,12 @@ class _GameView extends StatelessWidget {
     );
   }
 
-  Widget _buildPlayed(BuildContext context, String? card) {
-    return Container(
-      key: _keyPlayed,
-      width: CardWidget.CARD_WIDTH,
-      height: CardWidget.CARD_HEIGHT,
-      child: card != null ? CardWidget(name: card) : null,
-    );
-  }
-
   Widget _buildDiscard(BuildContext context, String? card) {
     return Container(
       key: _keyDiscard,
-      width: DISCARD_WIDTH,
+      width: CardWidget.CARD_WIDTH,
       height: CardWidget.CARD_HEIGHT,
-      child:
-          card != null ? CardWidget(name: card, maxWidth: DISCARD_WIDTH) : null,
+      child: card != null ? CardWidget(name: card) : null,
     );
   }
 
@@ -199,7 +181,7 @@ class _GameView extends StatelessWidget {
           duration: event.duration,
           card: event.card,
           from: event.center,
-          to: _keyPlayed.center());
+          to: _keyDiscard.center());
     } else if (event is GameEventDrawDeck) {
       _keyAnimated.currentState?.animate(
         duration: event.duration,

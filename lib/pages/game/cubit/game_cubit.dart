@@ -8,7 +8,6 @@ class GameCubit extends Cubit<GameState> {
   GameCubit()
       : super(GameState(
             others: List.generate(6, (index) => 'player $index'),
-            played: null,
             discard: [],
             hand: [],
             event: null));
@@ -24,23 +23,15 @@ class GameCubit extends Cubit<GameState> {
     final event = GameEventPlay(card: card, center: center);
     emit(GameState(
       others: state.others,
-      played: state.played,
       discard: state.discard,
       hand: hand,
       event: event,
     ));
 
     Future.delayed(event.duration, () {
-      final discard = state.discard;
-      final played = state.played;
-      if (played != null) {
-        discard.add(played);
-      }
-
       emit(GameState(
           others: state.others,
-          played: event.card,
-          discard: discard,
+          discard: state.discard + [card],
           hand: state.hand,
           event: null));
     });
@@ -51,7 +42,6 @@ class GameCubit extends Cubit<GameState> {
     emit(
       GameState(
           others: state.others,
-          played: state.played,
           discard: state.discard,
           hand: state.hand,
           event: event),
@@ -61,7 +51,6 @@ class GameCubit extends Cubit<GameState> {
       event.duration,
       () => emit(GameState(
           others: state.others,
-          played: state.played,
           discard: state.discard,
           hand: state.hand + [event.card],
           event: null)),
@@ -71,14 +60,12 @@ class GameCubit extends Cubit<GameState> {
   void discardHand() {
     final card = state.hand.first;
     final event = GameEventDiscardHand(card: card);
-
     final hand = state.hand;
     hand.remove(card);
 
     emit(
       GameState(
           others: state.others,
-          played: state.played,
           discard: state.discard,
           hand: hand,
           event: event),
@@ -88,7 +75,6 @@ class GameCubit extends Cubit<GameState> {
       event.duration,
       () => emit(GameState(
           others: state.others,
-          played: state.played,
           discard: state.discard + [event.card],
           hand: state.hand,
           event: null)),
