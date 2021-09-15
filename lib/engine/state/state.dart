@@ -29,4 +29,17 @@ class GState {
     required this.played,
     required this.history,
   });
+
+  GState.copy(GState state)
+      : players = state.players,
+        playOrder = state.playOrder,
+        turn = state.turn,
+        phase = state.phase,
+        deck = state.deck,
+        discard = state.discard,
+        store = state.store,
+        hit = state.hit,
+        winner = state.winner,
+        played = state.played,
+        history = state.history;
 }

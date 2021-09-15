@@ -1,44 +1,13 @@
 import '../state/state.dart';
+part 'play.dart';
+part 'equip.dart';
+part 'handicap.dart';
 
 abstract class GEvent {
-  // GState dispatch(GState state);
-  // Duration duration();
+  GState dispatch(GState state);
+  Duration duration();
 }
-
-// MARK: - play card
-
-class GEventPlay extends GEvent {
-  final String player;
-  final String card;
-
-  GEventPlay({
-    required this.player,
-    required this.card,
-  });
-}
-
-class GEventEquip extends GEvent {
-  final String player;
-  final String card;
-
-  GEventEquip({
-    required this.player,
-    required this.card,
-  });
-}
-
-class GEventHandicap extends GEvent {
-  final String player;
-  final String card;
-  final String other;
-
-  GEventHandicap({
-    required this.player,
-    required this.card,
-    required this.other,
-  });
-}
-
+/*
 // MARK: - draw card
 
 class GEventDrawDeck extends GEvent {
@@ -238,3 +207,4 @@ class GEventMove extends GEvent {
 }
 
 class GEventEmptyQueue extends GEvent {}
+*/
