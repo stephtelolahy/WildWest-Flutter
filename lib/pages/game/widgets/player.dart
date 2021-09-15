@@ -9,7 +9,11 @@ class PlayerWidget extends StatelessWidget {
   final String name;
   final double maxWidth;
 
-  PlayerWidget({required this.name, this.maxWidth = PLAYER_WIDTH});
+  const PlayerWidget({
+    Key? key,
+    required this.name,
+    this.maxWidth = PLAYER_WIDTH,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
