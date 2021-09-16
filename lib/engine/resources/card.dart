@@ -15,8 +15,7 @@ class ResCard {
         attributes = _mapAttributes(json['attributes'] ?? {}),
         abilities = List<String>.from(json['abilities'] ?? []);
 
-  static Map<CardAttributeKey, dynamic> _mapAttributes(
-      Map<String, dynamic> source) {
+  static Map<CardAttributeKey, dynamic> _mapAttributes(Map<String, dynamic> source) {
     Map<CardAttributeKey, dynamic> result = {};
     for (var key in source.keys) {
       final attribute = EnumToString.fromString(CardAttributeKey.values, key)!;
