@@ -7,7 +7,7 @@ abstract class GEvent {
   GState dispatch(GState state);
   Duration duration();
 }
-/*
+
 // MARK: - draw card
 
 class GEventDrawDeck extends GEvent {
@@ -16,6 +16,16 @@ class GEventDrawDeck extends GEvent {
   GEventDrawDeck({
     required this.player,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 class GEventDrawDeckFlipping extends GEvent {
@@ -24,6 +34,16 @@ class GEventDrawDeckFlipping extends GEvent {
   GEventDrawDeckFlipping({
     required this.player,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 class GEventDrawDeckChoosing extends GEvent {
@@ -34,6 +54,16 @@ class GEventDrawDeckChoosing extends GEvent {
     required this.player,
     required this.card,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 class GEventDrawHand extends GEvent {
@@ -46,6 +76,16 @@ class GEventDrawHand extends GEvent {
     required this.other,
     required this.card,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 class GEventDrawInPlay extends GEvent {
@@ -58,6 +98,16 @@ class GEventDrawInPlay extends GEvent {
     required this.other,
     required this.card,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 class GEventDrawStore extends GEvent {
@@ -68,6 +118,16 @@ class GEventDrawStore extends GEvent {
     required this.player,
     required this.card,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 class GEventDrawDiscard extends GEvent {
@@ -76,6 +136,16 @@ class GEventDrawDiscard extends GEvent {
   GEventDrawDiscard({
     required this.player,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 // MARK: - discard card
@@ -88,6 +158,16 @@ class GEventDiscardHand extends GEvent {
     required this.player,
     required this.card,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 class GEventDiscardInPlay extends GEvent {
@@ -98,6 +178,16 @@ class GEventDiscardInPlay extends GEvent {
     required this.player,
     required this.card,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 class GEventPassInPlay extends GEvent {
@@ -110,11 +200,41 @@ class GEventPassInPlay extends GEvent {
     required this.card,
     required this.other,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
-class GEventDeckToStore extends GEvent {}
+class GEventDeckToStore extends GEvent {
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
 
-class GEventFlipDeck extends GEvent {}
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
+}
+
+class GEventFlipDeck extends GEvent {
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
+}
 
 // MARK: - flag changes
 
@@ -124,6 +244,16 @@ class GEventSetTurn extends GEvent {
   GEventSetTurn({
     required this.player,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 class GEventSetPhase extends GEvent {
@@ -132,6 +262,16 @@ class GEventSetPhase extends GEvent {
   GEventSetPhase({
     required this.value,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 class GEventGameOver extends GEvent {
@@ -140,6 +280,16 @@ class GEventGameOver extends GEvent {
   GEventGameOver({
     required this.winner,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 // MARK: - player state
@@ -150,6 +300,16 @@ class GEventGainHealth extends GEvent {
   GEventGainHealth({
     required this.player,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 class GEventLooseHealth extends GEvent {
@@ -158,6 +318,16 @@ class GEventLooseHealth extends GEvent {
   GEventLooseHealth({
     required this.player,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 class GEventEliminate extends GEvent {
@@ -166,6 +336,16 @@ class GEventEliminate extends GEvent {
   GEventEliminate({
     required this.player,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 // MARK: - hit
@@ -176,6 +356,16 @@ class GEventAddHit extends GEvent {
   GEventAddHit({
     required this.hit,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 class GEventRemoveHit extends GEvent {
@@ -184,9 +374,29 @@ class GEventRemoveHit extends GEvent {
   GEventRemoveHit({
     required this.player,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
-class GEventDecrementHitCancelable extends GEvent {}
+class GEventDecrementHitCancelable extends GEvent {
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
+}
 
 // MARK: - Engine events
 
@@ -196,6 +406,16 @@ class GEventActivate extends GEvent {
   GEventActivate({
     required this.moves,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
 class GEventMove extends GEvent {
@@ -204,7 +424,26 @@ class GEventMove extends GEvent {
   GEventMove({
     required this.move,
   });
+
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }
 
-class GEventEmptyQueue extends GEvent {}
-*/
+class GEventEmptyQueue extends GEvent {
+  @override
+  GState dispatch(GState state) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Duration duration() {
+    throw UnimplementedError();
+  }
+}

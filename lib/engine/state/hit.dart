@@ -8,10 +8,17 @@ class GHit {
   final List<String> targets;
 
   GHit({
-    required this.name,
-    required this.players,
-    required this.abilities,
-    required this.cancelable,
-    required this.targets,
+    this.name = '',
+    this.players = const [],
+    this.abilities = const [],
+    this.cancelable = 0,
+    this.targets = const [],
   });
+
+  GHit.copy(GHit hit)
+      : name = hit.name,
+        players = hit.players,
+        abilities = hit.abilities,
+        cancelable = hit.cancelable,
+        targets = hit.targets;
 }

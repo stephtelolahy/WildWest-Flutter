@@ -6,18 +6,18 @@ class GPlayer extends GCard {
   List<GCard> hand;
   List<GCard> inPlay;
 
-  GPlayer(
-    String identifier,
-    String name,
-    CardType type,
-    String desc,
-    List<String> abilities,
-    Map<CardAttributeKey, dynamic> attributes,
-    String value, {
-    required this.role,
-    required this.health,
-    required this.hand,
-    required this.inPlay,
+  GPlayer({
+    identifier = '',
+    name = '',
+    type = CardType.none,
+    desc = '',
+    abilities = const <String>[],
+    attributes = const <CardAttributeKey, dynamic>{},
+    value = '',
+    this.role,
+    this.health = 0,
+    this.hand = const [],
+    this.inPlay = const [],
   }) : super(
           identifier: identifier,
           name: name,
@@ -26,6 +26,21 @@ class GPlayer extends GCard {
           abilities: abilities,
           attributes: attributes,
           value: value,
+        );
+
+  GPlayer.copy(GPlayer player)
+      : role = player.role,
+        health = player.health,
+        hand = List.from(player.hand),
+        inPlay = List.from(player.inPlay),
+        super(
+          identifier: player.identifier,
+          name: player.name,
+          type: player.type,
+          desc: player.desc,
+          abilities: player.abilities,
+          attributes: player.attributes,
+          value: player.value,
         );
 }
 

@@ -10,16 +10,21 @@ class GCard {
   final String value;
 
   GCard(
-      {required this.identifier,
-      required this.name,
-      required this.type,
-      required this.desc,
-      required this.abilities,
-      required this.attributes,
-      required this.value});
+      {this.identifier = '',
+      this.name = '',
+      this.type = CardType.none,
+      this.desc = '',
+      this.abilities = const [],
+      this.attributes = const {},
+      this.value = ''});
 }
 
-enum CardType { brown, blue, figure, role }
+enum CardType {
+  brown,
+  blue,
+  figure,
+  none,
+}
 
 enum CardAttributeKey {
   bullets, // max health
