@@ -10,12 +10,18 @@ class GEventEquip extends GEvent {
   });
 
   @override
-  GState dispatch(GState state) {
-    throw UnimplementedError();
+  GState dispatch(GState aState) {
+    final state = GState.copy(aState);
+    final playerObject =
+        state.players.firstWhere((e) => e.identifier == player);
+    final handIndex = playerObject.hand.indexWhere((e) => e.identifier == card);
+    final cardObject = playerObject.hand.removeAt(handIndex);
+    playerObject.inPlay.add(cardObject);
+    return state;
   }
 
   @override
   Duration duration() {
-    throw UnimplementedError();
+    return GEvent.DEFAULT_DURATION;
   }
 }

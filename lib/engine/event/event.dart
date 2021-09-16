@@ -1,11 +1,14 @@
 import '../state/state.dart';
-part 'play.dart';
+
 part 'equip.dart';
 part 'handicap.dart';
+part 'play.dart';
 
 abstract class GEvent {
   GState dispatch(GState state);
   Duration duration();
+
+  static const DEFAULT_DURATION = Duration(milliseconds: 400);
 }
 
 // MARK: - draw card

@@ -22,6 +22,6 @@ class GEventPlay extends GEvent {
 
   @override
   Duration duration() {
-    return Duration(milliseconds: 400);
+    return GEvent.DEFAULT_DURATION;
   }
 }
