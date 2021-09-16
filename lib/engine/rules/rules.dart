@@ -1,7 +1,12 @@
 import 'package:wildwest_flutter/engine/event/event.dart';
+import 'package:wildwest_flutter/engine/resources/ability.dart';
 import 'package:wildwest_flutter/engine/state/state.dart';
 
 class GRules {
+  final List<ResAbility> abilities;
+
+  GRules({required this.abilities});
+
   List<GMove> active(GState state) {
     return [];
   }

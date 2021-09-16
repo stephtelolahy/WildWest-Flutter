@@ -10,14 +10,14 @@ class GEngine {
   final PublishSubject<GEvent> eventSubject;
   final BehaviorSubject<GState> stateSubject;
 
-  final Queue<GEvent> _queue;
   final GRules _rules;
+  final Queue<GEvent> _queue;
 
-  GEngine(GState initialState, GRules rules)
+  GEngine({required GState initialState, required GRules rules})
       : this.eventSubject = PublishSubject<GEvent>(),
         this.stateSubject = BehaviorSubject<GState>.seeded(initialState),
-        this._queue = Queue(),
-        this._rules = rules;
+        this._rules = rules,
+        this._queue = Queue();
 
   Future<void> dispatch(GMove move) async {
     if (_queue.isNotEmpty) {

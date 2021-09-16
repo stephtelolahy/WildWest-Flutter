@@ -1,0 +1,322 @@
+[
+  {
+    "name": "barrel",
+    "value": "Q♠️"
+  },
+  {
+    "name": "barrel",
+    "value": "K♠️"
+  },
+  {
+    "name": "scope",
+    "value": "A♠️"
+  },
+  {
+    "name": "mustang",
+    "value": "8♥️"
+  },
+  {
+    "name": "mustang",
+    "value": "9♥️"
+  },
+  {
+    "name": "jail",
+    "value": "J♠️"
+  },
+  {
+    "name": "jail",
+    "value": "10♠️"
+  },
+  {
+    "name": "jail",
+    "value": "4♥️"
+  },
+  {
+    "name": "dynamite",
+    "value": "2♥️"
+  },
+  {
+    "name": "schofield",
+    "value": "K♠️"
+  },
+  {
+    "name": "schofield",
+    "value": "J♣️"
+  },
+  {
+    "name": "schofield",
+    "value": "Q♣️"
+  },
+  {
+    "name": "volcanic",
+    "value": "10♠️"
+  },
+  {
+    "name": "volcanic",
+    "value": "10♣️"
+  },
+  {
+    "name": "remington",
+    "value": "K♣️"
+  },
+  {
+    "name": "winchester",
+    "value": "8♠️"
+  },
+  {
+    "name": "revCarabine",
+    "value": "A♣️"
+  },
+  {
+    "name": "bang",
+    "value": "A♠️"
+  },
+  {
+    "name": "bang",
+    "value": "2♦️"
+  },
+  {
+    "name": "bang",
+    "value": "3♦️"
+  },
+  {
+    "name": "bang",
+    "value": "4♦️"
+  },
+  {
+    "name": "bang",
+    "value": "5♦️"
+  },
+  {
+    "name": "bang",
+    "value": "6♦️"
+  },
+  {
+    "name": "bang",
+    "value": "7♦️"
+  },
+  {
+    "name": "bang",
+    "value": "8♦️"
+  },
+  {
+    "name": "bang",
+    "value": "9♦️"
+  },
+  {
+    "name": "bang",
+    "value": "10♦️"
+  },
+  {
+    "name": "bang",
+    "value": "J♦️"
+  },
+  {
+    "name": "bang",
+    "value": "Q♦️"
+  },
+  {
+    "name": "bang",
+    "value": "K♦️"
+  },
+  {
+    "name": "bang",
+    "value": "A♦️"
+  },
+  {
+    "name": "bang",
+    "value": "2♣️"
+  },
+  {
+    "name": "bang",
+    "value": "3♣️"
+  },
+  {
+    "name": "bang",
+    "value": "4♣️"
+  },
+  {
+    "name": "bang",
+    "value": "5♣️"
+  },
+  {
+    "name": "bang",
+    "value": "6♣️"
+  },
+  {
+    "name": "bang",
+    "value": "7♣️"
+  },
+  {
+    "name": "bang",
+    "value": "8♣️"
+  },
+  {
+    "name": "bang",
+    "value": "9♣️"
+  },
+  {
+    "name": "bang",
+    "value": "Q♥️"
+  },
+  {
+    "name": "bang",
+    "value": "K♥️"
+  },
+  {
+    "name": "bang",
+    "value": "A♥️"
+  },
+  {
+    "name": "missed",
+    "value": "10♣️"
+  },
+  {
+    "name": "missed",
+    "value": "J♣️"
+  },
+  {
+    "name": "missed",
+    "value": "Q♣️"
+  },
+  {
+    "name": "missed",
+    "value": "K♣️"
+  },
+  {
+    "name": "missed",
+    "value": "A♣️"
+  },
+  {
+    "name": "missed",
+    "value": "2♠️"
+  },
+  {
+    "name": "missed",
+    "value": "3♠️"
+  },
+  {
+    "name": "missed",
+    "value": "4♠️"
+  },
+  {
+    "name": "missed",
+    "value": "5♠️"
+  },
+  {
+    "name": "missed",
+    "value": "6♠️"
+  },
+  {
+    "name": "missed",
+    "value": "7♠️"
+  },
+  {
+    "name": "missed",
+    "value": "8♠️"
+  },
+  {
+    "name": "beer",
+    "value": "6♥️"
+  },
+  {
+    "name": "beer",
+    "value": "7♥️"
+  },
+  {
+    "name": "beer",
+    "value": "8♥️"
+  },
+  {
+    "name": "beer",
+    "value": "9♥️"
+  },
+  {
+    "name": "beer",
+    "value": "10♥️"
+  },
+  {
+    "name": "beer",
+    "value": "J♥️"
+  },
+  {
+    "name": "catBalou",
+    "value": "K♥️"
+  },
+  {
+    "name": "catBalou",
+    "value": "9♦️"
+  },
+  {
+    "name": "catBalou",
+    "value": "10♦️"
+  },
+  {
+    "name": "catBalou",
+    "value": "J♦️"
+  },
+  {
+    "name": "duel",
+    "value": "Q♦️"
+  },
+  {
+    "name": "duel",
+    "value": "J♠️"
+  },
+  {
+    "name": "duel",
+    "value": "8♣️"
+  },
+  {
+    "name": "gatling",
+    "value": "10♥️"
+  },
+  {
+    "name": "generalstore",
+    "value": "9♣️"
+  },
+  {
+    "name": "generalstore",
+    "value": "Q♠️"
+  },
+  {
+    "name": "indians",
+    "value": "K♦️"
+  },
+  {
+    "name": "indians",
+    "value": "A♦️"
+  },
+  {
+    "name": "panic",
+    "value": "J♥️"
+  },
+  {
+    "name": "panic",
+    "value": "Q♥️"
+  },
+  {
+    "name": "panic",
+    "value": "A♥️"
+  },
+  {
+    "name": "panic",
+    "value": "8♦️"
+  },
+  {
+    "name": "saloon",
+    "value": "5♥️"
+  },
+  {
+    "name": "stagecoach",
+    "value": "9♠️"
+  },
+  {
+    "name": "stagecoach",
+    "value": "9♠️"
+  },
+  {
+    "name": "wellsFargo",
+    "value": "3♥️"
+  }
+]
