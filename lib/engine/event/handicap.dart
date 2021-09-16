@@ -12,12 +12,16 @@ class GEventHandicap extends GEvent {
   });
 
   @override
-  GState dispatch(GState state) {
-    throw UnimplementedError();
+  GState dispatch(GState aState) {
+    final state = GState.copy(aState);
+    final playerObject = state.player(identifier: player);
+    final handIndex = playerObject.hand.indexWhere((e) => e.identifier == card);
+    final cardObject = playerObject.hand.removeAt(handIndex);
+    final otherObject = state.player(identifier: other);
+    otherObject.inPlay.add(cardObject);
+    return state;
   }
 
   @override
-  Duration duration() {
-    throw UnimplementedError();
-  }
+  Duration duration() => GEvent.DEFAULT_DURATION;
 }

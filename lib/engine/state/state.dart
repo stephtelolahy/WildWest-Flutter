@@ -43,3 +43,8 @@ class GState {
         played = List.from(state.played),
         history = List.from(state.history);
 }
+
+extension Convenience on GState {
+  GPlayer player({identifier: String}) =>
+      players.firstWhere((e) => e.identifier == identifier);
+}
