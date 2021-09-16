@@ -1,6 +1,6 @@
-import 'package:wildwest_flutter/engine/event/event.dart';
-import 'package:wildwest_flutter/engine/resources/ability.dart';
-import 'package:wildwest_flutter/engine/state/state.dart';
+import '../event/event.dart';
+import '../resources/ability.dart';
+import '../state/state.dart';
 
 class GRules {
   final List<ResAbility> abilities;

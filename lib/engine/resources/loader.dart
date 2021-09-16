@@ -1,8 +1,10 @@
 import 'dart:convert';
+
 import 'package:flutter/services.dart';
-import 'package:wildwest_flutter/engine/resources/ability.dart';
-import 'package:wildwest_flutter/engine/resources/card.dart';
-import 'package:wildwest_flutter/engine/resources/card_value.dart';
+
+import 'ability.dart';
+import 'card.dart';
+import 'card_value.dart';
 
 class ResLoader {
   Future<List<ResCard>> loadCards() async {

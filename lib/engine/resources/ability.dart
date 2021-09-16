@@ -22,6 +22,7 @@ class ResAbility {
     for (var key in source.keys) {
       result.add(PlayReq.map(key, source[key]));
     }
+    // TODO: sort by priority
     return result;
   }
 
