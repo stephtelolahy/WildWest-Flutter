@@ -9,7 +9,7 @@ class IsHealth extends PlayReq {
   IsHealth({required this.health});
 
   @override
-  bool match(PlayContext ctx, List<Map<PlayArg, dynamic>> args) {
+  bool match(PlayContext ctx, List<PlayArgs> args) {
     return ctx.actor.health == health;
   }
 }

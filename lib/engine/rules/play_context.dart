@@ -7,7 +7,7 @@ class PlayContext {
   final GState state;
   final GCard? card;
   final GEvent? event;
-  final Map<PlayArg, dynamic> args;
+  final PlayArgs args;
 
   PlayContext({
     required this.ability,
@@ -15,6 +15,6 @@ class PlayContext {
     required this.state,
     this.card,
     this.event,
-    this.args = const {},
+    this.args = const PlayArgs(),
   });
 }

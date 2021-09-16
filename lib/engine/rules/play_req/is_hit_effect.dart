@@ -9,7 +9,7 @@ class IsHitEffect extends PlayReq {
   IsHitEffect({required this.ability});
 
   @override
-  bool match(PlayContext ctx, List<Map<PlayArg, dynamic>> args) {
+  bool match(PlayContext ctx, List<PlayArgs> args) {
     final hit = ctx.state.hit;
     if (hit != null &&
         hit.players.first == ctx.actor.identifier &&

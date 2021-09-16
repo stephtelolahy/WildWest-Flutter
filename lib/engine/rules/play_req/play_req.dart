@@ -9,7 +9,7 @@ part 'is_hit_effect.dart';
 part 'is_health.dart';
 
 abstract class PlayReq {
-  bool match(PlayContext ctx, List<Map<PlayArg, dynamic>> args);
+  bool match(PlayContext ctx, List<PlayArgs> args);
 
   static PlayReq map(String key, dynamic value) {
     switch (key) {

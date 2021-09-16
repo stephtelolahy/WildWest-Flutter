@@ -5,7 +5,7 @@ part of 'play_req.dart';
  */
 class IsYourTurn extends PlayReq {
   @override
-  bool match(PlayContext ctx, List<Map<PlayArg, dynamic>> args) {
+  bool match(PlayContext ctx, List<PlayArgs> args) {
     return ctx.state.turn == ctx.actor.identifier;
   }
 }

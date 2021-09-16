@@ -9,7 +9,7 @@ class IsPlayersCountMin extends PlayReq {
   IsPlayersCountMin({required this.minPlayersCount});
 
   @override
-  bool match(PlayContext ctx, List<Map<PlayArg, dynamic>> args) {
+  bool match(PlayContext ctx, List<PlayArgs> args) {
     return ctx.state.playOrder.length >= minPlayersCount;
   }
 }

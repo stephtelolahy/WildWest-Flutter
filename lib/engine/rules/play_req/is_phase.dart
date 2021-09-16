@@ -9,7 +9,7 @@ class IsPhase extends PlayReq {
   IsPhase({required this.phase});
 
   @override
-  bool match(PlayContext ctx, List<Map<PlayArg, dynamic>> args) {
+  bool match(PlayContext ctx, List<PlayArgs> args) {
     return ctx.state.phase == phase && ctx.state.hit == null;
   }
 }
