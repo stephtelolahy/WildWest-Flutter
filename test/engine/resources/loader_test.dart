@@ -11,7 +11,6 @@ void main() {
 
     // Assert
     expect(result, isNotEmpty);
-    expect(result.length, equals(46));
   });
 
   test('load cards', () async {
@@ -21,7 +20,6 @@ void main() {
 
     // Assert
     expect(result, isNotEmpty);
-    expect(result.length, equals(40));
   });
 
   test('load card values', () async {
@@ -31,6 +29,5 @@ void main() {
 
     // Assert
     expect(result, isNotEmpty);
-    expect(result.length, equals(80));
   });
 }

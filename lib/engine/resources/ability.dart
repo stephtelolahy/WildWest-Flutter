@@ -15,15 +15,10 @@ class ResAbility {
         type = EnumToString.fromString(AbilityType.values, json['type'])!,
         canPlay = _mapPlayReqs(json['canPlay'] ?? {}),
         onPlay = _mapEffects(json['onPlay']),
-        priority = json['priority'] ?? 0;
+        priority = json['priority'] ?? 1;
 
   static List<PlayReq> _mapPlayReqs(Map<String, dynamic> source) {
-    List<PlayReq> result = [];
-    for (var key in source.keys) {
-      result.add(PlayReq.map(key, source[key]));
-    }
-    // TODO: sort by priority
-    return result;
+    return source.keys.map((e) => PlayReq.fromKey(e, value: source[e])).toList();
   }
 
   static List<Effect> _mapEffects(List<dynamic> source) {

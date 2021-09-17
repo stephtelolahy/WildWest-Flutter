@@ -260,10 +260,10 @@ class GEventSetTurn extends GEvent {
 }
 
 class GEventSetPhase extends GEvent {
-  final String value;
+  final int phase;
 
   GEventSetPhase({
-    required this.value,
+    required this.phase,
   });
 
   @override

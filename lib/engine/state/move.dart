@@ -18,14 +18,29 @@ class PlayArgs {
   final List<String> requiredHand;
   final String? target;
   final String? requiredInPlay;
-  final List<String> requiredStore;
+  final String? requiredStore;
   final List<String> requiredDeck;
 
   const PlayArgs({
     this.requiredHand = const [],
     this.target,
     this.requiredInPlay,
-    this.requiredStore = const [],
+    this.requiredStore,
     this.requiredDeck = const [],
   });
+
+  PlayArgs copyWith(
+      {List<String>? requiredHand,
+      String? target,
+      String? requiredInPlay,
+      String? requiredStore,
+      List<String>? requiredDeck}) {
+    return PlayArgs(
+      requiredHand: requiredHand ?? this.requiredHand,
+      target: target ?? this.target,
+      requiredInPlay: requiredInPlay ?? this.requiredInPlay,
+      requiredStore: requiredStore ?? this.requiredStore,
+      requiredDeck: requiredDeck ?? this.requiredDeck,
+    );
+  }
 }

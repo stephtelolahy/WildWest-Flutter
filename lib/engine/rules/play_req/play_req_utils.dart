@@ -3,11 +3,27 @@ import 'dart:math';
 
 class PlayReqUtils {
   static bool appendTarget(Iterable<String> values, List<PlayArgs> args) {
-    if (values.isEmpty) {
-      return false;
+    final oldArgs = List.from(args);
+    if (oldArgs.isEmpty) oldArgs.add(PlayArgs());
+    args.clear();
+
+    for (var arg in oldArgs) {
+      values.forEach((e) => args.add(arg.copyWith(target: e)));
     }
-    values.forEach((e) => args.add(PlayArgs(target: e)));
-    return true;
+
+    return args.isNotEmpty;
+  }
+
+  static bool appendRequiredStore(Iterable<String> values, List<PlayArgs> args) {
+    final oldArgs = List.from(args);
+    if (oldArgs.isEmpty) oldArgs.add(PlayArgs());
+    args.clear();
+
+    for (var arg in oldArgs) {
+      values.forEach((e) => args.add(arg.copyWith(requiredStore: e)));
+    }
+
+    return args.isNotEmpty;
   }
 
   static bool appendRequiredInPlay(GState state, List<PlayArgs> args) {
@@ -21,17 +37,11 @@ class PlayReqUtils {
       }
 
       final playerObject = state.player(identifier: target);
-      final cards = playerObject.inPlay.map((e) => e.identifier).toList();
-      for (var card in cards) {
-        args.add(PlayArgs(
-          requiredHand: arg.requiredHand,
-          target: target,
-          requiredInPlay: card,
-        ));
-      }
+      final cards = playerObject.inPlay.map((e) => e.identifier);
+      cards.forEach((e) => args.add(arg.copyWith(requiredInPlay: e)));
     }
 
-    return false;
+    return args.isNotEmpty;
   }
 
   static int distance({required String from, required String to, required GState state}) {
