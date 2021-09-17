@@ -7,21 +7,21 @@ import 'card.dart';
 import 'card_value.dart';
 
 class ResLoader {
-  Future<Iterable<ResCard>> loadCards() async {
+  Future<List<ResCard>> loadCards() async {
     String data = await rootBundle.loadString('assets/json/bang_cards.json');
     List<dynamic> array = json.decode(data);
-    return array.map((e) => ResCard.fromJson(e));
+    return array.map((e) => ResCard.fromJson(e)).toList();
   }
 
-  Future<Iterable<ResCardValue>> loadCardValues() async {
+  Future<List<ResCardValue>> loadCardValues() async {
     String data = await rootBundle.loadString('assets/json/bang_card_values.json');
     List<dynamic> array = json.decode(data);
-    return array.map((e) => ResCardValue.fromJson(e));
+    return array.map((e) => ResCardValue.fromJson(e)).toList();
   }
 
-  Future<Iterable<ResAbility>> loadAbilities() async {
+  Future<List<ResAbility>> loadAbilities() async {
     String data = await rootBundle.loadString('assets/json/bang_abilities.json');
     List<dynamic> array = json.decode(data);
-    return array.map((e) => ResAbility.fromJson(e));
+    return array.map((e) => ResAbility.fromJson(e)).toList();
   }
 }

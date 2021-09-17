@@ -26,6 +26,32 @@ class PlayReqUtils {
     return args.isNotEmpty;
   }
 
+  static bool appendRequiredHand(Iterable<String> values, int amount, List<PlayArgs> args) {
+    final oldArgs = List.from(args);
+    if (oldArgs.isEmpty) oldArgs.add(PlayArgs());
+    args.clear();
+
+// TODO: perform combination algorithm
+    for (var arg in oldArgs) {
+      values.forEach((e) => args.add(arg.copyWith(requiredHand: [e])));
+    }
+
+    return args.isNotEmpty;
+  }
+
+  static bool appendRequiredDeck(Iterable<String> values, int amount, List<PlayArgs> args) {
+    final oldArgs = List.from(args);
+    if (oldArgs.isEmpty) oldArgs.add(PlayArgs());
+    args.clear();
+
+// TODO: perform combination algorithm
+    for (var arg in oldArgs) {
+      values.forEach((e) => args.add(arg.copyWith(requiredDeck: [e])));
+    }
+
+    return args.isNotEmpty;
+  }
+
   static bool appendRequiredInPlay(GState state, List<PlayArgs> args) {
     final oldArgs = List.from(args);
     args.clear();
@@ -87,5 +113,9 @@ class PlayReqUtils {
     } else {
       return 1;
     }
+  }
+
+  static int handLimit(GPlayer player) {
+    return player.attributes.handLimit ?? player.health;
   }
 }

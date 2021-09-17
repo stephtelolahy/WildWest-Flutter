@@ -22,7 +22,7 @@ class ResAbility {
   }
 
   static List<Effect> _mapEffects(List<dynamic> source) {
-    return [];
+    return source.map((e) => Effect.fromJson(e)).toList();
   }
 }
 

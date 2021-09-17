@@ -316,7 +316,7 @@
     "name": "drawStore",
     "type": "active",
     "canPlay": {
-      "requireStoreCards": 1
+      "requireStoreCard": 0
     },
     "onPlay": [
       {

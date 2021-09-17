@@ -35,7 +35,7 @@ class CardAttributes {
   final int? handLimit; // max number of cards at end of turn, default: health
   final String? silentCard; // prevent other players to play a card matching given regex
   final String? silentAbility; // disable self ability matching given name
-  final Map<String, String> playAs; // can play card matching [regex] with ability [name]
+  final Map<String, dynamic> playAs; // can play card matching [regex] with ability [name]
   final bool
       silentInPlay; // during your turn, cards in play in front of other players have no effect
   final List<String> abilities;
@@ -67,7 +67,7 @@ class CardAttributes {
         handLimit = json['handLimit'],
         silentCard = json['silentCard'],
         silentAbility = json['silentAbility'],
-        playAs = json['playAs'],
+        playAs = json['playAs'] ?? {},
         silentInPlay = json['silentInPlay'] ?? false,
         abilities = json['abilities'] ?? [];
 }

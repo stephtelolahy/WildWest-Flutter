@@ -5,8 +5,8 @@ class PlayContext {
   final String ability;
   final GPlayer actor;
   final GState state;
-  final GCard? handCard;
-  final GCard? inPlayCard;
+  final String? handCard;
+  final String? inPlayCard;
   final GEvent? event;
   final PlayArgs args;
 
