@@ -19,7 +19,7 @@ class GMove extends Equatable {
   List<Object?> get props => [ability, actor, handCard, inPlayCard, args];
 }
 
-class PlayArgs {
+class PlayArgs extends Equatable {
   final List<String> requiredHand;
   final String? target;
   final String? requiredInPlay;
@@ -48,4 +48,7 @@ class PlayArgs {
       requiredDeck: requiredDeck ?? this.requiredDeck,
     );
   }
+
+  @override
+  List<Object?> get props => [requiredHand, target, requiredInPlay, requiredStore, requiredDeck];
 }

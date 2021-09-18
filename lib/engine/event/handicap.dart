@@ -26,5 +26,5 @@ class GEventHandicap extends GEvent {
   }
 
   @override
-  Duration duration() => GEvent.DEFAULT_DURATION;
+  Duration duration() => DEFAULT_EVENT_DURATION;
 }

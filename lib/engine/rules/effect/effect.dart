@@ -6,6 +6,8 @@ import '../play_context.dart';
 part 'argument/card_argument.dart';
 part 'argument/player_argument.dart';
 part 'equip.dart';
+part 'handicap.dart';
+part 'set_phase.dart';
 
 abstract class Effect {
   // TODO: parse optional
@@ -18,6 +20,12 @@ abstract class Effect {
     switch (key) {
       case 'equip':
         return Equip.fromJson(json);
+
+      case 'handicap':
+        return Handicap.fromJson(json);
+
+      case 'setPhase':
+        return SetPhase.fromJson(json);
 
       default:
         print('Unknown effect: $key');

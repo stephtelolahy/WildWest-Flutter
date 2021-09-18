@@ -16,6 +16,9 @@ extension GettingPlayers on PlayerArgument {
       case PlayerArgument.actor:
         return [ctx.actor.identifier];
 
+      case PlayerArgument.target:
+        return [ctx.args!.target!];
+
       default:
         throw Exception('Unimplemented argument: $this');
     }

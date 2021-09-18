@@ -13,22 +13,7 @@ void main() {
     sut = GRules(abilities: abilities);
   });
 
-  test('equip card', () {
-    // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['equip']);
-    final player1 = GPlayer(identifier: 'p1', hand: [card1]);
-    final state = GState(players: [player1], turn: 'p1', phase: 2);
-
-    // When
-    final moves = sut.active(state);
-
-    // Assert
-    expect(moves, equals([GMove(ability: 'equip', actor: 'p1', handCard: 'c1')]));
-    final events = sut.effects(moves.first, state);
-    expect(events, equals([GEventEquip(player: 'p1', card: 'c1')]));
-  });
-
-  test('equip multiple cards', () {
+  test('put card in play if equip', () {
     // Given
     final card1 = GCard(identifier: 'c1', abilities: ['equip']);
     final card2 = GCard(identifier: 'c2', abilities: ['equip']);
@@ -43,8 +28,10 @@ void main() {
         moves,
         equals([
           GMove(ability: 'equip', actor: 'p1', handCard: 'c1'),
-          GMove(ability: 'equip', actor: 'p1', handCard: 'c2'),
+          GMove(ability: 'equip', actor: 'p1', handCard: 'c2')
         ]));
+    final events = sut.effects(moves.first, state);
+    expect(events, equals([GEventEquip(player: 'p1', card: 'c1')]));
   });
 
   test('cannot equip two copies of the same card', () {
