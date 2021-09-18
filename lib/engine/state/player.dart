@@ -12,6 +12,7 @@ class GPlayer extends GCard {
     type = CardType.none,
     desc = '',
     attributes = const CardAttributes(),
+    abilities = const <String>[],
     this.role,
     this.health = 0,
     this.hand = const [],
@@ -22,6 +23,7 @@ class GPlayer extends GCard {
           type: type,
           desc: desc,
           attributes: attributes,
+          abilities: abilities,
         );
 
   GPlayer.copy(GPlayer player)
@@ -35,6 +37,7 @@ class GPlayer extends GCard {
           type: player.type,
           desc: player.desc,
           attributes: player.attributes,
+          abilities: player.abilities,
         );
 }
 

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wildwest_flutter/engine/resources/loader.dart';
+import 'package:wildwest_flutter/engine/setup/loader.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

@@ -6,6 +6,7 @@ class GCard {
   final CardType type;
   final String desc;
   final CardAttributes attributes;
+  final List<String> abilities;
   final String value;
 
   GCard(
@@ -14,6 +15,7 @@ class GCard {
       this.type = CardType.none,
       this.desc = '',
       this.attributes = const CardAttributes(),
+      this.abilities = const [],
       this.value = ''});
 }
 
@@ -35,10 +37,9 @@ class CardAttributes {
   final int? handLimit; // max number of cards at end of turn, default: health
   final String? silentCard; // prevent other players to play a card matching given regex
   final String? silentAbility; // disable self ability matching given name
-  final Map<String, dynamic> playAs; // can play card matching [regex] with ability [name]
+  final Map<String, dynamic>? playAs; // can play card matching [regex] with ability [name]
   final bool
       silentInPlay; // during your turn, cards in play in front of other players have no effect
-  final List<String> abilities;
 
   const CardAttributes({
     this.bullets,
@@ -51,9 +52,8 @@ class CardAttributes {
     this.handLimit,
     this.silentCard,
     this.silentAbility,
-    this.playAs = const {},
+    this.playAs,
     this.silentInPlay = false,
-    this.abilities = const [],
   });
 
   CardAttributes.fromJson(Map<String, dynamic> json)
@@ -67,7 +67,6 @@ class CardAttributes {
         handLimit = json['handLimit'],
         silentCard = json['silentCard'],
         silentAbility = json['silentAbility'],
-        playAs = json['playAs'] ?? {},
-        silentInPlay = json['silentInPlay'] ?? false,
-        abilities = json['abilities'] ?? [];
+        playAs = json['playAs'],
+        silentInPlay = json['silentInPlay'] ?? false;
 }

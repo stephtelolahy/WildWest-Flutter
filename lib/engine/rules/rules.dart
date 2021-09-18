@@ -1,5 +1,5 @@
 import '../event/event.dart';
-import '../resources/ability.dart';
+import '../setup/ability.dart';
 import '../state/state.dart';
 
 class GRules {
