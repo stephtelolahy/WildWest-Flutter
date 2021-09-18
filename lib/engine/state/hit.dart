@@ -1,6 +1,6 @@
 part of 'state.dart';
 
-class GHit {
+class GHit extends Equatable {
   final String name;
   final List<String> players;
   final List<String> abilities;
@@ -21,4 +21,7 @@ class GHit {
         abilities = hit.abilities,
         cancelable = hit.cancelable,
         targets = hit.targets;
+
+  @override
+  List<Object?> get props => [name, players, abilities, cancelable, targets];
 }

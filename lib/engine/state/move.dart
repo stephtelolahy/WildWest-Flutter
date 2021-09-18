@@ -1,17 +1,22 @@
 part of 'state.dart';
 
-class GMove {
+class GMove extends Equatable {
   final String ability;
   final String actor;
-  final String? card;
-  final PlayArgs args;
+  final String? handCard;
+  final String? inPlayCard;
+  final PlayArgs? args;
 
   GMove({
     required this.ability,
     required this.actor,
-    this.card,
-    this.args = const PlayArgs(),
+    this.handCard,
+    this.inPlayCard,
+    this.args,
   });
+
+  @override
+  List<Object?> get props => [ability, actor, handCard, inPlayCard, args];
 }
 
 class PlayArgs {

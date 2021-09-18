@@ -1,10 +1,12 @@
+import 'package:equatable/equatable.dart';
+
 import '../state/state.dart';
 
 part 'equip.dart';
 part 'handicap.dart';
 part 'play.dart';
 
-abstract class GEvent {
+abstract class GEvent extends Equatable {
   GState dispatch(GState state);
   Duration duration();
 
@@ -19,6 +21,9 @@ class GEventDrawDeck extends GEvent {
   GEventDrawDeck({
     required this.player,
   });
+
+  @override
+  List<Object?> get props => [player];
 
   @override
   GState dispatch(GState state) {
@@ -39,6 +44,9 @@ class GEventDrawDeckFlipping extends GEvent {
   });
 
   @override
+  List<Object?> get props => [player];
+
+  @override
   GState dispatch(GState state) {
     throw UnimplementedError();
   }
@@ -57,6 +65,9 @@ class GEventDrawDeckChoosing extends GEvent {
     required this.player,
     required this.card,
   });
+
+  @override
+  List<Object?> get props => [player, card];
 
   @override
   GState dispatch(GState state) {
@@ -81,6 +92,9 @@ class GEventDrawHand extends GEvent {
   });
 
   @override
+  List<Object?> get props => [player, other, card];
+
+  @override
   GState dispatch(GState state) {
     throw UnimplementedError();
   }
@@ -103,6 +117,9 @@ class GEventDrawInPlay extends GEvent {
   });
 
   @override
+  List<Object?> get props => [player, card];
+
+  @override
   GState dispatch(GState state) {
     throw UnimplementedError();
   }
@@ -123,6 +140,9 @@ class GEventDrawStore extends GEvent {
   });
 
   @override
+  List<Object?> get props => [player, card];
+
+  @override
   GState dispatch(GState state) {
     throw UnimplementedError();
   }
@@ -139,6 +159,9 @@ class GEventDrawDiscard extends GEvent {
   GEventDrawDiscard({
     required this.player,
   });
+
+  @override
+  List<Object?> get props => [player];
 
   @override
   GState dispatch(GState state) {
@@ -163,6 +186,9 @@ class GEventDiscardHand extends GEvent {
   });
 
   @override
+  List<Object?> get props => [player, card];
+
+  @override
   GState dispatch(GState state) {
     throw UnimplementedError();
   }
@@ -181,6 +207,9 @@ class GEventDiscardInPlay extends GEvent {
     required this.player,
     required this.card,
   });
+
+  @override
+  List<Object?> get props => [player, card];
 
   @override
   GState dispatch(GState state) {
@@ -205,6 +234,9 @@ class GEventPassInPlay extends GEvent {
   });
 
   @override
+  List<Object?> get props => [player, card, other];
+
+  @override
   GState dispatch(GState state) {
     throw UnimplementedError();
   }
@@ -217,6 +249,9 @@ class GEventPassInPlay extends GEvent {
 
 class GEventDeckToStore extends GEvent {
   @override
+  List<Object?> get props => [];
+
+  @override
   GState dispatch(GState state) {
     throw UnimplementedError();
   }
@@ -228,6 +263,9 @@ class GEventDeckToStore extends GEvent {
 }
 
 class GEventFlipDeck extends GEvent {
+  @override
+  List<Object?> get props => [];
+
   @override
   GState dispatch(GState state) {
     throw UnimplementedError();
@@ -243,6 +281,9 @@ class GEventFlipDeck extends GEvent {
 
 class GEventSetTurn extends GEvent {
   final String player;
+
+  @override
+  List<Object?> get props => [player];
 
   GEventSetTurn({
     required this.player,
@@ -262,6 +303,9 @@ class GEventSetTurn extends GEvent {
 class GEventSetPhase extends GEvent {
   final int phase;
 
+  @override
+  List<Object?> get props => [phase];
+
   GEventSetPhase({
     required this.phase,
   });
@@ -279,6 +323,9 @@ class GEventSetPhase extends GEvent {
 
 class GEventGameOver extends GEvent {
   final Role winner;
+
+  @override
+  List<Object?> get props => [winner];
 
   GEventGameOver({
     required this.winner,
@@ -299,6 +346,9 @@ class GEventGameOver extends GEvent {
 
 class GEventGainHealth extends GEvent {
   final String player;
+
+  @override
+  List<Object?> get props => [player];
 
   GEventGainHealth({
     required this.player,
@@ -323,6 +373,9 @@ class GEventLooseHealth extends GEvent {
   });
 
   @override
+  List<Object?> get props => [player];
+
+  @override
   GState dispatch(GState state) {
     throw UnimplementedError();
   }
@@ -339,6 +392,9 @@ class GEventEliminate extends GEvent {
   GEventEliminate({
     required this.player,
   });
+
+  @override
+  List<Object?> get props => [player];
 
   @override
   GState dispatch(GState state) {
@@ -361,6 +417,9 @@ class GEventAddHit extends GEvent {
   });
 
   @override
+  List<Object?> get props => [hit];
+
+  @override
   GState dispatch(GState state) {
     throw UnimplementedError();
   }
@@ -379,6 +438,9 @@ class GEventRemoveHit extends GEvent {
   });
 
   @override
+  List<Object?> get props => [player];
+
+  @override
   GState dispatch(GState state) {
     throw UnimplementedError();
   }
@@ -390,6 +452,9 @@ class GEventRemoveHit extends GEvent {
 }
 
 class GEventDecrementHitCancelable extends GEvent {
+  @override
+  List<Object?> get props => [];
+
   @override
   GState dispatch(GState state) {
     throw UnimplementedError();
@@ -411,6 +476,9 @@ class GEventActivate extends GEvent {
   });
 
   @override
+  List<Object?> get props => [moves];
+
+  @override
   GState dispatch(GState state) {
     throw UnimplementedError();
   }
@@ -429,6 +497,9 @@ class GEventMove extends GEvent {
   });
 
   @override
+  List<Object?> get props => [move];
+
+  @override
   GState dispatch(GState state) {
     throw UnimplementedError();
   }
@@ -440,6 +511,9 @@ class GEventMove extends GEvent {
 }
 
 class GEventEmptyQueue extends GEvent {
+  @override
+  List<Object?> get props => [];
+
   @override
   GState dispatch(GState state) {
     throw UnimplementedError();

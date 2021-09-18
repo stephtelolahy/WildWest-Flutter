@@ -12,6 +12,12 @@ enum PlayerArgument {
 
 extension GettingPlayers on PlayerArgument {
   List<String> get(PlayContext ctx) {
-    return [];
+    switch (this) {
+      case PlayerArgument.actor:
+        return [ctx.actor.identifier];
+
+      default:
+        throw Exception('Unimplemented argument: $this');
+    }
   }
 }

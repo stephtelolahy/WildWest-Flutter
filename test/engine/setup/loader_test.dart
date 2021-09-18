@@ -3,11 +3,12 @@ import 'package:wildwest_flutter/engine/setup/loader.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  ResLoader sut = ResLoader();
 
   test('load abilities', () async {
     // Given
     // When
-    final result = await ResLoader().loadAbilities();
+    final result = await sut.loadAbilities();
 
     // Assert
     expect(result, isNotEmpty);
@@ -16,7 +17,7 @@ void main() {
   test('load cards', () async {
     // Given
     // When
-    final result = await ResLoader().loadCards();
+    final result = await sut.loadCards();
 
     // Assert
     expect(result, isNotEmpty);
@@ -25,7 +26,7 @@ void main() {
   test('load card values', () async {
     // Given
     // When
-    final result = await ResLoader().loadCardValues();
+    final result = await sut.loadCardValues();
 
     // Assert
     expect(result, isNotEmpty);

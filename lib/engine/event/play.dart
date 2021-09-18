@@ -10,6 +10,9 @@ class GEventPlay extends GEvent {
   });
 
   @override
+  List<Object?> get props => [player, card];
+
+  @override
   GState dispatch(GState aState) {
     final state = GState.copy(aState);
     final playerObject = state.player(identifier: player);

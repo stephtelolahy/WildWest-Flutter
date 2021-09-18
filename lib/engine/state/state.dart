@@ -1,7 +1,9 @@
+import 'package:equatable/equatable.dart';
+
 part 'card.dart';
-part 'player.dart';
 part 'hit.dart';
 part 'move.dart';
+part 'player.dart';
 
 class GState {
   final List<GPlayer> players;

@@ -8,7 +8,7 @@ class PlayContext {
   final String? handCard;
   final String? inPlayCard;
   final GEvent? event;
-  final PlayArgs args;
+  final PlayArgs? args;
 
   PlayContext({
     required this.ability,
@@ -17,6 +17,15 @@ class PlayContext {
     this.handCard,
     this.inPlayCard,
     this.event,
-    this.args = const PlayArgs(),
+    this.args,
   });
+
+  PlayContext.fromMove(GMove move, {required GState state})
+      : ability = move.ability,
+        actor = state.player(identifier: move.actor),
+        state = state,
+        handCard = move.handCard,
+        inPlayCard = move.inPlayCard,
+        event = null,
+        args = move.args;
 }
