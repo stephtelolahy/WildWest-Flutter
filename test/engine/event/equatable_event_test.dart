@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:wildwest_flutter/engine/event/event.dart';
 
 void main() {
-  test('esuatable events', () {
+  test('equatable events', () {
     // Given
     final event1 = GEventGainHealth(player: 'p1');
     final event2 = GEventDeckToStore();

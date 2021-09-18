@@ -22,7 +22,7 @@ class Equip extends Effect {
     // <RULE> cannot have two copies of the same card in play
     final playerObject = ctx.state.player(identifier: playerId);
     final cardObject = playerObject.hand.firstWhere((e) => e.identifier == cardId);
-    if (playerObject.inPlay.any((e) => e.name == cardObject.name)) {
+    if (playerObject.inPlay.any((e) => e.name.isNotEmpty && e.name == cardObject.name)) {
       return [];
     }
     // </RULE>
