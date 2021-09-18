@@ -7,7 +7,7 @@ class OnHitCancelable extends PlayReq {
   @override
   bool match(PlayContext ctx, List<PlayArgs> args) {
     final event = ctx.event;
-    return event is GEventAddHit &&
+    return event is GEventSetHit &&
         event.hit.players.contains(ctx.actor.identifier) &&
         event.hit.cancelable > 0;
   }

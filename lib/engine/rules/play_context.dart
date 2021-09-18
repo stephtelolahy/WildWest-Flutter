@@ -19,13 +19,4 @@ class PlayContext {
     this.event,
     this.args,
   });
-
-  PlayContext.fromMove(GMove move, {required GState state})
-      : ability = move.ability,
-        actor = state.player(identifier: move.actor),
-        state = state,
-        handCard = move.handCard,
-        inPlayCard = move.inPlayCard,
-        event = null,
-        args = move.args;
 }

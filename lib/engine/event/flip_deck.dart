@@ -1,14 +1,8 @@
 part of 'event.dart';
 
-class GEventPlay extends GEvent {
-  final GMove move;
-
-  GEventPlay({
-    required this.move,
-  });
-
+class GEventFlipDeck extends GEvent {
   @override
-  List<Object?> get props => [move];
+  List<Object?> get props => [];
 
   @override
   GState dispatch(GState state) {

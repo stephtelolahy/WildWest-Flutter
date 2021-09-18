@@ -1,16 +1,16 @@
 import 'package:enum_to_string/enum_to_string.dart';
 
-import '../rules/effect/effect.dart';
-import '../rules/play_req/play_req.dart';
+import 'effect/effect.dart';
+import 'play_req/play_req.dart';
 
-class ResAbility {
+class Ability {
   final String name;
   final AbilityType type;
   final List<PlayReq> canPlay;
   final List<Effect> onPlay;
   final int priority;
 
-  ResAbility.fromJson(Map<String, dynamic> json)
+  Ability.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         type = EnumToString.fromString(AbilityType.values, json['type'])!,
         canPlay = _mapPlayReqs(json['canPlay'] ?? {}),

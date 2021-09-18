@@ -9,7 +9,7 @@ void main() {
     final card2 = GCard(identifier: 'c2');
     final player1 = GPlayer(identifier: 'p1', hand: [card1]);
     final state = GState(players: [player1], discard: [card2]);
-    final event = GEventPlay(player: 'p1', card: 'c1');
+    final event = GEventDiscardHand(player: 'p1', card: 'c1');
 
     // When
     final result = event.dispatch(state);

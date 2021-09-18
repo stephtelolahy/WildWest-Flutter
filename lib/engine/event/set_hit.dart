@@ -1,14 +1,14 @@
 part of 'event.dart';
 
-class GEventPlay extends GEvent {
-  final GMove move;
+class GEventSetHit extends GEvent {
+  final GHit hit;
 
-  GEventPlay({
-    required this.move,
+  GEventSetHit({
+    required this.hit,
   });
 
   @override
-  List<Object?> get props => [move];
+  List<Object?> get props => [hit];
 
   @override
   GState dispatch(GState state) {

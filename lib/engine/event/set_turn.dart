@@ -1,14 +1,14 @@
 part of 'event.dart';
 
-class GEventPlay extends GEvent {
-  final GMove move;
-
-  GEventPlay({
-    required this.move,
-  });
+class GEventSetTurn extends GEvent {
+  final String player;
 
   @override
-  List<Object?> get props => [move];
+  List<Object?> get props => [player];
+
+  GEventSetTurn({
+    required this.player,
+  });
 
   @override
   GState dispatch(GState state) {

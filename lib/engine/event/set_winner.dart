@@ -1,14 +1,14 @@
 part of 'event.dart';
 
-class GEventPlay extends GEvent {
-  final GMove move;
-
-  GEventPlay({
-    required this.move,
-  });
+class GEventSetWinner extends GEvent {
+  final Role winner;
 
   @override
-  List<Object?> get props => [move];
+  List<Object?> get props => [winner];
+
+  GEventSetWinner({
+    required this.winner,
+  });
 
   @override
   GState dispatch(GState state) {

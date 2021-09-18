@@ -17,6 +17,15 @@ class GCard {
       this.attributes = const CardAttributes(),
       this.abilities = const [],
       this.value = ''});
+
+  GCard.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        type = EnumToString.fromString(CardType.values, json['type'])!,
+        desc = json['desc'],
+        attributes = CardAttributes.fromJson(json['attributes'] ?? {}),
+        abilities = List<String>.from(json['abilities'] ?? []),
+        identifier = '',
+        value = '';
 }
 
 enum CardType {

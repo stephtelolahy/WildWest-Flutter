@@ -1,11 +1,10 @@
-import 'package:wildwest_flutter/engine/rules/play_context.dart';
-
 import '../event/event.dart';
-import '../setup/ability.dart';
 import '../state/state.dart';
+import 'ability.dart';
+import 'play_context.dart';
 
 class GRules {
-  final List<ResAbility> abilities;
+  final List<Ability> abilities;
 
   GRules({required this.abilities});
 
@@ -53,7 +52,14 @@ class GRules {
 
     final actor = state.player(identifier: move.actor);
     final abilityObject = abilities.firstWhere((e) => e.name == move.ability);
-    final ctx = PlayContext.fromMove(move, state: state);
+    final ctx = PlayContext(
+      ability: move.ability,
+      actor: actor,
+      state: state,
+      handCard: move.handCard,
+      inPlayCard: move.inPlayCard,
+      args: move.args,
+    );
 
     for (var effect in abilityObject.onPlay) {
       final events = effect.apply(ctx);
@@ -72,7 +78,7 @@ class GRules {
     final handCard = move.handCard;
     if (handCard != null &&
         actor.hand.firstWhere((e) => e.identifier == handCard).type == CardType.brown) {
-      result.insert(0, GEventPlay(player: move.actor, card: handCard));
+      result.insert(0, GEventDiscardHand(player: move.actor, card: handCard));
     }
     // </RULE>
 

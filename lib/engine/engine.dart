@@ -25,7 +25,7 @@ class GEngine {
       return;
     }
 
-    _queue.addLast(GEventMove(move: move));
+    _queue.addLast(GEventPlay(move: move));
     await _update();
     _emitActiveMoves();
   }
@@ -39,13 +39,13 @@ class GEngine {
 
     final winner = _rules.isGameOver(state);
     if (winner != null) {
-      await _dispatch(GEventGameOver(winner: winner), state);
+      await _dispatch(GEventSetWinner(winner: winner), state);
       await _update();
       return;
     }
 
     if (_queue.isEmpty) {
-      _queueTriggers(GEventEmptyQueue(), state);
+      _queueTriggers(GEventIdle(), state);
       if (_queue.isNotEmpty) {
         await _update();
       }
@@ -66,7 +66,7 @@ class GEngine {
   }
 
   void _queueEffects(GEvent event, GState state) {
-    if (event is GEventMove) {
+    if (event is GEventPlay) {
       final effects = _rules.effects(event.move, state);
       effects.reversed.forEach((e) {
         _queue.addFirst(e);
@@ -77,7 +77,7 @@ class GEngine {
   void _queueTriggers(GEvent event, GState state) {
     final moves = _rules.triggered(event, state);
     moves.forEach((e) {
-      _queue.addLast(GEventMove(move: e));
+      _queue.addLast(GEventPlay(move: e));
     });
   }
 
