@@ -1,11 +1,16 @@
+import 'dart:math';
+
 import 'package:enum_to_string/enum_to_string.dart';
 
 import '../../event/event.dart';
+import '../../state/state.dart';
 import '../play_context.dart';
 
 part 'argument/card_argument.dart';
 part 'argument/player_argument.dart';
+part 'effect_utils.dart';
 part 'equip.dart';
+part 'gain_health.dart';
 part 'handicap.dart';
 part 'set_phase.dart';
 
@@ -26,6 +31,9 @@ abstract class Effect {
 
       case 'setPhase':
         return SetPhase.fromJson(json);
+
+      case 'gainHealth':
+        return GainHealth.fromJson(json);
 
       default:
         print('Unknown effect: $key');
