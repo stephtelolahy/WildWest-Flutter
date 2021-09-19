@@ -22,6 +22,9 @@ extension GettingPlayers on PlayerArgument {
       case PlayerArgument.all:
         return ctx.state.playOrder.startingWith(ctx.actor.identifier);
 
+      case PlayerArgument.others:
+        return ctx.state.playOrder.startingWith(ctx.actor.identifier).sublist(1);
+
       default:
         throw Exception('Unimplemented argument: $this');
     }
