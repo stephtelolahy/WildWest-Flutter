@@ -12,8 +12,9 @@ part 'effect_utils.dart';
 part 'equip.dart';
 part 'gain_health.dart';
 part 'handicap.dart';
-part 'set_phase.dart';
+part 'loose_health.dart';
 part 'remove_hit.dart';
+part 'set_phase.dart';
 
 abstract class Effect {
   // TODO: parse optional
@@ -38,6 +39,9 @@ abstract class Effect {
 
       case 'removeHit':
         return RemoveHit.fromJson(json);
+
+      case 'looseHealth':
+        return LooseHealth.fromJson(json);
 
       default:
         print('Unknown effect: $key');
