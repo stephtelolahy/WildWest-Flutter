@@ -15,6 +15,7 @@ part 'handicap.dart';
 part 'loose_health.dart';
 part 'remove_hit.dart';
 part 'set_phase.dart';
+part 'draw_deck.dart';
 
 abstract class Effect {
   // TODO: parse optional
@@ -42,6 +43,9 @@ abstract class Effect {
 
       case 'looseHealth':
         return LooseHealth.fromJson(json);
+
+      case 'drawDeck':
+        return DrawDeck.fromJson(json);
 
       default:
         print('Unknown effect: $key');
