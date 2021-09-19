@@ -23,6 +23,7 @@ part 'loose_health.dart';
 part 'pass_in_play.dart';
 part 'play.dart';
 part 'remove_hit.dart';
+part 'reverse_hit.dart';
 part 'set_hit.dart';
 part 'set_phase.dart';
 part 'set_turn.dart';

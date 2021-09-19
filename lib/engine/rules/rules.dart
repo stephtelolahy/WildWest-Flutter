@@ -91,16 +91,6 @@ class GRules {
   }
 }
 
-extension ApplicableAbilities on GState {
-  List<String> _abilitiesApplicableToPlayer(GPlayer player) {
-    return player.abilities;
-  }
-
-  List<String> _abilitiesApplicableToHand(GCard card, GPlayer player) {
-    return card.abilities;
-  }
-}
-
 extension GenerateMoves on GRules {
   List<GMove> _moves({required AbilityType type, required PlayContext ctx}) {
     List<GMove> result = [];
@@ -128,5 +118,15 @@ extension GenerateMoves on GRules {
     // </RULE>
 
     return result;
+  }
+}
+
+extension ApplicableAbilities on GState {
+  List<String> _abilitiesApplicableToPlayer(GPlayer player) {
+    return player.abilities;
+  }
+
+  List<String> _abilitiesApplicableToHand(GCard card, GPlayer player) {
+    return card.abilities;
   }
 }

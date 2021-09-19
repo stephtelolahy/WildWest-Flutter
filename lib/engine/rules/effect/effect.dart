@@ -9,14 +9,15 @@ import '../state_extensions.dart';
 
 part 'add_hit.dart';
 part 'argument/card_argument.dart';
-part 'argument/player_argument.dart';
 part 'argument/number_argument.dart';
+part 'argument/player_argument.dart';
 part 'draw_deck.dart';
 part 'equip.dart';
 part 'gain_health.dart';
 part 'handicap.dart';
 part 'loose_health.dart';
 part 'remove_hit.dart';
+part 'reverse_hit.dart';
 part 'set_phase.dart';
 
 abstract class Effect {
@@ -45,6 +46,9 @@ abstract class Effect {
 
       case 'removeHit':
         return RemoveHit.fromJson(json);
+
+      case 'reverseHit':
+        return ReverseHit.fromJson(json);
 
       case 'looseHealth':
         return LooseHealth.fromJson(json);
