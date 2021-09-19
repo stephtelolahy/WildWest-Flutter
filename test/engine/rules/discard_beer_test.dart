@@ -24,7 +24,12 @@ void main() {
     final moves = sut.active(state);
 
     // Assert
-    expect(moves, contains(GMove(ability: 'discardBeer', actor: 'p1', handCard: 'c1')));
+    expect(
+        moves,
+        equals([
+          GMove(ability: 'discardBeer', actor: 'p1', handCard: 'c1'),
+          GMove(ability: 'looseHealth', actor: 'p1'),
+        ]));
     final events = sut.effects(moves.first, state);
     expect(
         events,
