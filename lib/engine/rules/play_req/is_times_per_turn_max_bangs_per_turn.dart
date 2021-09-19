@@ -6,7 +6,7 @@ part of 'play_req.dart';
 class IsTimesPerTurnMaxBangsPerTurn extends PlayReq {
   @override
   bool match(PlayContext ctx, List<PlayArgs> args) {
-    final maxTimes = PlayReqUtils.bangsPerTurn(ctx.actor);
+    final maxTimes = ctx.actor.bangsPerTurn();
     final unlimited = maxTimes == 0;
     if (unlimited) {
       return true;

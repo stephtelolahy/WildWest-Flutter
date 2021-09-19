@@ -10,7 +10,7 @@ class RequireTargetOffender extends PlayReq {
     if (event is GEventLooseHealth &&
         event.player == ctx.actor.identifier &&
         ctx.state.turn != ctx.actor.identifier) {
-      return PlayReqUtils.appendTarget([ctx.state.turn], args);
+      return args.appendTarget([ctx.state.turn]);
     } else {
       return false;
     }

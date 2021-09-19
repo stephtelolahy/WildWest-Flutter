@@ -6,6 +6,6 @@ part of 'play_req.dart';
 class RequireTargetAny extends PlayReq {
   @override
   bool match(PlayContext ctx, List<PlayArgs> args) {
-    return PlayReqUtils.appendTarget(ctx.state.playOrder, args);
+    return args.appendTarget(ctx.state.playOrder);
   }
 }

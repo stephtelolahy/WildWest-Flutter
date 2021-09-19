@@ -19,7 +19,7 @@ class GainHealth extends Effect {
     for (var p in players) {
       // <RULE> cannot have more health than maxHealth
       final playerObject = ctx.state.player(identifier: p);
-      final gain = min(amount, EffectUtils.maxHealth(playerObject) - playerObject.health);
+      final gain = min(amount, playerObject.maxHealth() - playerObject.health);
       if (gain <= 0) {
         continue;
       }

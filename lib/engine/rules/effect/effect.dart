@@ -5,10 +5,10 @@ import 'package:enum_to_string/enum_to_string.dart';
 import '../../event/event.dart';
 import '../../state/state.dart';
 import '../play_context.dart';
+import '../state_extensions.dart';
 
 part 'argument/card_argument.dart';
 part 'argument/player_argument.dart';
-part 'effect_utils.dart';
 part 'equip.dart';
 part 'gain_health.dart';
 part 'handicap.dart';
