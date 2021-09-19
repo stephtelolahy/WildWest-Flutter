@@ -61,7 +61,7 @@
     "name": "discardBeer",
     "type": "active",
     "canPlay": {
-      "isHitEffect": "looseHealth",
+      "isHitAbility": "looseHealth",
       "isHealth": 1,
       "isPlayersCountMin": 3
     },
@@ -192,8 +192,7 @@
       {
         "action": "addHit",
         "player": "target",
-        "abilities": ["looseHealth"],
-        "cancelable": "bangsCancelable"
+        "abilities": ["looseHealth", "missed"]
       }
     ]
   },
@@ -213,11 +212,11 @@
     "name": "missed",
     "type": "active",
     "canPlay": {
-      "isHitCancelable": 0
+      "isHitAbility": "missed"
     },
     "onPlay": [
       {
-        "action": "cancelHit"
+        "action": "removeHit"
       }
     ]
   },
@@ -232,8 +231,7 @@
       {
         "action": "addHit",
         "player": "others",
-        "abilities": ["looseHealth"],
-        "cancelable": 1
+        "abilities": ["looseHealth", "missed"]
       }
     ]
   },
@@ -332,7 +330,7 @@
     "name": "barrel",
     "type": "triggered",
     "canPlay": {
-      "onHitCancelable": 0
+      "isHitAbility": "missed"
     },
     "onPlay": [
       {
@@ -340,7 +338,7 @@
         "regex": "♥️",
         "then": [
           {
-            "action": "cancelHit"
+            "action": "removeHit"
           }
         ]
       }
@@ -402,7 +400,7 @@
         "else": [
           {
             "action": "addHit",
-            "times": 3,
+            "times": "three",
             "abilities": ["looseHealth"]
           },
           {

@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import '../state/state.dart';
 
 part 'activate.dart';
-part 'cancel_hit.dart';
 part 'deck_to_store.dart';
 part 'discard_hand.dart';
 part 'discard_in_play.dart';

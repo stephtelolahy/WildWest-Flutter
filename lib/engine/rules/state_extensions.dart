@@ -26,7 +26,8 @@ extension Distance on GState {
 
 extension Attributes on GPlayer {
   int weapon() {
-    return inPlay.map((e) => e.attributes.weapon ?? 1).reduce(max);
+    final cards = inPlay + [this];
+    return cards.map((e) => e.attributes.weapon ?? 1).reduce(max);
   }
 
   int scope() {

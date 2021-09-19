@@ -7,15 +7,17 @@ import '../../state/state.dart';
 import '../play_context.dart';
 import '../state_extensions.dart';
 
+part 'add_hit.dart';
 part 'argument/card_argument.dart';
 part 'argument/player_argument.dart';
+part 'argument/number_argument.dart';
+part 'draw_deck.dart';
 part 'equip.dart';
 part 'gain_health.dart';
 part 'handicap.dart';
 part 'loose_health.dart';
 part 'remove_hit.dart';
 part 'set_phase.dart';
-part 'draw_deck.dart';
 
 abstract class Effect {
   // TODO: parse optional
@@ -37,6 +39,9 @@ abstract class Effect {
 
       case 'gainHealth':
         return GainHealth.fromJson(json);
+
+      case 'addHit':
+        return AddHit.fromJson(json);
 
       case 'removeHit':
         return RemoveHit.fromJson(json);
