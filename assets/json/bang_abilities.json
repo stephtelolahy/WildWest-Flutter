@@ -192,7 +192,7 @@
       {
         "action": "addHit",
         "player": "target",
-        "abilities": ["looseHealth", "missed"]
+        "abilities": ["looseHealth", "cancelShoot"]
       }
     ]
   },
@@ -212,7 +212,7 @@
     "name": "missed",
     "type": "active",
     "canPlay": {
-      "isHitAbility": "missed"
+      "isHitAbility": "cancelShoot"
     },
     "onPlay": [
       {
@@ -231,7 +231,7 @@
       {
         "action": "addHit",
         "player": "others",
-        "abilities": ["looseHealth", "missed"]
+        "abilities": ["looseHealth", "cancelShoot"]
       }
     ]
   },
@@ -330,7 +330,7 @@
     "name": "barrel",
     "type": "triggered",
     "canPlay": {
-      "isHitAbility": "missed"
+      "isHitAbility": "cancelShoot"
     },
     "onPlay": [
       {

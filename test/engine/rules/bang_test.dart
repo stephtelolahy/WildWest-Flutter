@@ -36,7 +36,7 @@ void main() {
         equals([
           GEventDiscardHand(player: 'p1', card: 'c1'),
           GEventSetHit(
-              hit: GHit(name: 'bang', players: ['p2'], abilities: ['looseHealth', 'missed'])),
+              hit: GHit(name: 'bang', players: ['p2'], abilities: ['looseHealth', 'cancelShoot'])),
         ]));
   });
 

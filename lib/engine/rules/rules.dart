@@ -2,6 +2,7 @@ import '../event/event.dart';
 import '../state/state.dart';
 import 'ability.dart';
 import 'play_context.dart';
+import 'package:collection/collection.dart';
 
 class GRules {
   final List<Ability> abilities;
@@ -104,8 +105,8 @@ extension GenerateMoves on GRules {
   List<GMove> _moves({required AbilityType type, required PlayContext ctx}) {
     List<GMove> result = [];
 
-    final abilityObject = abilities.firstWhere((e) => e.name == ctx.ability);
-    if (abilityObject.type != type) {
+    final abilityObject = abilities.firstWhereOrNull((e) => e.name == ctx.ability);
+    if (abilityObject == null || abilityObject.type != type) {
       return [];
     }
 
