@@ -22,6 +22,9 @@ extension GettingValue on NumberArgument {
       case NumberArgument.excessHand:
         return max(ctx.actor.hand.length - ctx.actor.handLimit(), 0);
 
+      case NumberArgument.inPlayPlayers:
+        return ctx.state.playOrder.length;
+
       default:
         throw Exception('Unimplemented argument: $this');
     }
