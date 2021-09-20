@@ -25,6 +25,9 @@ extension GettingCards on CardArgument {
         }
         return [];
 
+      case CardArgument.requiredStore:
+        return [ctx.args!.requiredStore!];
+
       default:
         throw Exception('Unimplemented argument: $this');
     }

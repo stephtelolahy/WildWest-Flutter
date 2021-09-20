@@ -11,7 +11,9 @@ part 'add_hit.dart';
 part 'argument/card_argument.dart';
 part 'argument/number_argument.dart';
 part 'argument/player_argument.dart';
+part 'deck_to_store.dart';
 part 'draw_deck.dart';
+part 'draw_store.dart';
 part 'equip.dart';
 part 'gain_health.dart';
 part 'handicap.dart';
@@ -19,7 +21,6 @@ part 'loose_health.dart';
 part 'remove_hit.dart';
 part 'reverse_hit.dart';
 part 'set_phase.dart';
-part 'deck_to_store.dart';
 
 abstract class Effect {
   // TODO: parse optional
@@ -56,6 +57,9 @@ abstract class Effect {
 
       case 'drawDeck':
         return DrawDeck.fromJson(json);
+
+      case 'drawStore':
+        return DrawStore.fromJson(json);
 
       case 'deckToStore':
         return DeckToStore.fromJson(json);
