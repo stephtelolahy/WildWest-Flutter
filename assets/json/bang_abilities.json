@@ -114,35 +114,19 @@
     ]
   },
   {
-    "name": "discardOtherHand",
+    "name": "catBalou",
     "type": "active",
     "canPlay": {
       "isYourTurn": 0,
       "isPhase": 2,
-      "requireTargetOther": 0
+      "requireTargetOther": 0,
+      "requireTargetCard": 0
     },
     "onPlay": [
       {
-        "action": "discardHand",
+        "action": "discard",
         "player": "target",
-        "card": "randomHand"
-      }
-    ]
-  },
-  {
-    "name": "discardAnyInPlay",
-    "type": "active",
-    "canPlay": {
-      "isYourTurn": 0,
-      "isPhase": 2,
-      "requireTargetAny": 0,
-      "requireInPlayCard": 0
-    },
-    "onPlay": [
-      {
-        "action": "discardInPlay",
-        "player": "target",
-        "card": "requiredInPlay"
+        "card": "requiredTargetCard"
       }
     ]
   },
@@ -168,8 +152,7 @@
     "canPlay": {
       "isYourTurn": 0,
       "isPhase": 2,
-      "requireTargetAt": 1,
-      "requireInPlayCard": 0
+      "requireTargetAt": 1
     },
     "onPlay": [
       {

@@ -51,7 +51,7 @@ extension Appending on List<PlayArgs> {
     return this.isNotEmpty;
   }
 
-  bool appendRequiredInPlay(GState state) {
+  bool appendRequiredTargetCard(GState state) {
     final oldArgs = List.from(this);
     this.clear();
 
@@ -62,8 +62,11 @@ extension Appending on List<PlayArgs> {
       }
 
       final playerObject = state.player(identifier: target);
-      final cards = playerObject.inPlay.map((e) => e.identifier);
-      cards.forEach((e) => this.add(arg.copyWith(requiredInPlay: e)));
+      List<String> cards = playerObject.inPlay.map((e) => e.identifier).toList();
+      if (playerObject.hand.isNotEmpty) {
+        cards.add('');
+      }
+      cards.forEach((e) => this.add(arg.copyWith(requiredTargetCard: e)));
     }
 
     return this.isNotEmpty;

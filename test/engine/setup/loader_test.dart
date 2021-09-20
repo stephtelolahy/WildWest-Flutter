@@ -42,7 +42,9 @@ void main() {
 
     // Assert
     for (var card in cards) {
-      expect(card.abilities.every((e) => abilityNames.contains(e)), isTrue);
+      for (var ability in card.abilities) {
+        expect(abilityNames, contains(ability));
+      }
     }
   });
 }

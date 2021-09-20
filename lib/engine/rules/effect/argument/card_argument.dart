@@ -3,7 +3,7 @@ part of '../effect.dart';
 enum CardArgument {
   requiredHand,
   randomHand,
-  requiredInPlay,
+  requiredTargetCard,
   requiredStore,
   requiredDeck,
   played,
@@ -27,6 +27,9 @@ extension GettingCards on CardArgument {
 
       case CardArgument.requiredStore:
         return [ctx.args!.requiredStore!];
+
+      case CardArgument.requiredTargetCard:
+        return [ctx.args!.requiredTargetCard!];
 
       default:
         throw Exception('Unimplemented argument: $this');

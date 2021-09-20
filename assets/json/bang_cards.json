@@ -115,7 +115,7 @@
     "name": "catBalou",
     "desc": "Force “any one player” to “discard a card”, regardless of the distance.",
     "type": "brown",
-    "abilities": ["discardOtherHand", "discardAnyInPlay"]
+    "abilities": ["catBalou"]
   },
   {
     "name": "panic",

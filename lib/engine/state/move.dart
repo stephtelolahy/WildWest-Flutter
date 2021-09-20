@@ -20,16 +20,16 @@ class GMove extends Equatable {
 }
 
 class PlayArgs extends Equatable {
-  final List<String> requiredHand;
-  final String? target;
-  final String? requiredInPlay;
-  final String? requiredStore;
-  final List<String> requiredDeck;
+  final List<String> requiredHand; // actor's hand card
+  final String? target; // target player
+  final String? requiredTargetCard; // target's card ('' for randomHand)
+  final String? requiredStore; // store card
+  final List<String> requiredDeck; // deck card
 
   const PlayArgs({
     this.requiredHand = const [],
     this.target,
-    this.requiredInPlay,
+    this.requiredTargetCard,
     this.requiredStore,
     this.requiredDeck = const [],
   });
@@ -37,18 +37,19 @@ class PlayArgs extends Equatable {
   PlayArgs copyWith(
       {List<String>? requiredHand,
       String? target,
-      String? requiredInPlay,
+      String? requiredTargetCard,
       String? requiredStore,
       List<String>? requiredDeck}) {
     return PlayArgs(
       requiredHand: requiredHand ?? this.requiredHand,
       target: target ?? this.target,
-      requiredInPlay: requiredInPlay ?? this.requiredInPlay,
+      requiredTargetCard: requiredTargetCard ?? this.requiredTargetCard,
       requiredStore: requiredStore ?? this.requiredStore,
       requiredDeck: requiredDeck ?? this.requiredDeck,
     );
   }
 
   @override
-  List<Object?> get props => [requiredHand, target, requiredInPlay, requiredStore, requiredDeck];
+  List<Object?> get props =>
+      [requiredHand, target, requiredTargetCard, requiredStore, requiredDeck];
 }
