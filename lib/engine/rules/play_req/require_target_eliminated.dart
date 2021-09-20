@@ -8,7 +8,7 @@ class RequireTargetEliminated extends PlayReq {
   bool match(PlayContext ctx, List<PlayArgs> args) {
     final event = ctx.event;
     if (event is GEventEliminate && event.player != ctx.actor.identifier) {
-      return PlayReqUtils.appendTarget([event.player], args);
+      return args.appendTarget([event.player]);
     } else {
       return false;
     }

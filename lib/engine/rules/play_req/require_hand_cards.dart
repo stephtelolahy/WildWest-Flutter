@@ -11,6 +11,6 @@ class RequireHandCards extends PlayReq {
   @override
   bool match(PlayContext ctx, List<PlayArgs> args) {
     final values = ctx.actor.hand.map((e) => e.identifier).where((e) => e != ctx.handCard);
-    return PlayReqUtils.appendRequiredHand(values, amount, args);
+    return args.appendRequiredHand(values, amount);
   }
 }

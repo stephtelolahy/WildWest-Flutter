@@ -2,26 +2,26 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
-import 'ability.dart';
-import 'card.dart';
+import '../rules/ability.dart';
+import '../state/state.dart';
 import 'card_value.dart';
 
 class ResLoader {
-  Future<List<ResCard>> loadCards() async {
+  Future<List<GCard>> loadCards() async {
     String data = await rootBundle.loadString('assets/json/bang_cards.json');
     List<dynamic> array = json.decode(data);
-    return array.map((e) => ResCard.fromJson(e)).toList();
+    return array.map((e) => GCard.fromJson(e)).toList();
   }
 
-  Future<List<ResCardValue>> loadCardValues() async {
+  Future<List<CardValue>> loadCardValues() async {
     String data = await rootBundle.loadString('assets/json/bang_card_values.json');
     List<dynamic> array = json.decode(data);
-    return array.map((e) => ResCardValue.fromJson(e)).toList();
+    return array.map((e) => CardValue.fromJson(e)).toList();
   }
 
-  Future<List<ResAbility>> loadAbilities() async {
+  Future<List<Ability>> loadAbilities() async {
     String data = await rootBundle.loadString('assets/json/bang_abilities.json');
     List<dynamic> array = json.decode(data);
-    return array.map((e) => ResAbility.fromJson(e)).toList();
+    return array.map((e) => Ability.fromJson(e)).toList();
   }
 }

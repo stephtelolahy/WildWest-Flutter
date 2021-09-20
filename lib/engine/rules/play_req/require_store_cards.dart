@@ -7,6 +7,6 @@ class RequireStoreCard extends PlayReq {
   @override
   bool match(PlayContext ctx, List<PlayArgs> args) {
     final cards = ctx.state.store.map((e) => e.identifier);
-    return PlayReqUtils.appendRequiredStore(cards, args);
+    return args.appendRequiredStore(cards);
   }
 }

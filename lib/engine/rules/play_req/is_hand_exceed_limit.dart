@@ -6,6 +6,6 @@ part of 'play_req.dart';
 class IsHandExceedLimit extends PlayReq {
   @override
   bool match(PlayContext ctx, List<PlayArgs> args) {
-    return ctx.actor.hand.length > PlayReqUtils.handLimit(ctx.actor);
+    return ctx.actor.hand.length > ctx.actor.handLimit();
   }
 }

@@ -1,27 +1,22 @@
 part of 'event.dart';
 
 class GEventPlay extends GEvent {
-  final String player;
-  final String card;
+  final GMove move;
 
   GEventPlay({
-    required this.player,
-    required this.card,
+    required this.move,
   });
 
   @override
-  List<Object?> get props => [player, card];
+  List<Object?> get props => [move];
 
   @override
-  GState dispatch(GState aState) {
-    final state = GState.copy(aState);
-    final playerObject = state.player(identifier: player);
-    final handIndex = playerObject.hand.indexWhere((e) => e.identifier == card);
-    final cardObject = playerObject.hand.removeAt(handIndex);
-    state.discard.insert(0, cardObject);
-    return state;
+  GState dispatch(GState state) {
+    throw UnimplementedError();
   }
 
   @override
-  Duration duration() => GEvent.DEFAULT_DURATION;
+  Duration duration() {
+    throw UnimplementedError();
+  }
 }

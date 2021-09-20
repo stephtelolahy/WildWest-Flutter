@@ -3,12 +3,11 @@ import 'package:enum_to_string/enum_to_string.dart';
 import '../../event/event.dart';
 import '../../state/state.dart';
 import '../play_context.dart';
-import 'play_req_utils.dart';
+import '../state_extensions.dart';
 
 part 'is_hand_exceed_limit.dart';
 part 'is_health.dart';
-part 'is_hit_cancelable.dart';
-part 'is_hit_effect.dart';
+part 'is_hit_ability.dart';
 part 'is_hit_name.dart';
 part 'is_phase.dart';
 part 'is_players_count_min.dart';
@@ -18,10 +17,10 @@ part 'is_your_turn.dart';
 part 'on_eliminated.dart';
 part 'on_eliminating_role.dart';
 part 'on_hand_empty.dart';
-part 'on_hit_cancelable.dart';
 part 'on_loose_health.dart';
 part 'on_phase.dart';
 part 'on_queue_empty.dart';
+part 'play_args_extensions.dart';
 part 'require_deck_cards.dart';
 part 'require_hand_cards.dart';
 part 'require_inplay_card.dart';
@@ -47,17 +46,14 @@ abstract class PlayReq {
       case 'isPlayersCountMin':
         return IsPlayersCountMin(minPlayersCount: value as int);
 
-      case 'isHitEffect':
-        return IsHitEffect(ability: value as String);
+      case 'isHitAbility':
+        return IsHitAbility(ability: value as String);
 
       case 'isHitName':
         return IsHitName(hitName: value as String);
 
       case 'isHealth':
         return IsHealth(health: value as int);
-
-      case 'isHitCancelable':
-        return IsHitCancelable();
 
       case 'isTimesPerTurnMax':
         return IsTimesPerTurnMax(maxTimes: value as int);
@@ -67,9 +63,6 @@ abstract class PlayReq {
 
       case 'isHandExceedLimit':
         return IsHandExceedLimit();
-
-      case 'onHitCancelable':
-        return OnHitCancelable();
 
       case 'onPhase':
         return OnPhase(phase: value as int);

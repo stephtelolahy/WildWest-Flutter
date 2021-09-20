@@ -17,6 +17,15 @@ class GCard {
       this.attributes = const CardAttributes(),
       this.abilities = const [],
       this.value = ''});
+
+  GCard.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        type = EnumToString.fromString(CardType.values, json['type'])!,
+        desc = json['desc'],
+        attributes = CardAttributes.fromJson(json['attributes'] ?? {}),
+        abilities = List<String>.from(json['abilities'] ?? []),
+        identifier = '',
+        value = '';
 }
 
 enum CardType {
@@ -32,7 +41,6 @@ class CardAttributes {
   final int? scope; // decrement distance to others
   final int? weapon; // gun range, default: 1
   final int? flippedCards; // number of flipped cards on a draw, default: 1
-  final int? bangsCancelable; // number of 'missed' required to cancel your bang, default: 1
   final int? bangsPerTurn; // number of bangs per turn, default: 1
   final int? handLimit; // max number of cards at end of turn, default: health
   final String? silentCard; // prevent other players to play a card matching given regex
@@ -47,7 +55,6 @@ class CardAttributes {
     this.scope,
     this.weapon,
     this.flippedCards,
-    this.bangsCancelable,
     this.bangsPerTurn,
     this.handLimit,
     this.silentCard,
@@ -62,7 +69,6 @@ class CardAttributes {
         scope = json['scope'],
         weapon = json['weapon'],
         flippedCards = json['flippedCards'],
-        bangsCancelable = json['bangsCancelable'],
         bangsPerTurn = json['bangsPerTurn'],
         handLimit = json['handLimit'],
         silentCard = json['silentCard'],

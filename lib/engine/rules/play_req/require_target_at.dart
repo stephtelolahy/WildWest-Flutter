@@ -12,7 +12,7 @@ class RequireTargetAt extends PlayReq {
   bool match(PlayContext ctx, List<PlayArgs> args) {
     final others = ctx.state.playOrder.where((e) =>
         e != ctx.actor.identifier &&
-        PlayReqUtils.distance(from: ctx.actor.identifier, to: e, state: ctx.state) <= distance);
-    return PlayReqUtils.appendTarget(others, args);
+        ctx.state.distance(from: ctx.actor.identifier, to: e) <= distance);
+    return args.appendTarget(others);
   }
 }

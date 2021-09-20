@@ -1,3 +1,4 @@
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:equatable/equatable.dart';
 
 part 'card.dart';
@@ -44,6 +45,8 @@ class GState {
         winner = state.winner,
         played = List.from(state.played),
         history = List.from(state.history);
+}
 
+extension GettingPlayer on GState {
   GPlayer player({identifier: String}) => players.firstWhere((e) => e.identifier == identifier);
 }

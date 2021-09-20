@@ -31,4 +31,18 @@ void main() {
     // Assert
     expect(result, isNotEmpty);
   });
+
+  test('all cards have valid ability', () async {
+    // Given
+    final abilities = await sut.loadAbilities();
+    final abilityNames = abilities.map((e) => e.name);
+
+    // When
+    final cards = await sut.loadCards();
+
+    // Assert
+    for (var card in cards) {
+      expect(card.abilities.every((e) => abilityNames.contains(e)), isTrue);
+    }
+  });
 }
