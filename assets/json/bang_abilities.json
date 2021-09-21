@@ -406,14 +406,8 @@
     },
     "onPlay": [
       {
-        "action": "discardHand",
-        "card": "allHand",
-        "optional": true
-      },
-      {
-        "action": "discardInPlay",
-        "card": "allInPlay",
-        "optional": true
+        "action": "discard",
+        "card": "allCards"
       }
     ]
   },
@@ -508,14 +502,8 @@
     },
     "onPlay": [
       {
-        "action": "discardHand",
-        "card": "allHand",
-        "optional": true
-      },
-      {
-        "action": "discardInPlay",
-        "card": "allInPlay",
-        "optional": true
+        "action": "discard",
+        "card": "allCards"
       }
     ]
   },
