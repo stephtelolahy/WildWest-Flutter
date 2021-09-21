@@ -21,7 +21,7 @@
       "bullets": 1,
       "silentCard": "jail"
     },
-    "abilities": ["penalizeOnEliminatingDeputy"]
+    "abilities": ["discardAllCardsOnEliminatingDeputy"]
   },
   {
     "name": "beer",

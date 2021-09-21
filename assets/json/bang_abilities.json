@@ -495,7 +495,7 @@
     ]
   },
   {
-    "name": "penalizeOnEliminatingDeputy",
+    "name": "discardAllCardsOnEliminatingDeputy",
     "type": "triggered",
     "canPlay": {
       "onEliminatingRole": "deputy"
