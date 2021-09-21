@@ -121,7 +121,7 @@
     "name": "panic",
     "desc": "Draw a card from a player at distance 1",
     "type": "brown",
-    "abilities": ["drawOtherHandAt1", "drawOtherInPlayAt1"]
+    "abilities": ["panic"]
   },
   {
     "name": "bang",

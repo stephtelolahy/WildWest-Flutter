@@ -14,25 +14,14 @@ class Discard extends Effect {
   @override
   List<GEvent> apply(PlayContext ctx) {
     final playerId = player.get(ctx).first;
-    final cardId = card.get(ctx).first;
-    if (cardId.isEmpty) {
-      final playerObject = ctx.state.player(identifier: playerId);
-      return [
-        GEventDiscardHand(
-          player: playerId,
-          card: playerObject.hand.randomElement().identifier,
-        )
-      ];
-    } else {
-      return [GEventDiscardInPlay(player: playerId, card: cardId)];
-    }
-  }
-}
-
-extension GettingRandomItem<T> on List<T> {
-  T randomElement() {
-    final random = new Random();
-    var i = random.nextInt(this.length);
-    return this[i];
+    final cardIds = card.get(ctx, player: playerId);
+    final playerObject = ctx.state.player(identifier: playerId);
+    return cardIds.map((card) {
+      if (playerObject.hand.any((e) => e.identifier == card)) {
+        return GEventDiscardHand(player: playerId, card: card);
+      } else {
+        return GEventDiscardInPlay(player: playerId, card: card);
+      }
+    }).toList();
   }
 }

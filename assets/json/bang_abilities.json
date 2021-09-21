@@ -131,34 +131,19 @@
     ]
   },
   {
-    "name": "drawOtherHandAt1",
+    "name": "panic",
     "type": "active",
     "canPlay": {
       "isYourTurn": 0,
       "isPhase": 2,
-      "requireTargetAt": 1
+      "requireTargetAt": 1,
+      "requireTargetCard": 0
     },
     "onPlay": [
       {
-        "action": "drawHand",
+        "action": "drawPlayer",
         "other": "target",
-        "card": "randomHand"
-      }
-    ]
-  },
-  {
-    "name": "drawOtherInPlayAt1",
-    "type": "active",
-    "canPlay": {
-      "isYourTurn": 0,
-      "isPhase": 2,
-      "requireTargetAt": 1
-    },
-    "onPlay": [
-      {
-        "action": "drawInPlay",
-        "other": "target",
-        "card": "requiredInPlay"
+        "card": "requiredTargetCard"
       }
     ]
   },
