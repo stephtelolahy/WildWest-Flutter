@@ -7,23 +7,14 @@ enum CardArgument {
   requiredStore,
   requiredDeck,
   played,
-  allHand,
-  allInPlay,
+  allCards
 }
 
 extension GettingCards on CardArgument {
   List<String> get(PlayContext ctx, {String? player}) {
     switch (this) {
       case CardArgument.played:
-        final handCard = ctx.handCard;
-        final inPlayCard = ctx.inPlayCard;
-        if (handCard != null) {
-          return [handCard];
-        }
-        if (inPlayCard != null) {
-          return [inPlayCard];
-        }
-        return [];
+        return List<String>.from([ctx.handCard, ctx.inPlayCard].where((e) => e == null));
 
       case CardArgument.requiredStore:
         return [ctx.args!.requiredStore!];
@@ -35,6 +26,10 @@ extension GettingCards on CardArgument {
           cardId = playerObject.hand.randomElement().identifier;
         }
         return [cardId];
+
+      case CardArgument.allCards:
+        final playerObject = ctx.state.player(identifier: player);
+        return (playerObject.hand + playerObject.inPlay).map((e) => e.identifier).toList();
 
       default:
         throw Exception('Unimplemented argument: $this');

@@ -25,9 +25,6 @@ part 'reverse_hit.dart';
 part 'set_phase.dart';
 
 abstract class Effect {
-  // TODO: parse optional
-  final bool optional = false;
-
   List<GEvent> apply(PlayContext ctx);
 
   static Effect fromJson(Map<String, dynamic> json) {

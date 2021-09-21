@@ -45,7 +45,48 @@ class GRules {
   }
 
   List<GMove> triggered(GEvent event, GState state) {
-    throw UnimplementedError();
+    List<GMove> result = [];
+
+    final actorIds = List.from(state.playOrder);
+
+    // <RULE>: trigger moves from just eliminated player
+    if (event is GEventEliminate) {
+      actorIds.add(event.player);
+    }
+    // </RULE>
+
+    for (var actorId in actorIds) {
+      final actor = state.player(identifier: actorId);
+
+      state._abilitiesApplicableToPlayer(actor).forEach((ability) {
+        result.addAll(_moves(
+          type: AbilityType.triggered,
+          ctx: PlayContext(
+            ability: ability,
+            actor: actor,
+            state: state,
+            event: event,
+          ),
+        ));
+      });
+
+      actor.inPlay.forEach((card) {
+        state._abilitiesApplicableToInPlay(card, actor).forEach((ability) {
+          result.addAll(_moves(
+            type: AbilityType.triggered,
+            ctx: PlayContext(
+                ability: ability,
+                actor: actor,
+                state: state,
+                handCard: card.identifier,
+                event: event),
+          ));
+        });
+      });
+    }
+
+// TODO: sort by ability priority
+    return result;
   }
 
   List<GEvent> effects(GMove move, GState state) {
@@ -64,11 +105,11 @@ class GRules {
 
     for (var effect in abilityObject.onPlay) {
       final events = effect.apply(ctx);
-      if (events.isNotEmpty || effect.optional) {
-        result.addAll(events);
-      } else {
+      if (events.isEmpty) {
         return [];
       }
+
+      result.addAll(events);
     }
 
     if (result.isEmpty) {
@@ -127,6 +168,10 @@ extension ApplicableAbilities on GState {
   }
 
   List<String> _abilitiesApplicableToHand(GCard card, GPlayer player) {
+    return card.abilities;
+  }
+
+  List<String> _abilitiesApplicableToInPlay(GCard card, GPlayer player) {
     return card.abilities;
   }
 }

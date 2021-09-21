@@ -567,16 +567,9 @@
     },
     "onPlay": [
       {
-        "action": "drawHand",
+        "action": "drawPlayer",
         "other": "target",
-        "card": "allHand",
-        "optional": true
-      },
-      {
-        "action": "drawInPlay",
-        "other": "target",
-        "card": "allInPlay",
-        "optional": true
+        "card": "allCards"
       }
     ]
   },
