@@ -540,7 +540,7 @@
     },
     "onPlay": [
       {
-        "action": "drawHand",
+        "action": "drawPlayer",
         "other": "target",
         "card": "randomHand"
       }

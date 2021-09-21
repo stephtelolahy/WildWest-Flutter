@@ -1,13 +1,18 @@
+import 'package:collection/collection.dart';
+
 import '../event/event.dart';
 import '../state/state.dart';
 import 'ability.dart';
 import 'play_context.dart';
-import 'package:collection/collection.dart';
 
 class GRules {
   final List<Ability> abilities;
 
   GRules({required this.abilities});
+
+  Role? isGameOver(GState state) {
+    throw UnimplementedError();
+  }
 
   List<GMove> active(GState state) {
     List<GMove> result = [];
@@ -127,12 +132,6 @@ class GRules {
     return result;
   }
 
-  Role? isGameOver(GState state) {
-    throw UnimplementedError();
-  }
-}
-
-extension GenerateMoves on GRules {
   List<GMove> _moves({required AbilityType type, required PlayContext ctx}) {
     List<GMove> result = [];
 

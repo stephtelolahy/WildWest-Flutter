@@ -14,7 +14,7 @@ class OnEliminatingRole extends PlayReq {
     final event = ctx.event;
     return event is GEventEliminate &&
         ctx.state.player(identifier: event.player).role == role &&
-        event.player != ctx.state.turn &&
+        event.player != ctx.actor.identifier &&
         ctx.actor.identifier == ctx.state.turn;
   }
 }

@@ -14,7 +14,15 @@ extension GettingCards on CardArgument {
   List<String> get(PlayContext ctx, {String? player}) {
     switch (this) {
       case CardArgument.played:
-        return List<String>.from([ctx.handCard, ctx.inPlayCard].where((e) => e == null));
+        final handCard = ctx.handCard;
+        if (handCard != null) {
+          return [handCard];
+        }
+        final inPlayCard = ctx.inPlayCard;
+        if (inPlayCard != null) {
+          return [inPlayCard];
+        }
+        return [];
 
       case CardArgument.requiredStore:
         return [ctx.args!.requiredStore!];
@@ -30,6 +38,13 @@ extension GettingCards on CardArgument {
       case CardArgument.allCards:
         final playerObject = ctx.state.player(identifier: player);
         return (playerObject.hand + playerObject.inPlay).map((e) => e.identifier).toList();
+
+      case CardArgument.randomHand:
+        final playerObject = ctx.state.player(identifier: player);
+        if (playerObject.hand.isEmpty) {
+          return [];
+        }
+        return [playerObject.hand.randomElement().identifier];
 
       default:
         throw Exception('Unimplemented argument: $this');

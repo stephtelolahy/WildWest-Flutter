@@ -1,5 +1,6 @@
-import '../state/state.dart';
 import 'dart:math';
+
+import '../state/state.dart';
 
 extension Distance on GState {
   int distance({required String from, required String to}) {
