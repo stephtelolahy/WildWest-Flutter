@@ -14,6 +14,7 @@ part 'argument/player_argument.dart';
 part 'deck_to_store.dart';
 part 'discard.dart';
 part 'draw_deck.dart';
+part 'draw_discard.dart';
 part 'draw_player.dart';
 part 'draw_store.dart';
 part 'equip.dart';
@@ -68,6 +69,9 @@ abstract class Effect {
 
       case 'drawPlayer':
         return DrawPlayer.fromJson(json);
+
+      case 'drawDiscard':
+        return DrawDiscard.fromJson(json);
 
       default:
         print('Unknown effect: $key');
