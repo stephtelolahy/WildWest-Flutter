@@ -14,6 +14,7 @@ part 'argument/player_argument.dart';
 part 'deck_to_store.dart';
 part 'discard.dart';
 part 'draw_deck.dart';
+part 'draw_deck_choosing.dart';
 part 'draw_discard.dart';
 part 'draw_player.dart';
 part 'draw_store.dart';
@@ -61,6 +62,9 @@ abstract class Effect {
 
       case 'drawDeck':
         return DrawDeck.fromJson(json);
+
+      case 'drawDeckChoosing':
+        return DrawDeckChoosing.fromJson(json);
 
       case 'drawStore':
         return DrawStore.fromJson(json);

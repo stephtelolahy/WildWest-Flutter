@@ -49,6 +49,9 @@ extension GettingCards on CardArgument {
       case CardArgument.requiredHand:
         return ctx.args!.requiredHand;
 
+      case CardArgument.requiredDeck:
+        return ctx.args!.requiredDeck;
+
       default:
         throw Exception('Unimplemented argument: $this');
     }
