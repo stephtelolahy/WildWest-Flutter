@@ -46,6 +46,9 @@ extension GettingCards on CardArgument {
         }
         return [playerObject.hand.randomElement().identifier];
 
+      case CardArgument.requiredHand:
+        return ctx.args!.requiredHand;
+
       default:
         throw Exception('Unimplemented argument: $this');
     }
