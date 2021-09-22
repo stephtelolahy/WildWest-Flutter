@@ -52,7 +52,7 @@ class GRules {
   List<GMove> triggered(GEvent event, GState state) {
     List<GMove> result = [];
 
-    final actorIds = List.from(state.playOrder);
+    final actorIds = Set.from(state.playOrder);
 
     // <RULE>: trigger moves from just eliminated player
     if (event is GEventEliminate) {
