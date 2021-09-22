@@ -571,7 +571,7 @@
     },
     "onPlay": [
       {
-        "action": "discardHand",
+        "action": "discard",
         "card": "requiredHand"
       },
       {
