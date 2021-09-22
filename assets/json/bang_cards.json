@@ -10,7 +10,7 @@
       "nextTurnOnEliminated",
       "discardExcessCardsOnPhase3",
       "discardAllCardsOnEliminated",
-      "gainRewardOnEliminatingOutlaw"
+      "draw3CardsOnEliminatingOutlaw"
     ]
   },
   {

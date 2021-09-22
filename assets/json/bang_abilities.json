@@ -482,7 +482,7 @@
     ]
   },
   {
-    "name": "gainRewardOnEliminatingOutlaw",
+    "name": "draw3CardsOnEliminatingOutlaw",
     "type": "triggered",
     "canPlay": {
       "onEliminatingRole": "outlaw"
