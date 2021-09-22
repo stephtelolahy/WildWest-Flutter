@@ -24,6 +24,7 @@ part 'loose_health.dart';
 part 'remove_hit.dart';
 part 'reverse_hit.dart';
 part 'set_phase.dart';
+part 'set_turn.dart';
 
 abstract class Effect {
   List<GEvent> apply(PlayContext ctx);
@@ -39,6 +40,9 @@ abstract class Effect {
 
       case 'setPhase':
         return SetPhase.fromJson(json);
+
+      case 'setTurn':
+        return SetTurn.fromJson(json);
 
       case 'gainHealth':
         return GainHealth.fromJson(json);
