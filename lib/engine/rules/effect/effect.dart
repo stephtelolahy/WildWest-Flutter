@@ -15,13 +15,16 @@ part 'deck_to_store.dart';
 part 'discard.dart';
 part 'draw_deck.dart';
 part 'draw_deck_choosing.dart';
+part 'draw_deck_flipping_if.dart';
 part 'draw_discard.dart';
 part 'draw_player.dart';
 part 'draw_store.dart';
 part 'equip.dart';
+part 'flip_deck_if.dart';
 part 'gain_health.dart';
 part 'handicap.dart';
 part 'loose_health.dart';
+part 'pass_in_play.dart';
 part 'remove_hit.dart';
 part 'reverse_hit.dart';
 part 'set_phase.dart';
@@ -81,15 +84,21 @@ abstract class Effect {
       case 'drawDiscard':
         return DrawDiscard.fromJson(json);
 
+      case 'flipDeckIf':
+        return FlipDeckIf.fromJson(json);
+
+      case 'drawDeckFlippingIf':
+        return DrawDeckFlippingIf.fromJson(json);
+
+      case 'passInPlay':
+        return PassInPlay.fromJson(json);
+
       default:
-        print('Unknown effect: $key');
-        return DummyEffect();
-      // throw Exception('Unknown effect: $key');
+        throw Exception('Unknown effect: $key');
     }
   }
-}
 
-class DummyEffect extends Effect {
-  @override
-  List<GEvent> apply(PlayContext ctx) => [];
+  static List<Effect> fromJsonArray(List<dynamic> array) {
+    return array.map((e) => Effect.fromJson(e)).toList();
+  }
 }

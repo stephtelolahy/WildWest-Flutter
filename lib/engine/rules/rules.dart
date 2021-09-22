@@ -83,7 +83,7 @@ class GRules {
                 ability: ability,
                 actor: actor,
                 state: state,
-                handCard: card.identifier,
+                inPlayCard: card.identifier,
                 event: event),
           ));
         });
@@ -148,9 +148,18 @@ class GRules {
 
     if (args.isNotEmpty) {
       result.addAll(args.map((e) => GMove(
-          ability: ctx.ability, actor: ctx.actor.identifier, handCard: ctx.handCard, args: e)));
+            ability: ctx.ability,
+            actor: ctx.actor.identifier,
+            handCard: ctx.handCard,
+            inPlayCard: ctx.inPlayCard,
+            args: e,
+          )));
     } else {
-      result.add(GMove(ability: ctx.ability, actor: ctx.actor.identifier, handCard: ctx.handCard));
+      result.add(GMove(
+          ability: ctx.ability,
+          actor: ctx.actor.identifier,
+          handCard: ctx.handCard,
+          inPlayCard: ctx.inPlayCard));
     }
 
     // <RULE> A move is applicable when it has effects>

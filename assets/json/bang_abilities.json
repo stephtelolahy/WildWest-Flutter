@@ -325,7 +325,7 @@
         "regex": "♥️",
         "then": [
           {
-            "action": "discardInPlay",
+            "action": "discard",
             "card": "played"
           }
         ],
@@ -339,7 +339,7 @@
             "value": 1
           },
           {
-            "action": "discardInPlay",
+            "action": "discard",
             "card": "played"
           }
         ]
@@ -372,7 +372,7 @@
             "abilities": ["looseHealth"]
           },
           {
-            "action": "discardInPlay",
+            "action": "discard",
             "card": "played"
           }
         ]

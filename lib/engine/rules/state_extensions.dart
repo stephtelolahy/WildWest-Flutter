@@ -58,4 +58,8 @@ extension Attributes on GPlayer {
   int maxHealth() {
     return attributes.bullets ?? 0;
   }
+
+  int flippedCards() {
+    return attributes.flippedCards ?? 1;
+  }
 }
