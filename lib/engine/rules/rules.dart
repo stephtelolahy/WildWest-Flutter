@@ -11,7 +11,26 @@ class GRules {
   GRules({required this.abilities});
 
   Role? isGameOver(GState state) {
-    throw UnimplementedError();
+    final Iterable<Role> remainingRoles =
+        state.playOrder.map((e) => state.player(identifier: e).role!);
+
+    final outlawAndRenegateEliminated =
+        !remainingRoles.contains(Role.outlaw) && !remainingRoles.contains(Role.renegade);
+    if (outlawAndRenegateEliminated) {
+      return Role.sheriff;
+    }
+
+    final sheriffEliminated = !remainingRoles.contains(Role.sheriff);
+    if (sheriffEliminated) {
+      final lastIsRenegade = remainingRoles.length == 1 && remainingRoles.first == Role.renegade;
+      if (lastIsRenegade) {
+        return Role.renegade;
+      } else {
+        return Role.outlaw;
+      }
+    }
+
+    return null;
   }
 
   List<GMove> active(GState state) {
