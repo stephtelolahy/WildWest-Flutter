@@ -26,7 +26,6 @@ void main() {
       players: [player1, player2],
       playOrder: ['p1', 'p2'],
       turn: 'p1',
-      phase: 0,
       deck: [GCard(value: '5♠️'), GCard(value: '4♥️')],
     );
     final event = GEventSetPhase(phase: 1);
