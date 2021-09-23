@@ -14,7 +14,6 @@ class AddHit extends Effect {
 
   @override
   List<GEvent> apply(PlayContext ctx) {
-    final List<GEvent> result = [];
     final playerIds = player.get(ctx);
     final loop = times.get(ctx);
 

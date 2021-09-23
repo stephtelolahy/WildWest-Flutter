@@ -1,13 +1,18 @@
+import 'package:collection/collection.dart';
+
 import '../event/event.dart';
 import '../state/state.dart';
 import 'ability.dart';
 import 'play_context.dart';
-import 'package:collection/collection.dart';
 
 class GRules {
   final List<Ability> abilities;
 
   GRules({required this.abilities});
+
+  Role? isGameOver(GState state) {
+    throw UnimplementedError();
+  }
 
   List<GMove> active(GState state) {
     List<GMove> result = [];
@@ -45,7 +50,48 @@ class GRules {
   }
 
   List<GMove> triggered(GEvent event, GState state) {
-    throw UnimplementedError();
+    List<GMove> result = [];
+
+    final actorIds = Set.from(state.playOrder);
+
+    // <RULE>: trigger moves from just eliminated player
+    if (event is GEventEliminate) {
+      actorIds.add(event.player);
+    }
+    // </RULE>
+
+    for (var actorId in actorIds) {
+      final actor = state.player(identifier: actorId);
+
+      state._abilitiesApplicableToPlayer(actor).forEach((ability) {
+        result.addAll(_moves(
+          type: AbilityType.triggered,
+          ctx: PlayContext(
+            ability: ability,
+            actor: actor,
+            state: state,
+            event: event,
+          ),
+        ));
+      });
+
+      actor.inPlay.forEach((card) {
+        state._abilitiesApplicableToInPlay(card, actor).forEach((ability) {
+          result.addAll(_moves(
+            type: AbilityType.triggered,
+            ctx: PlayContext(
+                ability: ability,
+                actor: actor,
+                state: state,
+                inPlayCard: card.identifier,
+                event: event),
+          ));
+        });
+      });
+    }
+
+// TODO: sort by ability priority
+    return result;
   }
 
   List<GEvent> effects(GMove move, GState state) {
@@ -64,11 +110,11 @@ class GRules {
 
     for (var effect in abilityObject.onPlay) {
       final events = effect.apply(ctx);
-      if (events.isNotEmpty || effect.optional) {
-        result.addAll(events);
-      } else {
+      if (events.isEmpty) {
         return [];
       }
+
+      result.addAll(events);
     }
 
     if (result.isEmpty) {
@@ -86,12 +132,6 @@ class GRules {
     return result;
   }
 
-  Role? isGameOver(GState state) {
-    throw UnimplementedError();
-  }
-}
-
-extension GenerateMoves on GRules {
   List<GMove> _moves({required AbilityType type, required PlayContext ctx}) {
     List<GMove> result = [];
 
@@ -108,9 +148,18 @@ extension GenerateMoves on GRules {
 
     if (args.isNotEmpty) {
       result.addAll(args.map((e) => GMove(
-          ability: ctx.ability, actor: ctx.actor.identifier, handCard: ctx.handCard, args: e)));
+            ability: ctx.ability,
+            actor: ctx.actor.identifier,
+            handCard: ctx.handCard,
+            inPlayCard: ctx.inPlayCard,
+            args: e,
+          )));
     } else {
-      result.add(GMove(ability: ctx.ability, actor: ctx.actor.identifier, handCard: ctx.handCard));
+      result.add(GMove(
+          ability: ctx.ability,
+          actor: ctx.actor.identifier,
+          handCard: ctx.handCard,
+          inPlayCard: ctx.inPlayCard));
     }
 
     // <RULE> A move is applicable when it has effects>
@@ -127,6 +176,10 @@ extension ApplicableAbilities on GState {
   }
 
   List<String> _abilitiesApplicableToHand(GCard card, GPlayer player) {
+    return card.abilities;
+  }
+
+  List<String> _abilitiesApplicableToInPlay(GCard card, GPlayer player) {
     return card.abilities;
   }
 }

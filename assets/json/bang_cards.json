@@ -10,7 +10,7 @@
       "nextTurnOnEliminated",
       "discardExcessCardsOnPhase3",
       "discardAllCardsOnEliminated",
-      "gainRewardOnEliminatingOutlaw"
+      "draw3CardsOnEliminatingOutlaw"
     ]
   },
   {
@@ -21,7 +21,7 @@
       "bullets": 1,
       "silentCard": "jail"
     },
-    "abilities": ["penalizeOnEliminatingDeputy"]
+    "abilities": ["discardAllCardsOnEliminatingDeputy"]
   },
   {
     "name": "beer",
@@ -115,13 +115,13 @@
     "name": "catBalou",
     "desc": "Force “any one player” to “discard a card”, regardless of the distance.",
     "type": "brown",
-    "abilities": ["discardOtherHand", "discardAnyInPlay"]
+    "abilities": ["catBalou"]
   },
   {
     "name": "panic",
     "desc": "Draw a card from a player at distance 1",
     "type": "brown",
-    "abilities": ["drawOtherHandAt1", "drawOtherInPlayAt1"]
+    "abilities": ["panic"]
   },
   {
     "name": "bang",

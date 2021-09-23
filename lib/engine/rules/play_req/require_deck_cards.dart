@@ -10,7 +10,7 @@ class RequireDeckCards extends PlayReq {
 
   @override
   bool match(PlayContext ctx, List<PlayArgs> args) {
-    final values = ctx.state.deck.sublist(0, 2).map((e) => e.identifier);
+    final values = ctx.state.deck.sublist(0, 3).map((e) => e.identifier);
     return args.appendRequiredDeck(values, amount);
   }
 }

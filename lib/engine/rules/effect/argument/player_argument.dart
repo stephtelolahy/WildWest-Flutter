@@ -25,14 +25,20 @@ extension GettingPlayers on PlayerArgument {
       case PlayerArgument.others:
         return ctx.state.playOrder.startingWith(ctx.actor.identifier).sublist(1);
 
+      case PlayerArgument.next:
+        final actorId = ctx.actor.identifier;
+        final players = ctx.state.players.map((e) => e.identifier).toList().startingWith(actorId);
+        final next = players.firstWhere((e) => e != actorId && ctx.state.playOrder.contains(e));
+        return [next];
+
       default:
         throw Exception('Unimplemented argument: $this');
     }
   }
 }
 
-extension Rotating on List<String> {
-  List<String> startingWith(String element) {
+extension Rotating<T> on List<T> {
+  List<T> startingWith(T element) {
     final index = this.indexOf(element);
     return this.sublist(index)..addAll(this.sublist(0, index));
   }

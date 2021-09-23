@@ -1,5 +1,6 @@
-import '../state/state.dart';
 import 'dart:math';
+
+import '../state/state.dart';
 
 extension Distance on GState {
   int distance({required String from, required String to}) {
@@ -56,5 +57,9 @@ extension Attributes on GPlayer {
 
   int maxHealth() {
     return attributes.bullets ?? 0;
+  }
+
+  int flippedCards() {
+    return attributes.flippedCards ?? 1;
   }
 }

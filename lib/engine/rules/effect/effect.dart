@@ -12,20 +12,25 @@ part 'argument/card_argument.dart';
 part 'argument/number_argument.dart';
 part 'argument/player_argument.dart';
 part 'deck_to_store.dart';
+part 'discard.dart';
 part 'draw_deck.dart';
+part 'draw_deck_choosing.dart';
+part 'draw_deck_flipping_if.dart';
+part 'draw_discard.dart';
+part 'draw_player.dart';
 part 'draw_store.dart';
 part 'equip.dart';
+part 'flip_deck_if.dart';
 part 'gain_health.dart';
 part 'handicap.dart';
 part 'loose_health.dart';
+part 'pass_in_play.dart';
 part 'remove_hit.dart';
 part 'reverse_hit.dart';
 part 'set_phase.dart';
+part 'set_turn.dart';
 
 abstract class Effect {
-  // TODO: parse optional
-  final bool optional = false;
-
   List<GEvent> apply(PlayContext ctx);
 
   static Effect fromJson(Map<String, dynamic> json) {
@@ -39,6 +44,9 @@ abstract class Effect {
 
       case 'setPhase':
         return SetPhase.fromJson(json);
+
+      case 'setTurn':
+        return SetTurn.fromJson(json);
 
       case 'gainHealth':
         return GainHealth.fromJson(json);
@@ -58,21 +66,39 @@ abstract class Effect {
       case 'drawDeck':
         return DrawDeck.fromJson(json);
 
+      case 'drawDeckChoosing':
+        return DrawDeckChoosing.fromJson(json);
+
       case 'drawStore':
         return DrawStore.fromJson(json);
 
       case 'deckToStore':
         return DeckToStore.fromJson(json);
 
+      case 'discard':
+        return Discard.fromJson(json);
+
+      case 'drawPlayer':
+        return DrawPlayer.fromJson(json);
+
+      case 'drawDiscard':
+        return DrawDiscard.fromJson(json);
+
+      case 'flipDeckIf':
+        return FlipDeckIf.fromJson(json);
+
+      case 'drawDeckFlippingIf':
+        return DrawDeckFlippingIf.fromJson(json);
+
+      case 'passInPlay':
+        return PassInPlay.fromJson(json);
+
       default:
-        print('Unknown effect: $key');
-        return DummyEffect();
-      // throw Exception('Unknown effect: $key');
+        throw Exception('Unknown effect: $key');
     }
   }
-}
 
-class DummyEffect extends Effect {
-  @override
-  List<GEvent> apply(PlayContext ctx) => [];
+  static List<Effect> fromJsonArray(List<dynamic> array) {
+    return array.map((e) => Effect.fromJson(e)).toList();
+  }
 }

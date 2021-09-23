@@ -17,17 +17,19 @@ part 'is_your_turn.dart';
 part 'on_eliminated.dart';
 part 'on_eliminating_role.dart';
 part 'on_hand_empty.dart';
+part 'on_hit_ability.dart';
 part 'on_loose_health.dart';
 part 'on_phase.dart';
 part 'on_queue_empty.dart';
 part 'play_args_extensions.dart';
 part 'require_deck_cards.dart';
 part 'require_hand_cards.dart';
-part 'require_inplay_card.dart';
 part 'require_store_cards.dart';
 part 'require_target_any.dart';
 part 'require_target_at.dart';
+part 'require_target_card.dart';
 part 'require_target_eliminated.dart';
+part 'require_target_hit.dart';
 part 'require_target_offender.dart';
 part 'require_target_other.dart';
 part 'require_target_reachable.dart';
@@ -82,6 +84,9 @@ abstract class PlayReq {
       case 'onHandEmpty':
         return OnHandEmpty();
 
+      case 'onHitAbility':
+        return OnHitAbility(ability: value as String);
+
       case 'requireTargetOther':
         return RequireTargetOther();
 
@@ -100,8 +105,8 @@ abstract class PlayReq {
       case 'requireTargetEliminated':
         return RequireTargetEliminated();
 
-      case 'requireInPlayCard':
-        return RequireInPlayCard();
+      case 'requireTargetHit':
+        return RequireTargetHit();
 
       case 'requireStoreCard':
         return RequireStoreCard();
@@ -111,6 +116,9 @@ abstract class PlayReq {
 
       case 'requireDeckCards':
         return RequireDeckCards(amount: value as int);
+
+      case 'requireTargetCard':
+        return RequireTargetCard();
 
       default:
         throw Exception('Unknown playReq: $key');

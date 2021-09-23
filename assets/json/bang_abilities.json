@@ -114,68 +114,36 @@
     ]
   },
   {
-    "name": "discardOtherHand",
+    "name": "catBalou",
     "type": "active",
     "canPlay": {
       "isYourTurn": 0,
       "isPhase": 2,
-      "requireTargetOther": 0
+      "requireTargetOther": 0,
+      "requireTargetCard": 0
     },
     "onPlay": [
       {
-        "action": "discardHand",
+        "action": "discard",
         "player": "target",
-        "card": "randomHand"
+        "card": "requiredTargetCard"
       }
     ]
   },
   {
-    "name": "discardAnyInPlay",
-    "type": "active",
-    "canPlay": {
-      "isYourTurn": 0,
-      "isPhase": 2,
-      "requireTargetAny": 0,
-      "requireInPlayCard": 0
-    },
-    "onPlay": [
-      {
-        "action": "discardInPlay",
-        "player": "target",
-        "card": "requiredInPlay"
-      }
-    ]
-  },
-  {
-    "name": "drawOtherHandAt1",
-    "type": "active",
-    "canPlay": {
-      "isYourTurn": 0,
-      "isPhase": 2,
-      "requireTargetAt": 1
-    },
-    "onPlay": [
-      {
-        "action": "drawHand",
-        "other": "target",
-        "card": "randomHand"
-      }
-    ]
-  },
-  {
-    "name": "drawOtherInPlayAt1",
+    "name": "panic",
     "type": "active",
     "canPlay": {
       "isYourTurn": 0,
       "isPhase": 2,
       "requireTargetAt": 1,
-      "requireInPlayCard": 0
+      "requireTargetCard": 0
     },
     "onPlay": [
       {
-        "action": "drawInPlay",
+        "action": "drawPlayer",
         "other": "target",
-        "card": "requiredInPlay"
+        "card": "requiredTargetCard"
       }
     ]
   },
@@ -330,7 +298,7 @@
     "name": "barrel",
     "type": "triggered",
     "canPlay": {
-      "isHitAbility": "cancelShoot"
+      "onHitAbility": "cancelShoot"
     },
     "onPlay": [
       {
@@ -357,7 +325,7 @@
         "regex": "♥️",
         "then": [
           {
-            "action": "discardInPlay",
+            "action": "discard",
             "card": "played"
           }
         ],
@@ -371,7 +339,7 @@
             "value": 1
           },
           {
-            "action": "discardInPlay",
+            "action": "discard",
             "card": "played"
           }
         ]
@@ -404,7 +372,7 @@
             "abilities": ["looseHealth"]
           },
           {
-            "action": "discardInPlay",
+            "action": "discard",
             "card": "played"
           }
         ]
@@ -438,14 +406,8 @@
     },
     "onPlay": [
       {
-        "action": "discardHand",
-        "card": "allHand",
-        "optional": true
-      },
-      {
-        "action": "discardInPlay",
-        "card": "allInPlay",
-        "optional": true
+        "action": "discard",
+        "card": "allCards"
       }
     ]
   },
@@ -511,7 +473,7 @@
     },
     "onPlay": [
       {
-        "action": "discardHand",
+        "action": "discard",
         "card": "requiredHand"
       },
       {
@@ -520,7 +482,7 @@
     ]
   },
   {
-    "name": "gainRewardOnEliminatingOutlaw",
+    "name": "draw3CardsOnEliminatingOutlaw",
     "type": "triggered",
     "canPlay": {
       "onEliminatingRole": "outlaw"
@@ -533,21 +495,15 @@
     ]
   },
   {
-    "name": "penalizeOnEliminatingDeputy",
+    "name": "discardAllCardsOnEliminatingDeputy",
     "type": "triggered",
     "canPlay": {
       "onEliminatingRole": "deputy"
     },
     "onPlay": [
       {
-        "action": "discardHand",
-        "card": "allHand",
-        "optional": true
-      },
-      {
-        "action": "discardInPlay",
-        "card": "allInPlay",
-        "optional": true
+        "action": "discard",
+        "card": "allCards"
       }
     ]
   },
@@ -572,7 +528,7 @@
     },
     "onPlay": [
       {
-        "action": "drawHand",
+        "action": "drawPlayer",
         "other": "target",
         "card": "randomHand"
       }
@@ -599,16 +555,9 @@
     },
     "onPlay": [
       {
-        "action": "drawHand",
+        "action": "drawPlayer",
         "other": "target",
-        "card": "allHand",
-        "optional": true
-      },
-      {
-        "action": "drawInPlay",
-        "other": "target",
-        "card": "allInPlay",
-        "optional": true
+        "card": "allCards"
       }
     ]
   },
@@ -622,7 +571,7 @@
     },
     "onPlay": [
       {
-        "action": "discardHand",
+        "action": "discard",
         "card": "requiredHand"
       },
       {
@@ -714,7 +663,7 @@
     },
     "onPlay": [
       {
-        "action": "drawHand",
+        "action": "drawPlayer",
         "other": "target",
         "card": "randomHand"
       },
