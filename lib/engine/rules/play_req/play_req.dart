@@ -17,6 +17,7 @@ part 'is_your_turn.dart';
 part 'on_eliminated.dart';
 part 'on_eliminating_role.dart';
 part 'on_hand_empty.dart';
+part 'on_hit_ability.dart';
 part 'on_loose_health.dart';
 part 'on_phase.dart';
 part 'on_queue_empty.dart';
@@ -82,6 +83,9 @@ abstract class PlayReq {
 
       case 'onHandEmpty':
         return OnHandEmpty();
+
+      case 'onHitAbility':
+        return OnHitAbility(ability: value as String);
 
       case 'requireTargetOther':
         return RequireTargetOther();

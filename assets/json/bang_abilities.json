@@ -298,7 +298,7 @@
     "name": "barrel",
     "type": "triggered",
     "canPlay": {
-      "isHitAbility": "cancelShoot"
+      "onHitAbility": "cancelShoot"
     },
     "onPlay": [
       {
