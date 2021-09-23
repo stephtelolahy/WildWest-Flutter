@@ -90,8 +90,9 @@ class GRules {
       });
     }
 
-// TODO: sort by ability priority
-    return result;
+    return result.sorted((a, b) =>
+        abilities.firstWhere((e) => e.name == a.ability).priority -
+        abilities.firstWhere((e) => e.name == b.ability).priority);
   }
 
   List<GEvent> effects(GMove move, GState state) {
