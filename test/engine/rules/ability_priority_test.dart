@@ -47,7 +47,9 @@ void main() {
     final card1 = GCard(identifier: 'c1', abilities: ['jail']);
     final card2 = GCard(identifier: 'c2', abilities: ['dynamite']);
     final player1 = GPlayer(identifier: 'p1', inPlay: [card1, card2]);
-    final state = GState(players: [player1], playOrder: ['p1'], turn: 'p1', deck: [GCard()]);
+    final player2 = GPlayer(identifier: 'p2');
+    final state =
+        GState(players: [player1, player2], playOrder: ['p1', 'p2'], turn: 'p1', deck: [GCard()]);
     final event = GEventSetPhase(phase: 1);
 
     // When

@@ -137,6 +137,10 @@ class GRules {
       result.addAll(events);
     }
 
+    // <RULE> remove effect if target has silentCard
+    result.removeWhere((e) => _isEffectSilenced(e, ctx));
+    // </RULE>
+
     if (result.isEmpty) {
       return [];
     }
@@ -187,6 +191,23 @@ class GRules {
     // </RULE>
 
     return result;
+  }
+
+  bool _isEffectSilenced(GEvent event, PlayContext ctx) {
+    final handCard = ctx.handCard;
+    if (handCard == null) {
+      return false;
+    }
+    final cardObject = ctx.actor.hand.firstWhere((e) => e.identifier == handCard);
+
+    if (event is GEventHandicap) {
+      final targetObject = ctx.state.player(identifier: event.other);
+      if (targetObject.attributes.silentCard == cardObject.name) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
 
