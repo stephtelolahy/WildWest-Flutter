@@ -39,7 +39,11 @@ class GRules {
     final actorId = state.hit?.players.first ?? state.turn;
     final actor = state.player(identifier: actorId);
 
-    state._abilitiesApplicableToPlayer(actor).forEach((ability) {
+    actor.abilities.forEach((ability) {
+      if (_isAbilitySilenced(ability, actor)) {
+        return;
+      }
+
       result.addAll(_moves(
         type: AbilityType.active,
         ctx: PlayContext(ability: ability, actor: actor, state: state),
@@ -82,7 +86,11 @@ class GRules {
     for (var actorId in actorIds) {
       final actor = state.player(identifier: actorId);
 
-      state._abilitiesApplicableToPlayer(actor).forEach((ability) {
+      actor.abilities.forEach((ability) {
+        if (_isAbilitySilenced(ability, actor)) {
+          return;
+        }
+
         result.addAll(_moves(
           type: AbilityType.triggered,
           ctx: PlayContext(
@@ -209,13 +217,13 @@ class GRules {
 
     return false;
   }
+
+  bool _isAbilitySilenced(String ability, GPlayer player) {
+    return player.attributes.silentAbility == ability;
+  }
 }
 
 extension ApplicableAbilities on GState {
-  List<String> _abilitiesApplicableToPlayer(GPlayer player) {
-    return player.abilities;
-  }
-
   List<String> _abilitiesApplicableToHand(GCard card, GPlayer player) {
     return card.abilities;
   }
