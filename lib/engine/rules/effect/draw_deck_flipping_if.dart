@@ -23,8 +23,7 @@ class DrawDeckFlippingIf extends Effect {
     }
     result.add(GEventDrawDeckFlipping(player: playerId));
     final cardObject = ctx.state.deck[amount - 1];
-    final regExp = RegExp(regex);
-    final success = regExp.hasMatch(cardObject.value);
+    final success = cardObject.matchesRegex(regex);
     final effects = success ? thenEffects : elseEffects;
     effects.forEach((e) {
       result.addAll(e.apply(ctx));

@@ -46,8 +46,6 @@ class CardAttributes {
   final String? silentCard; // prevent other players to play a card matching given regex
   final String? silentAbility; // disable self ability matching given name
   final Map<String, dynamic>? playAs; // can play card matching [regex] with ability [name]
-  final bool
-      silentInPlay; // during your turn, cards in play in front of other players have no effect
 
   const CardAttributes({
     this.bullets,
@@ -60,7 +58,6 @@ class CardAttributes {
     this.silentCard,
     this.silentAbility,
     this.playAs,
-    this.silentInPlay = false,
   });
 
   CardAttributes.fromJson(Map<String, dynamic> json)
@@ -73,6 +70,5 @@ class CardAttributes {
         handLimit = json['handLimit'],
         silentCard = json['silentCard'],
         silentAbility = json['silentAbility'],
-        playAs = json['playAs'],
-        silentInPlay = json['silentInPlay'] ?? false;
+        playAs = json['playAs'];
 }

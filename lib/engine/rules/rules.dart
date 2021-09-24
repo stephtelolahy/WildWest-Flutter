@@ -4,6 +4,7 @@ import '../event/event.dart';
 import '../state/state.dart';
 import 'ability.dart';
 import 'play_context.dart';
+import 'state_extensions.dart';
 
 class GRules {
   final List<Ability> abilities;
@@ -51,7 +52,7 @@ class GRules {
     });
 
     actor.hand.forEach((card) {
-      state._abilitiesApplicableToHand(card, actor).forEach((ability) {
+      _abilitiesApplicableToHand(card, actor).forEach((ability) {
         result.addAll(_moves(
           type: AbilityType.active,
           ctx: PlayContext(ability: ability, actor: actor, state: state, handCard: card.identifier),
@@ -103,7 +104,7 @@ class GRules {
       });
 
       actor.inPlay.forEach((card) {
-        state._abilitiesApplicableToInPlay(card, actor).forEach((ability) {
+        card.abilities.forEach((ability) {
           result.addAll(_moves(
             type: AbilityType.triggered,
             ctx: PlayContext(
@@ -207,28 +208,30 @@ class GRules {
       return false;
     }
     final cardObject = ctx.actor.hand.firstWhere((e) => e.identifier == handCard);
-
     if (event is GEventHandicap) {
       final targetObject = ctx.state.player(identifier: event.other);
-      if (targetObject.attributes.silentCard == cardObject.name) {
+      final silentCard = targetObject.attributes.silentCard;
+      if (silentCard != null && cardObject.matchesRegex(silentCard)) {
         return true;
       }
     }
-
     return false;
   }
 
   bool _isAbilitySilenced(String ability, GPlayer player) {
     return player.attributes.silentAbility == ability;
   }
-}
 
-extension ApplicableAbilities on GState {
   List<String> _abilitiesApplicableToHand(GCard card, GPlayer player) {
-    return card.abilities;
-  }
-
-  List<String> _abilitiesApplicableToInPlay(GCard card, GPlayer player) {
-    return card.abilities;
+    final result = List<String>.from(card.abilities);
+    final playAs = player.attributes.playAs;
+    if (playAs != null) {
+      for (var key in playAs.keys) {
+        if (card.matchesRegex(key)) {
+          result.add(playAs[key]);
+        }
+      }
+    }
+    return result;
   }
 }
