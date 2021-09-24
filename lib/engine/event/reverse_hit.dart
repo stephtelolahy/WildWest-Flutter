@@ -11,10 +11,5 @@ class GEventReverseHit extends GEvent {
   }
 
   @override
-  Duration duration() {
-    throw UnimplementedError();
-  }
-
-  @override
   List<Object?> get props => [player];
 }

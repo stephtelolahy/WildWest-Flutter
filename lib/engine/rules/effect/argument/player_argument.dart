@@ -27,7 +27,8 @@ extension GettingPlayers on PlayerArgument {
 
       case PlayerArgument.next:
         final actorId = ctx.actor.identifier;
-        final players = ctx.state.players.map((e) => e.identifier).toList().startingWith(actorId);
+        final players =
+            ctx.state.players.map((e) => e.identifier).toList().startingWith(actorId).skip(1);
         final next = players.firstWhere((e) => e != actorId && ctx.state.playOrder.contains(e));
         return [next];
 

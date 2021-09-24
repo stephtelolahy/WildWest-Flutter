@@ -16,7 +16,5 @@ class GEventPlay extends GEvent {
   }
 
   @override
-  Duration duration() {
-    throw UnimplementedError();
-  }
+  Duration duration() => Duration();
 }

@@ -21,11 +21,13 @@ class GEngine {
 
   Future<void> play(GMove move) async {
     if (_queue.isNotEmpty) {
-      print("engine busy");
-      return;
+      throw UnsupportedError('Engine busy');
     }
-
     _queue.addLast(GEventPlay(move: move));
+    await refresh();
+  }
+
+  Future<void> refresh() async {
     await _update();
     _emitActiveMoves();
   }

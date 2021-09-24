@@ -14,9 +14,4 @@ class GEventSetPhase extends GEvent {
   GState dispatch(GState state) {
     throw UnimplementedError();
   }
-
-  @override
-  Duration duration() {
-    throw UnimplementedError();
-  }
 }

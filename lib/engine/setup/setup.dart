@@ -45,18 +45,24 @@ class GSetup {
     final defaultFigure = defaults.firstWhere((e) => e.name == 'default');
     final sheriffFigure = defaults.firstWhere((e) => e.name == 'sheriff');
 
+    roles.shuffle();
+    figures.shuffle();
+    deck.shuffle();
+
     final List<GPlayer> players = [];
+    late String sheriff;
     for (var i = 0; i < roles.length; i++) {
       final role = roles[i];
       final figure = figures[i];
 
       var attributes = figure.attributes;
-      var abilities = figure.abilities;
+      var abilities = List<String>.from(figure.abilities);
 
       attributes = attributes.mergeWith(defaultFigure.attributes);
       abilities.addAll(defaultFigure.abilities);
 
       if (role == Role.sheriff) {
+        sheriff = figure.name;
         attributes = attributes.mergeWith(sheriffFigure.attributes);
         abilities.addAll(sheriffFigure.abilities);
       }
@@ -64,12 +70,12 @@ class GSetup {
       final health = attributes.bullets!;
       final hand = List.generate(health, (_) => deck.removeAt(0));
       players.add(GPlayer(
-        role: role,
         identifier: figure.name,
         name: figure.name,
         desc: figure.desc,
         attributes: attributes,
         abilities: abilities,
+        role: role,
         health: health,
         hand: hand,
         inPlay: [],
@@ -79,7 +85,7 @@ class GSetup {
     return GState(
       players: players,
       playOrder: playOrder,
-      turn: playOrder.first,
+      turn: sheriff,
       phase: 1,
       deck: deck,
       discard: [],
@@ -116,7 +122,7 @@ extension MerginOptionalInt on List<int?> {
 
   int? max() {
     final values = this.whereType<int>().toList();
-    final result = values.isNotEmpty ? values.max() : null;
+    final result = values.isNotEmpty ? values.reduce((a, b) => a > b ? a : b) : null;
     return result;
   }
 }

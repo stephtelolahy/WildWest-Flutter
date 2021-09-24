@@ -100,50 +100,43 @@ void main() {
 
   test('build game', () {
     // Given
-    final roles = [
-      Role.sheriff,
-      Role.outlaw,
-    ];
+    final roles = sut.roles(playersCount: 5);
 
-    final figures = [
-      GCard(
-        name: 'p1',
-        type: CardType.figure,
-        attributes: CardAttributes(bullets: 3),
-        abilities: ['a1'],
-      ),
-      GCard(
-        name: 'p2',
-        type: CardType.figure,
-        attributes: CardAttributes(bullets: 3),
-        abilities: ['a2'],
-      ),
-    ];
+    final figures = List.generate(
+        5,
+        (index) => GCard(
+              name: 'p${index + 1}',
+              type: CardType.figure,
+              attributes: CardAttributes(bullets: 3),
+            ));
 
     final defaults = [
       GCard(
         name: 'default',
         type: CardType.none,
         attributes: CardAttributes(),
-        abilities: ['def'],
+        abilities: ['default'],
       ),
       GCard(
-        name: 'sheriff',
-        type: CardType.none,
-        attributes: CardAttributes(bullets: 1),
-        abilities: ['she'],
-      ),
+          name: 'sheriff',
+          type: CardType.none,
+          attributes: CardAttributes(bullets: 1),
+          abilities: ['sheriff']),
     ];
 
-    final deck = List.generate(10, (index) => GCard(identifier: 'c${index + 1}'));
+    final deck = List.generate(20, (index) => GCard(identifier: 'c${index + 1}'));
 
     // When
     final state = sut.game(roles: roles, figures: figures, defaults: defaults, deck: deck);
 
     // Assert
-    expect(state.players.length, equals(2));
-    expect(state.playOrder, ['p1', 'p2']);
-    expect(state.turn, equals('p1'));
+
+    final sheriff = state.players.firstWhere((e) => e.role == Role.sheriff);
+    final other = state.players.firstWhere((e) => e.role != Role.sheriff);
+
+    expect(state.players.length, equals(5));
+    expect(state.playOrder.length, equals(5));
+    expect(state.turn, equals(sheriff.identifier));
     expect(state.phase, 1);
     expect(state.discard, isEmpty);
     expect(state.store, isEmpty);
@@ -152,43 +145,19 @@ void main() {
     expect(state.winner, isNull);
     expect(state.hit, isNull);
 
-    final player1 = state.players[0];
-    expect(player1.role, equals(Role.sheriff));
-    expect(player1.identifier, equals('p1'));
-    expect(player1.abilities, equals(['a1', 'def', 'she']));
-    expect(player1.attributes, equals(CardAttributes(bullets: 4)));
-    expect(player1.health, equals(4));
-    expect(
-        player1.hand,
-        equals([
-          GCard(identifier: 'c1'),
-          GCard(identifier: 'c2'),
-          GCard(identifier: 'c3'),
-          GCard(identifier: 'c4')
-        ]));
-    expect(player1.inPlay, isEmpty);
+    expect(sheriff.abilities, contains('sheriff'));
+    expect(sheriff.abilities, contains('default'));
+    expect(sheriff.attributes, equals(CardAttributes(bullets: 4)));
+    expect(sheriff.health, equals(4));
+    expect(sheriff.hand.length, equals(4));
+    expect(sheriff.inPlay, isEmpty);
 
-    final player2 = state.players[1];
-    expect(player2.role, equals(Role.outlaw));
-    expect(player2.identifier, equals('p2'));
-    expect(player2.abilities, equals(['a2', 'def']));
-    expect(player2.attributes, equals(CardAttributes(bullets: 3)));
-    expect(player2.health, equals(3));
-    expect(
-        player2.hand,
-        equals([
-          GCard(identifier: 'c5'),
-          GCard(identifier: 'c6'),
-          GCard(identifier: 'c7'),
-        ]));
-    expect(player1.inPlay, isEmpty);
+    expect(other.abilities, contains('default'));
+    expect(other.attributes, equals(CardAttributes(bullets: 3)));
+    expect(other.health, equals(3));
+    expect(other.hand.length, equals(3));
+    expect(other.inPlay, isEmpty);
 
-    expect(
-        state.deck,
-        equals([
-          GCard(identifier: 'c8'),
-          GCard(identifier: 'c9'),
-          GCard(identifier: 'c10'),
-        ]));
+    expect(state.deck.length, equals(4));
   });
 }
