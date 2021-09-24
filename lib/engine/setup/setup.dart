@@ -22,7 +22,18 @@ class GSetup {
   }
 
   List<GCard> deck({required List<GCard> cards, required List<CardValue> values}) {
-    return [];
+    return values.map((cardValue) {
+      final card = cards.firstWhere((e) => e.name == cardValue.name);
+      return GCard(
+        identifier: '${card.name}-${cardValue.value}',
+        name: card.name,
+        desc: card.desc,
+        type: card.type,
+        abilities: card.abilities,
+        attributes: card.attributes,
+        value: cardValue.value,
+      );
+    }).toList();
   }
 
   GState game({

@@ -1,6 +1,6 @@
 part of 'state.dart';
 
-class GCard {
+class GCard extends Equatable {
   final String identifier;
   final String name;
   final CardType type;
@@ -26,6 +26,9 @@ class GCard {
         abilities = List<String>.from(json['abilities'] ?? []),
         identifier = '',
         value = '';
+
+  @override
+  List<Object?> get props => [identifier, name, type, desc, attributes, abilities, value];
 }
 
 enum CardType {
@@ -35,7 +38,7 @@ enum CardType {
   none,
 }
 
-class CardAttributes {
+class CardAttributes extends Equatable {
   final int? bullets; // max health
   final int? mustang; // increment distance from others
   final int? scope; // decrement distance to others
@@ -71,4 +74,18 @@ class CardAttributes {
         silentCard = json['silentCard'],
         silentAbility = json['silentAbility'],
         playAs = json['playAs'];
+
+  @override
+  List<Object?> get props => [
+        bullets,
+        mustang,
+        scope,
+        weapon,
+        flippedCards,
+        bangsPerTurn,
+        handLimit,
+        silentCard,
+        silentAbility,
+        playAs
+      ];
 }
