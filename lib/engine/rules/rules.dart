@@ -4,6 +4,7 @@ import '../event/event.dart';
 import '../state/state.dart';
 import 'ability.dart';
 import 'play_context.dart';
+import 'state_extensions.dart';
 
 class GRules {
   final List<Ability> abilities;
@@ -11,7 +12,26 @@ class GRules {
   GRules({required this.abilities});
 
   Role? isGameOver(GState state) {
-    throw UnimplementedError();
+    final Iterable<Role> remainingRoles =
+        state.playOrder.map((e) => state.player(identifier: e).role!);
+
+    final outlawAndRenegateEliminated =
+        !remainingRoles.contains(Role.outlaw) && !remainingRoles.contains(Role.renegade);
+    if (outlawAndRenegateEliminated) {
+      return Role.sheriff;
+    }
+
+    final sheriffEliminated = !remainingRoles.contains(Role.sheriff);
+    if (sheriffEliminated) {
+      final lastIsRenegade = remainingRoles.length == 1 && remainingRoles.first == Role.renegade;
+      if (lastIsRenegade) {
+        return Role.renegade;
+      } else {
+        return Role.outlaw;
+      }
+    }
+
+    return null;
   }
 
   List<GMove> active(GState state) {
@@ -20,7 +40,11 @@ class GRules {
     final actorId = state.hit?.players.first ?? state.turn;
     final actor = state.player(identifier: actorId);
 
-    state._abilitiesApplicableToPlayer(actor).forEach((ability) {
+    actor.abilities.forEach((ability) {
+      if (_isAbilitySilenced(ability, actor)) {
+        return;
+      }
+
       result.addAll(_moves(
         type: AbilityType.active,
         ctx: PlayContext(ability: ability, actor: actor, state: state),
@@ -28,7 +52,7 @@ class GRules {
     });
 
     actor.hand.forEach((card) {
-      state._abilitiesApplicableToHand(card, actor).forEach((ability) {
+      _abilitiesApplicableToHand(card, actor).forEach((ability) {
         result.addAll(_moves(
           type: AbilityType.active,
           ctx: PlayContext(ability: ability, actor: actor, state: state, handCard: card.identifier),
@@ -63,7 +87,11 @@ class GRules {
     for (var actorId in actorIds) {
       final actor = state.player(identifier: actorId);
 
-      state._abilitiesApplicableToPlayer(actor).forEach((ability) {
+      actor.abilities.forEach((ability) {
+        if (_isAbilitySilenced(ability, actor)) {
+          return;
+        }
+
         result.addAll(_moves(
           type: AbilityType.triggered,
           ctx: PlayContext(
@@ -76,7 +104,7 @@ class GRules {
       });
 
       actor.inPlay.forEach((card) {
-        state._abilitiesApplicableToInPlay(card, actor).forEach((ability) {
+        card.abilities.forEach((ability) {
           result.addAll(_moves(
             type: AbilityType.triggered,
             ctx: PlayContext(
@@ -90,8 +118,9 @@ class GRules {
       });
     }
 
-// TODO: sort by ability priority
-    return result;
+    return result.sorted((a, b) =>
+        abilities.firstWhere((e) => e.name == a.ability).priority -
+        abilities.firstWhere((e) => e.name == b.ability).priority);
   }
 
   List<GEvent> effects(GMove move, GState state) {
@@ -116,6 +145,10 @@ class GRules {
 
       result.addAll(events);
     }
+
+    // <RULE> remove effect if target has silentCard
+    result.removeWhere((e) => _isEffectSilenced(e, ctx));
+    // </RULE>
 
     if (result.isEmpty) {
       return [];
@@ -168,18 +201,37 @@ class GRules {
 
     return result;
   }
-}
 
-extension ApplicableAbilities on GState {
-  List<String> _abilitiesApplicableToPlayer(GPlayer player) {
-    return player.abilities;
+  bool _isEffectSilenced(GEvent event, PlayContext ctx) {
+    final handCard = ctx.handCard;
+    if (handCard == null) {
+      return false;
+    }
+    final cardObject = ctx.actor.hand.firstWhere((e) => e.identifier == handCard);
+    if (event is GEventHandicap) {
+      final targetObject = ctx.state.player(identifier: event.other);
+      final silentCard = targetObject.attributes.silentCard;
+      if (silentCard != null && cardObject.matchesRegex(silentCard)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool _isAbilitySilenced(String ability, GPlayer player) {
+    return player.attributes.silentAbility == ability;
   }
 
   List<String> _abilitiesApplicableToHand(GCard card, GPlayer player) {
-    return card.abilities;
-  }
-
-  List<String> _abilitiesApplicableToInPlay(GCard card, GPlayer player) {
-    return card.abilities;
+    final result = List<String>.from(card.abilities);
+    final playAs = player.attributes.playAs;
+    if (playAs != null) {
+      for (var key in playAs.keys) {
+        if (card.matchesRegex(key)) {
+          result.add(playAs[key]);
+        }
+      }
+    }
+    return result;
   }
 }

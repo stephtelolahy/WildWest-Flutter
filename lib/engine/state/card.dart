@@ -1,6 +1,6 @@
 part of 'state.dart';
 
-class GCard {
+class GCard extends Equatable {
   final String identifier;
   final String name;
   final CardType type;
@@ -26,6 +26,9 @@ class GCard {
         abilities = List<String>.from(json['abilities'] ?? []),
         identifier = '',
         value = '';
+
+  @override
+  List<Object?> get props => [identifier, name, type, desc, attributes, abilities, value];
 }
 
 enum CardType {
@@ -35,7 +38,7 @@ enum CardType {
   none,
 }
 
-class CardAttributes {
+class CardAttributes extends Equatable {
   final int? bullets; // max health
   final int? mustang; // increment distance from others
   final int? scope; // decrement distance to others
@@ -46,8 +49,6 @@ class CardAttributes {
   final String? silentCard; // prevent other players to play a card matching given regex
   final String? silentAbility; // disable self ability matching given name
   final Map<String, dynamic>? playAs; // can play card matching [regex] with ability [name]
-  final bool
-      silentInPlay; // during your turn, cards in play in front of other players have no effect
 
   const CardAttributes({
     this.bullets,
@@ -60,7 +61,6 @@ class CardAttributes {
     this.silentCard,
     this.silentAbility,
     this.playAs,
-    this.silentInPlay = false,
   });
 
   CardAttributes.fromJson(Map<String, dynamic> json)
@@ -73,6 +73,19 @@ class CardAttributes {
         handLimit = json['handLimit'],
         silentCard = json['silentCard'],
         silentAbility = json['silentAbility'],
-        playAs = json['playAs'],
-        silentInPlay = json['silentInPlay'] ?? false;
+        playAs = json['playAs'];
+
+  @override
+  List<Object?> get props => [
+        bullets,
+        mustang,
+        scope,
+        weapon,
+        flippedCards,
+        bangsPerTurn,
+        handLimit,
+        silentCard,
+        silentAbility,
+        playAs
+      ];
 }

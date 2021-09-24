@@ -63,3 +63,9 @@ extension Attributes on GPlayer {
     return attributes.flippedCards ?? 1;
   }
 }
+
+extension RegexMatching on GCard {
+  bool matchesRegex(String regex) {
+    return RegExp(regex).hasMatch('$name$value');
+  }
+}

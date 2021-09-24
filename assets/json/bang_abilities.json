@@ -547,7 +547,7 @@
     ]
   },
   {
-    "name": "drawAllCardsFromEliminatedPlayer",
+    "name": "drawAllCardsFromEliminated",
     "type": "triggered",
     "priority": 0,
     "canPlay": {

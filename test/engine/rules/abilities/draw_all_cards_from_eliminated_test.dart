@@ -19,7 +19,7 @@ void main() {
     final card2 = GCard(identifier: 'c2');
     final card3 = GCard(identifier: 'c3');
     final card4 = GCard(identifier: 'c4');
-    final player1 = GPlayer(identifier: 'p1', abilities: ['drawAllCardsFromEliminatedPlayer']);
+    final player1 = GPlayer(identifier: 'p1', abilities: ['drawAllCardsFromEliminated']);
     final player2 = GPlayer(identifier: 'p2', hand: [card1, card2], inPlay: [card3, card4]);
 
     final state = GState(players: [player1, player2], playOrder: ['p1']);
@@ -32,10 +32,7 @@ void main() {
     expect(
         moves,
         equals([
-          GMove(
-              ability: 'drawAllCardsFromEliminatedPlayer',
-              actor: 'p1',
-              args: PlayArgs(target: 'p2'))
+          GMove(ability: 'drawAllCardsFromEliminated', actor: 'p1', args: PlayArgs(target: 'p2'))
         ]));
     final events = sut.effects(moves.first, state);
     expect(
@@ -54,7 +51,7 @@ void main() {
     final card2 = GCard(identifier: 'c2');
     final player1 = GPlayer(
       identifier: 'p1',
-      abilities: ['drawAllCardsFromEliminatedPlayer'],
+      abilities: ['drawAllCardsFromEliminated'],
       hand: [card1],
       inPlay: [card2],
     );

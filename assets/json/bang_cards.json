@@ -1,14 +1,14 @@
 [
   {
-    "name": "player",
+    "name": "default",
     "desc": "",
     "type": "none",
     "abilities": [
-      "endTurn",
       "startTurnDrawing2Cards",
+      "endTurn",
       "nextTurnOnPhase3",
-      "nextTurnOnEliminated",
       "discardExcessCardsOnPhase3",
+      "nextTurnOnEliminated",
       "discardAllCardsOnEliminated",
       "draw3CardsOnEliminatingOutlaw"
     ]
@@ -277,7 +277,7 @@
     "attributes": {
       "bullets": 4
     },
-    "abilities": ["drawAllCardsFromEliminatedPlayer"]
+    "abilities": ["drawAllCardsFromEliminated"]
   },
   {
     "name": "sidKetchum",

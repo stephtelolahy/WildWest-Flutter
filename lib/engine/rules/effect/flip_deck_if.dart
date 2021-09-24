@@ -18,8 +18,7 @@ class FlipDeckIf extends Effect {
       result.add(GEventFlipDeck());
     }
     final cards = ctx.state.deck.sublist(0, amount);
-    final regExp = RegExp(regex);
-    final success = cards.any((e) => regExp.hasMatch(e.value));
+    final success = cards.any((e) => e.matchesRegex(regex));
     final effects = success ? thenEffects : elseEffects;
     effects.forEach((e) {
       result.addAll(e.apply(ctx));
