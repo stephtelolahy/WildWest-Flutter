@@ -21,7 +21,7 @@ void main() {
         hand: [GCard()]);
     final player2 = GPlayer(
       identifier: 'p2',
-      abilities: ['drawAllCardsFromEliminatedPlayer'],
+      abilities: ['drawAllCardsFromEliminated'],
     );
     final state = GState(players: [player1, player2], playOrder: ['p2'], turn: 'p1');
     final event = GEventEliminate(player: 'p1');
@@ -33,10 +33,7 @@ void main() {
     expect(
         moves,
         equals([
-          GMove(
-              ability: 'drawAllCardsFromEliminatedPlayer',
-              actor: 'p2',
-              args: PlayArgs(target: 'p1')),
+          GMove(ability: 'drawAllCardsFromEliminated', actor: 'p2', args: PlayArgs(target: 'p1')),
           GMove(ability: 'discardAllCardsOnEliminated', actor: 'p1'),
           GMove(ability: 'nextTurnOnEliminated', actor: 'p1'),
         ]));
