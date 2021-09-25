@@ -15,10 +15,10 @@ void main() {
 
   test('play generalstore if having cart', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['generalstore'], type: CardType.brown);
-    final player1 = GPlayer(identifier: 'p1', hand: [card1]);
-    final player2 = GPlayer(identifier: 'p2');
-    final player3 = GPlayer(identifier: 'p3');
+    final card1 = GCard(id: 'c1', abilities: ['generalstore'], type: CardType.brown);
+    final player1 = GPlayer(id: 'p1', hand: [card1]);
+    final player2 = GPlayer(id: 'p2');
+    final player3 = GPlayer(id: 'p3');
     final state = GState(
         players: [player1, player2, player3], playOrder: ['p2', 'p3', 'p1'], turn: 'p1', phase: 2);
 

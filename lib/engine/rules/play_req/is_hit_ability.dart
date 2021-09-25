@@ -11,8 +11,6 @@ class IsHitAbility extends PlayReq {
   @override
   bool match(PlayContext ctx, List<PlayArgs> args) {
     final hit = ctx.state.hit;
-    return hit != null &&
-        hit.players.first == ctx.actor.identifier &&
-        hit.abilities.contains(ability);
+    return hit != null && hit.players.first == ctx.actor.id && hit.abilities.contains(ability);
   }
 }

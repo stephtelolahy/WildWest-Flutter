@@ -15,8 +15,8 @@ void main() {
 
   test('dynamite explodes if flipped card is between 2 and 9 spades', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['dynamite']);
-    final player1 = GPlayer(identifier: 'p1', inPlay: [card1]);
+    final card1 = GCard(id: 'c1', abilities: ['dynamite']);
+    final player1 = GPlayer(id: 'p1', inPlay: [card1]);
     final state = GState(
       players: [player1],
       playOrder: ['p1'],
@@ -43,9 +43,9 @@ void main() {
 
   test('pass dynamite if flipped card is not between 2 and 9 spades', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['dynamite']);
-    final player1 = GPlayer(identifier: 'p1', inPlay: [card1]);
-    final player2 = GPlayer(identifier: 'p2');
+    final card1 = GCard(id: 'c1', abilities: ['dynamite']);
+    final player1 = GPlayer(id: 'p1', inPlay: [card1]);
+    final player2 = GPlayer(id: 'p2');
     final state = GState(
       players: [player1, player2],
       playOrder: ['p1', 'p2'],

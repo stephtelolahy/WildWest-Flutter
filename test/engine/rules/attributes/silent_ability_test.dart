@@ -16,7 +16,7 @@ void main() {
   test('do not trigger start turn if silenced', () {
     // Given
     final player1 = GPlayer(
-      identifier: 'p1',
+      id: 'p1',
       abilities: ['startTurnDrawing2Cards'],
       silentAbility: 'startTurnDrawing2Cards',
     );

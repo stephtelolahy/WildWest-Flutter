@@ -7,7 +7,7 @@ class GPlayer extends GCard {
   final List<GCard> inPlay;
 
   GPlayer({
-    identifier = '',
+    id = '',
     name = '',
     type = CardType.none,
     desc = '',
@@ -27,7 +27,7 @@ class GPlayer extends GCard {
     this.hand = const [],
     this.inPlay = const [],
   }) : super(
-          identifier: identifier,
+          id: id,
           name: name,
           type: type,
           desc: desc,
@@ -47,7 +47,7 @@ class GPlayer extends GCard {
   GPlayer.fromCard(GCard card,
       {this.role, required this.health, required this.hand, required this.inPlay})
       : super(
-            identifier: card.name,
+            id: card.name,
             name: card.name,
             type: card.type,
             desc: card.desc,
@@ -80,7 +80,7 @@ class GPlayer extends GCard {
         hand = List.from(player.hand),
         inPlay = List.from(player.inPlay),
         super(
-          identifier: player.identifier,
+          id: player.id,
           name: player.name,
           type: player.type,
           desc: player.desc,

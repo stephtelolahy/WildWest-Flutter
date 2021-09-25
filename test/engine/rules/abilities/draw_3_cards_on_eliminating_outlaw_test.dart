@@ -15,8 +15,8 @@ void main() {
 
   test('draw 3 cards on eliminating outlaw', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['draw3CardsOnEliminatingOutlaw']);
-    final player2 = GPlayer(identifier: 'p2', role: Role.outlaw);
+    final player1 = GPlayer(id: 'p1', abilities: ['draw3CardsOnEliminatingOutlaw']);
+    final player2 = GPlayer(id: 'p2', role: Role.outlaw);
     final state = GState(players: [player1, player2], playOrder: ['p1'], turn: 'p1');
     final event = GEventEliminate(player: 'p2');
 
@@ -38,7 +38,7 @@ void main() {
   test('do not draw 3 cards is eliminated as outlaw', () {
     // Given
     final player1 =
-        GPlayer(identifier: 'p1', role: Role.outlaw, abilities: ['draw3CardsOnEliminatingOutlaw']);
+        GPlayer(id: 'p1', role: Role.outlaw, abilities: ['draw3CardsOnEliminatingOutlaw']);
     final state = GState(players: [player1]);
     final event = GEventEliminate(player: 'p1');
 

@@ -13,7 +13,7 @@ class GEventGainHealth extends GEvent {
   @override
   GState? dispatch(GState aState) {
     final state = GState.copy(aState);
-    state.player(identifier: player).health += 1;
+    state.player(id: player).health += 1;
     return state;
   }
 

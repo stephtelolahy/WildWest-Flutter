@@ -14,7 +14,7 @@ class GEventEliminate extends GEvent {
   GState? dispatch(GState aState) {
     final state = GState.copy(aState);
     state.playOrder.remove(player);
-    state.player(identifier: player).health = 0;
+    state.player(id: player).health = 0;
     final hit = state.hit;
     if (hit != null) {
       hit.players.removeWhere((e) => e == player);

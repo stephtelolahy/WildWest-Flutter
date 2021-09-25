@@ -15,8 +15,8 @@ class GEventEquip extends GEvent {
   @override
   GState? dispatch(GState aState) {
     final state = GState.copy(aState);
-    final playerObject = state.player(identifier: player);
-    final handIndex = playerObject.hand.indexWhere((e) => e.identifier == card);
+    final playerObject = state.player(id: player);
+    final handIndex = playerObject.hand.indexWhere((e) => e.id == card);
     final cardObject = playerObject.hand.removeAt(handIndex);
     playerObject.inPlay.add(cardObject);
     return state;

@@ -15,8 +15,8 @@ void main() {
 
   test('escape from jail if flipped card is hearts', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['jail']);
-    final player1 = GPlayer(identifier: 'p1', inPlay: [card1]);
+    final card1 = GCard(id: 'c1', abilities: ['jail']);
+    final player1 = GPlayer(id: 'p1', inPlay: [card1]);
     final state = GState(
       players: [player1],
       playOrder: ['p1'],
@@ -41,9 +41,9 @@ void main() {
 
   test('stay in jail if flipped card is not hearts', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['jail']);
-    final player1 = GPlayer(identifier: 'p1', inPlay: [card1]);
-    final player2 = GPlayer(identifier: 'p2');
+    final card1 = GCard(id: 'c1', abilities: ['jail']);
+    final player1 = GPlayer(id: 'p1', inPlay: [card1]);
+    final player2 = GPlayer(id: 'p2');
     final state = GState(
       players: [player1, player2],
       playOrder: ['p1', 'p2'],

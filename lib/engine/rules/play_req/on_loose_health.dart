@@ -7,6 +7,6 @@ class OnLooseHealth extends PlayReq {
   @override
   bool match(PlayContext ctx, List<PlayArgs> args) {
     final event = ctx.event;
-    return event is GEventLooseHealth && event.player == ctx.actor.identifier;
+    return event is GEventLooseHealth && event.player == ctx.actor.id;
   }
 }

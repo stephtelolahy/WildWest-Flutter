@@ -15,8 +15,8 @@ void main() {
 
   test('can discard bang on duel to reverse hit', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['discardBangOnDuel'], type: CardType.brown);
-    final player1 = GPlayer(identifier: 'p1', hand: [card1]);
+    final card1 = GCard(id: 'c1', abilities: ['discardBangOnDuel'], type: CardType.brown);
+    final player1 = GPlayer(id: 'p1', hand: [card1]);
     final hit = GHit(name: 'duel', players: ['p1']);
     final state = GState(players: [player1], hit: hit);
 

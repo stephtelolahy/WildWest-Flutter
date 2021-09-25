@@ -15,9 +15,9 @@ void main() {
 
   test('should draw store', () {
     // Given
-    final card1 = GCard(identifier: 'c1');
-    final card2 = GCard(identifier: 'c2');
-    final player1 = GPlayer(identifier: 'p1');
+    final card1 = GCard(id: 'c1');
+    final card2 = GCard(id: 'c2');
+    final player1 = GPlayer(id: 'p1');
     final hit = GHit(players: ['p1', 'pX'], abilities: ['drawStore']);
     final state = GState(players: [player1], store: [card1, card2], hit: hit);
 

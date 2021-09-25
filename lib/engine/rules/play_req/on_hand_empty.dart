@@ -9,21 +9,19 @@ class OnHandEmpty extends PlayReq {
   bool match(PlayContext ctx, List<PlayArgs> args) {
     final event = ctx.event;
 
-    if (event is GEventEquip && event.player == ctx.actor.identifier && ctx.actor.hand.isEmpty) {
+    if (event is GEventEquip && event.player == ctx.actor.id && ctx.actor.hand.isEmpty) {
       return true;
     }
 
-    if (event is GEventHandicap && event.player == ctx.actor.identifier && ctx.actor.hand.isEmpty) {
+    if (event is GEventHandicap && event.player == ctx.actor.id && ctx.actor.hand.isEmpty) {
       return true;
     }
 
-    if (event is GEventDiscardHand &&
-        event.player == ctx.actor.identifier &&
-        ctx.actor.hand.isEmpty) {
+    if (event is GEventDiscardHand && event.player == ctx.actor.id && ctx.actor.hand.isEmpty) {
       return true;
     }
 
-    if (event is GEventDrawHand && event.other == ctx.actor.identifier && ctx.actor.hand.isEmpty) {
+    if (event is GEventDrawHand && event.other == ctx.actor.id && ctx.actor.hand.isEmpty) {
       return true;
     }
 

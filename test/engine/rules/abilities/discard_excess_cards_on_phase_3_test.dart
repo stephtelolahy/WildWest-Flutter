@@ -16,7 +16,7 @@ void main() {
   test('should discard excess cards on ending turn', () {
     // Given
     final player1 = GPlayer(
-        identifier: 'p1',
+        id: 'p1',
         abilities: ['discardExcessCardsOnPhase3'],
         health: 1,
         hand: [
@@ -46,8 +46,7 @@ void main() {
 
   test('discard excess hand', () {
     // Given
-    final player1 = GPlayer(
-        identifier: 'p1', health: 1, hand: [GCard(identifier: 'c1'), GCard(identifier: 'c2')]);
+    final player1 = GPlayer(id: 'p1', health: 1, hand: [GCard(id: 'c1'), GCard(id: 'c2')]);
     final hit =
         GHit(name: 'discardExcessCardsOnPhase3', players: ['p1'], abilities: ['discardSelfHand']);
     final state = GState(players: [player1], hit: hit);

@@ -15,7 +15,7 @@ void main() {
 
   test('trigger choice of start turn drawing first card from other player', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['startTurnChoosingDrawPlayer']);
+    final player1 = GPlayer(id: 'p1', abilities: ['startTurnChoosingDrawPlayer']);
     final state = GState(players: [player1], playOrder: ['p1'], turn: 'p1', phase: 1);
     final event = GEventIdle();
 
@@ -39,8 +39,8 @@ void main() {
 
   test('can start turn drawing first card from other player', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1');
-    final player2 = GPlayer(identifier: 'p2', hand: [GCard(identifier: 'c2')]);
+    final player1 = GPlayer(id: 'p1');
+    final player2 = GPlayer(id: 'p2', hand: [GCard(id: 'c2')]);
     final hit = GHit(
       name: 'startTurnChoosingDrawPlayer',
       players: ['p1'],

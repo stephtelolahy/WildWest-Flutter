@@ -91,10 +91,10 @@ void main() {
     expect(
         deck,
         equals([
-          GCard(identifier: 'n1-v11', name: 'n1', type: CardType.brown, value: 'v11'),
-          GCard(identifier: 'n1-v12', name: 'n1', type: CardType.brown, value: 'v12'),
-          GCard(identifier: 'n2-v21', name: 'n2', type: CardType.blue, value: 'v21'),
-          GCard(identifier: 'n2-v22', name: 'n2', type: CardType.blue, value: 'v22'),
+          GCard(id: 'n1-v11', name: 'n1', type: CardType.brown, value: 'v11'),
+          GCard(id: 'n1-v12', name: 'n1', type: CardType.brown, value: 'v12'),
+          GCard(id: 'n2-v21', name: 'n2', type: CardType.blue, value: 'v21'),
+          GCard(id: 'n2-v22', name: 'n2', type: CardType.blue, value: 'v22'),
         ]));
   });
 
@@ -119,7 +119,7 @@ void main() {
       GCard(name: 'sheriff', type: CardType.none, bullets: 1, abilities: ['sheriff']),
     ];
 
-    final deck = List.generate(20, (index) => GCard(identifier: 'c${index + 1}'));
+    final deck = List.generate(20, (index) => GCard(id: 'c${index + 1}'));
 
     // When
     final state = sut.game(roles: roles, figures: figures, defaults: defaults, deck: deck);
@@ -131,7 +131,7 @@ void main() {
 
     expect(state.players.length, equals(5));
     expect(state.playOrder.length, equals(5));
-    expect(state.turn, equals(sheriff.identifier));
+    expect(state.turn, equals(sheriff.id));
     expect(state.phase, 1);
     expect(state.discard, isEmpty);
     expect(state.store, isEmpty);

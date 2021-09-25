@@ -15,7 +15,7 @@ void main() {
 
   test('draws another card if second draw is red suit', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['startTurnDrawing1ExtraCardIfRedSuit']);
+    final player1 = GPlayer(id: 'p1', abilities: ['startTurnDrawing1ExtraCardIfRedSuit']);
     final state = GState(
         players: [player1],
         playOrder: ['p1'],
@@ -42,7 +42,7 @@ void main() {
 
   test('do not draw another card if second draw is not red suit', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['startTurnDrawing1ExtraCardIfRedSuit']);
+    final player1 = GPlayer(id: 'p1', abilities: ['startTurnDrawing1ExtraCardIfRedSuit']);
     final state = GState(
         players: [player1],
         playOrder: ['p1'],

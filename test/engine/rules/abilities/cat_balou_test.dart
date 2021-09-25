@@ -15,10 +15,10 @@ void main() {
 
   test('can play catBalou to discard other s hand', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['catBalou'], type: CardType.brown);
-    final player1 = GPlayer(identifier: 'p1', hand: [card1]);
-    final player2 = GPlayer(identifier: 'p2', hand: [GCard(identifier: 'c2')]);
-    final player3 = GPlayer(identifier: 'p3');
+    final card1 = GCard(id: 'c1', abilities: ['catBalou'], type: CardType.brown);
+    final player1 = GPlayer(id: 'p1', hand: [card1]);
+    final player2 = GPlayer(id: 'p2', hand: [GCard(id: 'c2')]);
+    final player3 = GPlayer(id: 'p3');
     final state = GState(
         players: [player1, player2, player3], playOrder: ['p1', 'p2', 'p3'], turn: 'p1', phase: 2);
 
@@ -47,10 +47,10 @@ void main() {
 
   test('can play catBalou to discard other s inPlay', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['catBalou'], type: CardType.brown);
-    final player1 = GPlayer(identifier: 'p1', hand: [card1]);
-    final player2 = GPlayer(identifier: 'p2', inPlay: [GCard(identifier: 'c2')]);
-    final player3 = GPlayer(identifier: 'p3');
+    final card1 = GCard(id: 'c1', abilities: ['catBalou'], type: CardType.brown);
+    final player1 = GPlayer(id: 'p1', hand: [card1]);
+    final player2 = GPlayer(id: 'p2', inPlay: [GCard(id: 'c2')]);
+    final player3 = GPlayer(id: 'p3');
     final state = GState(
         players: [player1, player2, player3], playOrder: ['p1', 'p2', 'p3'], turn: 'p1', phase: 2);
 

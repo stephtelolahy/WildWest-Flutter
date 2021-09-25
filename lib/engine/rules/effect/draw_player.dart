@@ -15,9 +15,9 @@ class DrawPlayer extends Effect {
     final playerId = player.get(ctx).first;
     final otherId = other.get(ctx).first;
     final cardIds = card.get(ctx, player: otherId);
-    final otherObject = ctx.state.player(identifier: otherId);
+    final otherObject = ctx.state.player(id: otherId);
     return cardIds.map((card) {
-      if (otherObject.hand.any((e) => e.identifier == card)) {
+      if (otherObject.hand.any((e) => e.id == card)) {
         return GEventDrawHand(player: playerId, other: otherId, card: card);
       } else {
         return GEventDrawInPlay(player: playerId, other: otherId, card: card);

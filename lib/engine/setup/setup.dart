@@ -57,7 +57,7 @@ class GSetup {
       final hand = List.generate(health, (_) => deck.removeAt(0));
       players.add(GPlayer.fromCard(card, role: role, health: health, hand: hand, inPlay: []));
     }
-    final playOrder = players.map((e) => e.identifier).toList();
+    final playOrder = players.map((e) => e.id).toList();
     return GState(
       players: players,
       playOrder: playOrder,
@@ -76,7 +76,7 @@ class GSetup {
 
 extension Merging on GCard {
   GCard settingValue(String value) => GCard(
-        identifier: '$name-$value',
+        id: '$name-$value',
         name: name,
         desc: desc,
         type: type,
@@ -85,7 +85,7 @@ extension Merging on GCard {
       );
 
   GCard mergeWith(GCard other) => GCard(
-        identifier: identifier,
+        id: id,
         name: name,
         type: type,
         desc: desc,

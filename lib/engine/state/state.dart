@@ -48,5 +48,5 @@ class GState {
 }
 
 extension GettingPlayer on GState {
-  GPlayer player({identifier: String}) => players.firstWhere((e) => e.identifier == identifier);
+  GPlayer player({id: String}) => players.firstWhere((e) => e.id == id);
 }

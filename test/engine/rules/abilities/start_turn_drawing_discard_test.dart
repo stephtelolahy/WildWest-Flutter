@@ -15,7 +15,7 @@ void main() {
 
   test('trigger choice of start turn drawing from discard', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['startTurnChoosingDrawDiscard']);
+    final player1 = GPlayer(id: 'p1', abilities: ['startTurnChoosingDrawDiscard']);
     final state = GState(players: [player1], playOrder: ['p1'], turn: 'p1', phase: 1);
     final event = GEventIdle();
 
@@ -39,7 +39,7 @@ void main() {
 
   test('can start turn drawing from discard', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1');
+    final player1 = GPlayer(id: 'p1');
     final hit = GHit(
       name: 'startTurnChoosingDrawDiscard',
       players: ['p1'],

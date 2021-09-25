@@ -1,7 +1,7 @@
 part of 'state.dart';
 
 class GCard extends Equatable {
-  final String identifier;
+  final String id;
   final String name;
   final CardType type;
   final String desc;
@@ -19,7 +19,7 @@ class GCard extends Equatable {
   final Map<String, dynamic>? playAs; // can play card matching [regex] with ability [name]
 
   GCard({
-    this.identifier = '',
+    this.id = '',
     this.name = '',
     this.type = CardType.none,
     this.desc = '',
@@ -38,7 +38,7 @@ class GCard extends Equatable {
   });
 
   GCard.fromJson(Map<String, dynamic> json)
-      : identifier = '',
+      : id = '',
         name = json['name'],
         type = EnumToString.fromString(CardType.values, json['type'])!,
         desc = json['desc'],
@@ -57,7 +57,7 @@ class GCard extends Equatable {
 
   @override
   List<Object?> get props => [
-        identifier,
+        id,
         name,
         type,
         desc,

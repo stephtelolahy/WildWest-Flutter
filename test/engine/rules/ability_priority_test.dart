@@ -16,11 +16,11 @@ void main() {
   test('trigger special abilities before default abilities if eliminated', () {
     // Given
     final player1 = GPlayer(
-        identifier: 'p1',
+        id: 'p1',
         abilities: ['nextTurnOnEliminated', 'discardAllCardsOnEliminated'],
         hand: [GCard()]);
     final player2 = GPlayer(
-      identifier: 'p2',
+      id: 'p2',
       abilities: ['drawAllCardsFromEliminated'],
     );
     final state = GState(players: [player1, player2], playOrder: ['p2'], turn: 'p1');
@@ -41,10 +41,10 @@ void main() {
 
   test('trigger dynamite before jail', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['jail']);
-    final card2 = GCard(identifier: 'c2', abilities: ['dynamite']);
-    final player1 = GPlayer(identifier: 'p1', inPlay: [card1, card2]);
-    final player2 = GPlayer(identifier: 'p2');
+    final card1 = GCard(id: 'c1', abilities: ['jail']);
+    final card2 = GCard(id: 'c2', abilities: ['dynamite']);
+    final player1 = GPlayer(id: 'p1', inPlay: [card1, card2]);
+    final player2 = GPlayer(id: 'p2');
     final state =
         GState(players: [player1, player2], playOrder: ['p1', 'p2'], turn: 'p1', deck: [GCard()]);
     final event = GEventSetPhase(phase: 1);

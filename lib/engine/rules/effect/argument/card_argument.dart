@@ -30,21 +30,21 @@ extension GettingCards on CardArgument {
       case CardArgument.requiredTargetCard:
         String cardId = ctx.args!.requiredTargetCard!;
         if (cardId.isEmpty) {
-          final playerObject = ctx.state.player(identifier: player);
-          cardId = playerObject.hand.randomElement().identifier;
+          final playerObject = ctx.state.player(id: player);
+          cardId = playerObject.hand.randomElement().id;
         }
         return [cardId];
 
       case CardArgument.allCards:
-        final playerObject = ctx.state.player(identifier: player);
-        return (playerObject.hand + playerObject.inPlay).map((e) => e.identifier).toList();
+        final playerObject = ctx.state.player(id: player);
+        return (playerObject.hand + playerObject.inPlay).map((e) => e.id).toList();
 
       case CardArgument.randomHand:
-        final playerObject = ctx.state.player(identifier: player);
+        final playerObject = ctx.state.player(id: player);
         if (playerObject.hand.isEmpty) {
           return [];
         }
-        return [playerObject.hand.randomElement().identifier];
+        return [playerObject.hand.randomElement().id];
 
       case CardArgument.requiredHand:
         return ctx.args!.requiredHand;

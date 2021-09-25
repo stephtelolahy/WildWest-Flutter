@@ -15,10 +15,10 @@ void main() {
 
   test('can play bang if other is reachable', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['bang'], type: CardType.brown);
-    final player1 = GPlayer(identifier: 'p1', hand: [card1]);
-    final player2 = GPlayer(identifier: 'p2');
-    final player3 = GPlayer(identifier: 'p3', mustang: 2);
+    final card1 = GCard(id: 'c1', abilities: ['bang'], type: CardType.brown);
+    final player1 = GPlayer(id: 'p1', hand: [card1]);
+    final player2 = GPlayer(id: 'p2');
+    final player3 = GPlayer(id: 'p3', mustang: 2);
     final state = GState(
         players: [player1, player2, player3], playOrder: ['p1', 'p2', 'p3'], turn: 'p1', phase: 2);
 
@@ -42,9 +42,9 @@ void main() {
 
   test('cannot play bang if reached limit per turn', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['bang'], type: CardType.brown);
-    final player1 = GPlayer(identifier: 'p1', hand: [card1]);
-    final player2 = GPlayer(identifier: 'p2');
+    final card1 = GCard(id: 'c1', abilities: ['bang'], type: CardType.brown);
+    final player1 = GPlayer(id: 'p1', hand: [card1]);
+    final player2 = GPlayer(id: 'p2');
     final state = GState(
       players: [player1, player2],
       playOrder: ['p1', 'p2'],

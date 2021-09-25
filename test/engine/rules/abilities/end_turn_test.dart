@@ -15,7 +15,7 @@ void main() {
 
   test('can end turn if your turn phase 2', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['endTurn']);
+    final player1 = GPlayer(id: 'p1', abilities: ['endTurn']);
     final state = GState(players: [player1], turn: 'p1', phase: 2);
 
     // When

@@ -15,8 +15,8 @@ void main() {
 
   test('can play stagecoach if some holding card', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['stagecoach'], type: CardType.brown);
-    final player1 = GPlayer(identifier: 'p1', hand: [card1]);
+    final card1 = GCard(id: 'c1', abilities: ['stagecoach'], type: CardType.brown);
+    final player1 = GPlayer(id: 'p1', hand: [card1]);
     final state = GState(players: [player1], turn: 'p1', phase: 2);
 
     // When

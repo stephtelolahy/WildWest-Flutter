@@ -15,8 +15,8 @@ void main() {
 
   test('can play beer if damaged', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['beer'], type: CardType.brown);
-    final player1 = GPlayer(identifier: 'p1', bullets: 4, health: 3, hand: [card1]);
+    final card1 = GCard(id: 'c1', abilities: ['beer'], type: CardType.brown);
+    final player1 = GPlayer(id: 'p1', bullets: 4, health: 3, hand: [card1]);
     final state = GState(players: [player1], turn: 'p1', phase: 2, playOrder: ['p1', 'p2', 'p3']);
 
     // When
@@ -35,8 +35,8 @@ void main() {
 
   test('cannot play beer if max health', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['beer'], type: CardType.brown);
-    final player1 = GPlayer(identifier: 'p1', bullets: 4, health: 4, hand: [card1]);
+    final card1 = GCard(id: 'c1', abilities: ['beer'], type: CardType.brown);
+    final player1 = GPlayer(id: 'p1', bullets: 4, health: 4, hand: [card1]);
     final state = GState(players: [player1], turn: 'p1', phase: 2, playOrder: ['p1', 'p2', 'p3']);
 
     // When
@@ -48,8 +48,8 @@ void main() {
 
   test('cannot play beer if two players left', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['beer'], type: CardType.brown);
-    final player1 = GPlayer(identifier: 'p1', bullets: 4, health: 3, hand: [card1]);
+    final card1 = GCard(id: 'c1', abilities: ['beer'], type: CardType.brown);
+    final player1 = GPlayer(id: 'p1', bullets: 4, health: 3, hand: [card1]);
     final state = GState(players: [player1], turn: 'p1', phase: 2, playOrder: ['p1', 'p2']);
 
     // When

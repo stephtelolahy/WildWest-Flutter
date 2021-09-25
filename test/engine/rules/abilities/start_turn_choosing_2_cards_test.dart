@@ -15,7 +15,7 @@ void main() {
 
   test('trigger start turn choosing 2 cards from deck', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['startTurnChoosing2CardsFromDeck']);
+    final player1 = GPlayer(id: 'p1', abilities: ['startTurnChoosing2CardsFromDeck']);
     final state = GState(players: [player1], playOrder: ['p1'], turn: 'p1', phase: 1);
     final event = GEventIdle();
 
@@ -39,7 +39,7 @@ void main() {
 
   test('must choose two cards from deck to start turn', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1');
+    final player1 = GPlayer(id: 'p1');
     final hit = GHit(
       name: 'startTurnChoosing2CardsFromDeck',
       players: ['p1'],
@@ -49,9 +49,9 @@ void main() {
         players: [player1],
         hit: hit,
         deck: [
-          GCard(identifier: 'c1'),
-          GCard(identifier: 'c2'),
-          GCard(identifier: 'c3'),
+          GCard(id: 'c1'),
+          GCard(id: 'c2'),
+          GCard(id: 'c3'),
         ]);
 
     // When

@@ -61,8 +61,8 @@ extension Appending on List<PlayArgs> {
         return false;
       }
 
-      final playerObject = state.player(identifier: target);
-      List<String> cards = playerObject.inPlay.map((e) => e.identifier).toList();
+      final playerObject = state.player(id: target);
+      List<String> cards = playerObject.inPlay.map((e) => e.id).toList();
       if (playerObject.hand.isNotEmpty) {
         cards.add('');
       }

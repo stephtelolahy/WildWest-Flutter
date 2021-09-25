@@ -14,13 +14,13 @@ void main() {
 
   test('play missed as bang', () {
     // Given
-    final card1 = GCard(identifier: 'c1', name: 'missed');
+    final card1 = GCard(id: 'c1', name: 'missed');
     final player1 = GPlayer(
-      identifier: 'p1',
+      id: 'p1',
       playAs: {'missed': 'bang'},
       hand: [card1],
     );
-    final player2 = GPlayer(identifier: 'p2');
+    final player2 = GPlayer(id: 'p2');
     final state = GState(
       players: [player1, player2],
       turn: 'p1',
@@ -38,9 +38,9 @@ void main() {
 
   test('play bang as missed', () {
     // Given
-    final card1 = GCard(identifier: 'c1', name: 'bang');
+    final card1 = GCard(id: 'c1', name: 'bang');
     final player1 = GPlayer(
-      identifier: 'p1',
+      id: 'p1',
       playAs: {'bang': 'missed'},
       hand: [card1],
     );

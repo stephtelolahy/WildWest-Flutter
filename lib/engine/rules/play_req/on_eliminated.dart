@@ -7,6 +7,6 @@ class OnEliminated extends PlayReq {
   @override
   bool match(PlayContext ctx, List<PlayArgs> args) {
     final event = ctx.event;
-    return event is GEventEliminate && event.player == ctx.actor.identifier;
+    return event is GEventEliminate && event.player == ctx.actor.id;
   }
 }

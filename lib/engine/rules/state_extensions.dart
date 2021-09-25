@@ -17,9 +17,9 @@ extension Distance on GState {
         (fromIndex > toIndex) ? (fromIndex - toIndex) : (fromIndex + count - toIndex);
     var distance = min(rightDistance, leftDistance);
 
-    distance -= player(identifier: from).currentScope();
+    distance -= player(id: from).currentScope();
 
-    distance += player(identifier: to).currentMustang();
+    distance += player(id: to).currentMustang();
 
     return distance;
   }
