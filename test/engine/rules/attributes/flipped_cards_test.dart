@@ -18,7 +18,7 @@ void main() {
     final card1 = GCard(identifier: 'c1', abilities: ['dynamite']);
     final player1 = GPlayer(
       identifier: 'p1',
-      attributes: CardAttributes(flippedCards: 2),
+      flippedCards: 2,
       inPlay: [card1],
     );
     final player2 = GPlayer(identifier: 'p2');

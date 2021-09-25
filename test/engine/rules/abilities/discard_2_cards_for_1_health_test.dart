@@ -18,7 +18,7 @@ void main() {
     final player1 = GPlayer(
       identifier: 'p1',
       health: 2,
-      attributes: CardAttributes(bullets: 4),
+      bullets: 4,
       abilities: ['discard2CardsFor1Health'],
       hand: [
         GCard(identifier: 'c1'),

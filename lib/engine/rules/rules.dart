@@ -210,7 +210,7 @@ class GRules {
     final cardObject = ctx.actor.hand.firstWhere((e) => e.identifier == handCard);
     if (event is GEventHandicap) {
       final targetObject = ctx.state.player(identifier: event.other);
-      final silentCard = targetObject.attributes.silentCard;
+      final silentCard = targetObject.silentCard;
       if (silentCard != null && cardObject.matchesRegex(silentCard)) {
         return true;
       }
@@ -219,12 +219,12 @@ class GRules {
   }
 
   bool _isAbilitySilenced(String ability, GPlayer player) {
-    return player.attributes.silentAbility == ability;
+    return player.silentAbility == ability;
   }
 
   List<String> _abilitiesApplicableToHand(GCard card, GPlayer player) {
     final result = List<String>.from(card.abilities);
-    final playAs = player.attributes.playAs;
+    final playAs = player.playAs;
     if (playAs != null) {
       for (var key in playAs.keys) {
         if (card.matchesRegex(key)) {

@@ -11,8 +11,17 @@ class GPlayer extends GCard {
     name = '',
     type = CardType.none,
     desc = '',
-    attributes = const CardAttributes(),
     abilities = const <String>[],
+    bullets,
+    mustang,
+    scope,
+    weapon,
+    flippedCards,
+    bangsPerTurn,
+    handLimit,
+    silentCard,
+    silentAbility,
+    playAs,
     this.role,
     this.health = 0,
     this.hand = const [],
@@ -22,9 +31,48 @@ class GPlayer extends GCard {
           name: name,
           type: type,
           desc: desc,
-          attributes: attributes,
           abilities: abilities,
+          bullets: bullets,
+          mustang: mustang,
+          scope: scope,
+          weapon: weapon,
+          flippedCards: flippedCards,
+          bangsPerTurn: bangsPerTurn,
+          handLimit: handLimit,
+          silentCard: silentCard,
+          silentAbility: silentAbility,
+          playAs: playAs,
         );
+
+  GPlayer.fromCard(GCard card,
+      {this.role, required this.health, required this.hand, required this.inPlay})
+      : super(
+            identifier: card.name,
+            name: card.name,
+            type: card.type,
+            desc: card.desc,
+            value: card.value,
+            abilities: card.abilities,
+            bullets: card.bullets,
+            mustang: card.mustang,
+            scope: card.scope,
+            weapon: card.weapon,
+            flippedCards: card.flippedCards,
+            bangsPerTurn: card.bangsPerTurn,
+            handLimit: card.handLimit,
+            silentCard: card.silentCard,
+            silentAbility: card.silentAbility,
+            playAs: card.playAs);
+
+  @override
+  List<Object?> get props =>
+      super.props +
+      [
+        role,
+        health,
+        hand,
+        inPlay,
+      ];
 
   GPlayer.copy(GPlayer player)
       : role = player.role,
@@ -36,7 +84,6 @@ class GPlayer extends GCard {
           name: player.name,
           type: player.type,
           desc: player.desc,
-          attributes: player.attributes,
           abilities: player.abilities,
         );
 }

@@ -30,9 +30,8 @@ class Equip extends Effect {
     List<GEvent> result = [GEventEquip(player: playerId, card: cardId)];
 
     // <RULE> discard previous weapon if playing new one
-    if (cardObject.attributes.weapon != null &&
-        playerObject.inPlay.any((e) => e.attributes.weapon != null)) {
-      final previousWeapon = playerObject.inPlay.firstWhere((e) => e.attributes.weapon != null);
+    if (cardObject.weapon != null && playerObject.inPlay.any((e) => e.weapon != null)) {
+      final previousWeapon = playerObject.inPlay.firstWhere((e) => e.weapon != null);
       result.add(GEventDiscardInPlay(player: playerId, card: previousWeapon.identifier));
     }
     // </RULE>

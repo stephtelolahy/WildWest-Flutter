@@ -16,10 +16,9 @@ void main() {
   test('can play saloon if some player damaged', () {
     // Given
     final card1 = GCard(identifier: 'c1', abilities: ['saloon'], type: CardType.brown);
-    final player1 =
-        GPlayer(identifier: 'p1', hand: [card1], health: 4, attributes: CardAttributes(bullets: 4));
-    final player2 = GPlayer(identifier: 'p2', health: 1, attributes: CardAttributes(bullets: 4));
-    final player3 = GPlayer(identifier: 'p3', health: 3, attributes: CardAttributes(bullets: 4));
+    final player1 = GPlayer(identifier: 'p1', hand: [card1], health: 4, bullets: 4);
+    final player2 = GPlayer(identifier: 'p2', health: 1, bullets: 4);
+    final player3 = GPlayer(identifier: 'p3', health: 3, bullets: 4);
     final state = GState(
         players: [player1, player2, player3], playOrder: ['p3', 'p1', 'p2'], turn: 'p1', phase: 2);
 
@@ -41,9 +40,8 @@ void main() {
   test('cannot play saloon if all players full life', () {
     // Given
     final card1 = GCard(identifier: 'c1', abilities: ['saloon'], type: CardType.brown);
-    final player1 =
-        GPlayer(identifier: 'p1', hand: [card1], health: 4, attributes: CardAttributes(bullets: 4));
-    final player2 = GPlayer(identifier: 'p2', health: 4, attributes: CardAttributes(bullets: 4));
+    final player1 = GPlayer(identifier: 'p1', hand: [card1], health: 4, bullets: 4);
+    final player2 = GPlayer(identifier: 'p2', health: 4, bullets: 4);
     final state =
         GState(players: [player1, player2], playOrder: ['p1', 'p2'], turn: 'p1', phase: 2);
 

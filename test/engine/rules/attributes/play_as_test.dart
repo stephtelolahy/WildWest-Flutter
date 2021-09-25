@@ -17,7 +17,7 @@ void main() {
     final card1 = GCard(identifier: 'c1', name: 'missed');
     final player1 = GPlayer(
       identifier: 'p1',
-      attributes: CardAttributes(playAs: {'missed': 'bang'}),
+      playAs: {'missed': 'bang'},
       hand: [card1],
     );
     final player2 = GPlayer(identifier: 'p2');
@@ -41,7 +41,7 @@ void main() {
     final card1 = GCard(identifier: 'c1', name: 'bang');
     final player1 = GPlayer(
       identifier: 'p1',
-      attributes: CardAttributes(playAs: {'bang': 'missed'}),
+      playAs: {'bang': 'missed'},
       hand: [card1],
     );
     final hit = GHit(name: 'gatling', players: ['p1'], abilities: ['cancelShoot']);

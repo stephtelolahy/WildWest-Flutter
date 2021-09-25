@@ -24,15 +24,7 @@ class GSetup {
   List<GCard> deck({required List<GCard> cards, required List<CardValue> values}) {
     return values.map((cardValue) {
       final card = cards.firstWhere((e) => e.name == cardValue.name);
-      return GCard(
-        identifier: '${card.name}-${cardValue.value}',
-        name: card.name,
-        desc: card.desc,
-        type: card.type,
-        abilities: card.abilities,
-        attributes: card.attributes,
-        value: cardValue.value,
-      );
+      return card.settingValue(cardValue.value);
     }).toList();
   }
 
@@ -55,31 +47,15 @@ class GSetup {
       final role = roles[i];
       final figure = figures[i];
 
-      var attributes = figure.attributes;
-      var abilities = List<String>.from(figure.abilities);
-
-      attributes = attributes.mergeWith(defaultFigure.attributes);
-      abilities.addAll(defaultFigure.abilities);
-
+      var card = figure.mergeWith(defaultFigure);
       if (role == Role.sheriff) {
         sheriff = figure.name;
-        attributes = attributes.mergeWith(sheriffFigure.attributes);
-        abilities.addAll(sheriffFigure.abilities);
+        card = card.mergeWith(sheriffFigure);
       }
 
-      final health = attributes.bullets!;
+      final health = card.bullets!;
       final hand = List.generate(health, (_) => deck.removeAt(0));
-      players.add(GPlayer(
-        identifier: figure.name,
-        name: figure.name,
-        desc: figure.desc,
-        attributes: attributes,
-        abilities: abilities,
-        role: role,
-        health: health,
-        hand: hand,
-        inPlay: [],
-      ));
+      players.add(GPlayer.fromCard(card, role: role, health: health, hand: hand, inPlay: []));
     }
     final playOrder = players.map((e) => e.identifier).toList();
     return GState(
@@ -98,8 +74,23 @@ class GSetup {
   }
 }
 
-extension Merging on CardAttributes {
-  CardAttributes mergeWith(CardAttributes other) => CardAttributes(
+extension Merging on GCard {
+  GCard settingValue(String value) => GCard(
+        identifier: '$name-$value',
+        name: name,
+        desc: desc,
+        type: type,
+        abilities: abilities,
+        value: value,
+      );
+
+  GCard mergeWith(GCard other) => GCard(
+        identifier: identifier,
+        name: name,
+        type: type,
+        desc: desc,
+        value: value,
+        abilities: abilities + other.abilities,
         bullets: [bullets, other.bullets].sum(),
         mustang: [mustang, other.mustang].sum(),
         scope: [scope, other.scope].sum(),

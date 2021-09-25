@@ -107,21 +107,16 @@ void main() {
         (index) => GCard(
               name: 'p${index + 1}',
               type: CardType.figure,
-              attributes: CardAttributes(bullets: 3),
+              bullets: 3,
             ));
 
     final defaults = [
       GCard(
         name: 'default',
         type: CardType.none,
-        attributes: CardAttributes(),
         abilities: ['default'],
       ),
-      GCard(
-          name: 'sheriff',
-          type: CardType.none,
-          attributes: CardAttributes(bullets: 1),
-          abilities: ['sheriff']),
+      GCard(name: 'sheriff', type: CardType.none, bullets: 1, abilities: ['sheriff']),
     ];
 
     final deck = List.generate(20, (index) => GCard(identifier: 'c${index + 1}'));
@@ -147,13 +142,13 @@ void main() {
 
     expect(sheriff.abilities, contains('sheriff'));
     expect(sheriff.abilities, contains('default'));
-    expect(sheriff.attributes, equals(CardAttributes(bullets: 4)));
+    expect(sheriff.bullets, equals(4));
     expect(sheriff.health, equals(4));
     expect(sheriff.hand.length, equals(4));
     expect(sheriff.inPlay, isEmpty);
 
     expect(other.abilities, contains('default'));
-    expect(other.attributes, equals(CardAttributes(bullets: 3)));
+    expect(other.bullets, equals(3));
     expect(other.health, equals(3));
     expect(other.hand.length, equals(3));
     expect(other.inPlay, isEmpty);

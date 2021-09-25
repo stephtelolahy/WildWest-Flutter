@@ -17,33 +17,33 @@ extension Distance on GState {
         (fromIndex > toIndex) ? (fromIndex - toIndex) : (fromIndex + count - toIndex);
     var distance = min(rightDistance, leftDistance);
 
-    distance -= player(identifier: from).scope();
+    distance -= player(identifier: from).currentScope();
 
-    distance += player(identifier: to).mustang();
+    distance += player(identifier: to).currentMustang();
 
     return distance;
   }
 }
 
 extension Attributes on GPlayer {
-  int weapon() {
+  int currentWeapon() {
     final cards = inPlay + [this];
-    return cards.map((e) => e.attributes.weapon ?? 1).reduce(max);
+    return cards.map((e) => e.weapon ?? 1).reduce(max);
   }
 
-  int scope() {
+  int currentScope() {
     final cards = inPlay + [this];
-    return cards.map((e) => e.attributes.scope ?? 0).reduce((a, b) => a + b);
+    return cards.map((e) => e.scope ?? 0).reduce((a, b) => a + b);
   }
 
-  int mustang() {
+  int currentMustang() {
     final cards = inPlay + [this];
-    return cards.map((e) => e.attributes.mustang ?? 0).reduce((a, b) => a + b);
+    return cards.map((e) => e.mustang ?? 0).reduce((a, b) => a + b);
   }
 
-  int bangsPerTurn() {
+  int currentBangsPerTurn() {
     final cards = inPlay + [this];
-    final values = cards.map((e) => e.attributes.bangsPerTurn).whereType<int>();
+    final values = cards.map((e) => e.bangsPerTurn).whereType<int>();
     if (values.isNotEmpty) {
       return values.reduce(max);
     } else {
@@ -51,16 +51,12 @@ extension Attributes on GPlayer {
     }
   }
 
-  int handLimit() {
-    return attributes.handLimit ?? health;
+  int maxHand() {
+    return handLimit ?? health;
   }
 
   int maxHealth() {
-    return attributes.bullets ?? 0;
-  }
-
-  int flippedCards() {
-    return attributes.flippedCards ?? 1;
+    return bullets ?? 0;
   }
 }
 

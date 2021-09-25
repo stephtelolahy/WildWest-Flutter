@@ -13,7 +13,7 @@ class FlipDeckIf extends Effect {
   @override
   List<GEvent> apply(PlayContext ctx) {
     final List<GEvent> result = [];
-    final amount = ctx.actor.flippedCards();
+    final amount = ctx.actor.flippedCards ?? 1;
     for (var i = 0; i < amount; i++) {
       result.add(GEventFlipDeck());
     }
