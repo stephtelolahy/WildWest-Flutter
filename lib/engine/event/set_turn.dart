@@ -11,7 +11,13 @@ class GEventSetTurn extends GEvent {
   });
 
   @override
-  GState dispatch(GState state) {
-    throw UnimplementedError();
+  GState dispatch(GState aState) {
+    final state = GState.copy(aState);
+    state.turn = player;
+    state.played.clear();
+    return state;
   }
+
+  @override
+  Duration duration() => DEFAULT_EVENT_DURATION;
 }
