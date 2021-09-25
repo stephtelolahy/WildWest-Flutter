@@ -12,6 +12,20 @@ class GEventEliminate extends GEvent {
 
   @override
   GState? dispatch(GState aState) {
-    throw UnimplementedError();
+    final state = GState.copy(aState);
+    state.playOrder.remove(player);
+    state.player(identifier: player).health = 0;
+    final hit = state.hit;
+    if (hit != null) {
+      hit.players.removeWhere((e) => e == player);
+      if (hit.players.isEmpty) {
+        state.hit = null;
+      }
+    }
+
+    return state;
   }
+
+  @override
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }
