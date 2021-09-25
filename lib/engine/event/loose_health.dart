@@ -12,6 +12,11 @@ class GEventLooseHealth extends GEvent {
 
   @override
   GState? dispatch(GState aState) {
-    throw UnimplementedError();
+    final state = GState.copy(aState);
+    state.player(identifier: player).health -= 1;
+    return state;
   }
+
+  @override
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }

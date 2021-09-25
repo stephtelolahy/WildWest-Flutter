@@ -13,7 +13,7 @@ class GEventSetHit extends GEvent {
   @override
   GState? dispatch(GState aState) {
     if (aState.hit != null) {
-      throw UnsupportedError('A hit is already settled');
+      throw UnsupportedError('A hit is already setted');
     }
 
     final state = GState.copy(aState);

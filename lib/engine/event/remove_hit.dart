@@ -12,7 +12,9 @@ class GEventRemoveHit extends GEvent {
 
   @override
   GState? dispatch(GState aState) {
-    final hit = aState.hit;
+    final state = GState.copy(aState);
+
+    final hit = state.hit;
     if (hit == null) {
       throw UnsupportedError('Missing hit');
     }
@@ -22,16 +24,13 @@ class GEventRemoveHit extends GEvent {
       throw UnsupportedError('Player not found');
     }
 
-    final state = GState.copy(aState);
     hit.players.removeAt(index);
 
     if (index < hit.targets.length) {
       hit.targets.removeAt(index);
     }
 
-    if (hit.players.isNotEmpty) {
-      state.hit = hit;
-    } else {
+    if (hit.players.isEmpty) {
       state.hit = null;
     }
 
