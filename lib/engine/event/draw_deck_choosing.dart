@@ -14,6 +14,13 @@ class GEventDrawDeckChoosing extends GEvent {
 
   @override
   GState? dispatch(GState aState) {
-    throw UnimplementedError();
+    final state = GState.copy(aState);
+    final index = state.deck.indexWhere((e) => e.id == card);
+    final cardObject = state.deck.removeAt(index);
+    state.player(id: player).hand.add(cardObject);
+    return state;
   }
+
+  @override
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }
