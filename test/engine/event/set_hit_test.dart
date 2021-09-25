@@ -22,5 +22,6 @@ void main() {
     expect(result.hit?.players, equals(['p1', 'p2']));
     expect(result.hit?.abilities, equals(['a1', 'a2']));
     expect(result.hit?.targets, equals(['t1', 't2']));
+    expect(event.duration(), isNotNull);
   });
 }

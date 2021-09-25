@@ -17,5 +17,6 @@ void main() {
     // Assert
     expect(result.player(identifier: 'p1').hand, isEmpty);
     expect(result.discard.map((e) => e.identifier), equals(['c1', 'c2']));
+    expect(event.duration(), isNotNull);
   });
 }

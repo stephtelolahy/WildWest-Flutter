@@ -25,5 +25,6 @@ void main() {
 
     // Assert
     expect(result.played, isEmpty);
+    expect(event.duration(), isNotNull);
   });
 }

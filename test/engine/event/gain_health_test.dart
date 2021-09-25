@@ -3,16 +3,16 @@ import 'package:wildwest_flutter/engine/event/event.dart';
 import 'package:wildwest_flutter/engine/state/state.dart';
 
 void main() {
-  test('update flag if setting phase', () {
+  test('increment player health if gaining health', () {
     // Given
-    final state = GState(phase: 1);
-    final event = GEventSetPhase(phase: 2);
+    final state = GState(players: [GPlayer(identifier: 'p1', health: 3)]);
+    final event = GEventGainHealth(player: 'p1');
 
     // When
     final result = event.dispatch(state)!;
 
     // Assert
-    expect(result.phase, equals(2));
+    expect(result.player(identifier: 'p1').health, equals(4));
     expect(event.duration(), isNotNull);
   });
 }
