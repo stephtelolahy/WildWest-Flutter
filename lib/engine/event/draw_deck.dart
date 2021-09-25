@@ -29,4 +29,7 @@ class GEventDrawDeck extends GEvent {
       state.deck.addAll(cards);
     }
   }
+
+  @override
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }

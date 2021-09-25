@@ -12,6 +12,9 @@ class GEventDrawDeckFlipping extends GEvent {
 
   @override
   GState? dispatch(GState aState) {
-    throw UnimplementedError();
+    return GEventDrawDeck(player: player).dispatch(aState);
   }
+
+  @override
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }
