@@ -3,8 +3,8 @@ part of 'state.dart';
 class GPlayer extends GCard {
   final Role? role;
   int health;
-  List<GCard> hand;
-  List<GCard> inPlay;
+  final List<GCard> hand;
+  final List<GCard> inPlay;
 
   GPlayer({
     identifier = '',

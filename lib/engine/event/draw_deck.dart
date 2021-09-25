@@ -12,6 +12,9 @@ class GEventDrawDeck extends GEvent {
 
   @override
   GState? dispatch(GState aState) {
-    throw UnimplementedError();
+    final state = GState.copy(aState);
+    final card = state.deck.removeAt(0);
+    state.player(identifier: player).hand.add(card);
+    return state;
   }
 }
