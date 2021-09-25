@@ -6,6 +6,6 @@ class GEventIdle extends GEvent {
 
   @override
   GState? dispatch(GState aState) {
-    throw UnimplementedError();
+    return null;
   }
 }
