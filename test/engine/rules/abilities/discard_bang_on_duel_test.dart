@@ -30,7 +30,7 @@ void main() {
         events,
         equals([
           GEventDiscardHand(player: 'p1', card: 'c1'),
-          GEventReverseHit(player: 'p1'),
+          GEventReverseHit(),
         ]));
   });
 }
