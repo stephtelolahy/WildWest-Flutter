@@ -1,10 +1,10 @@
 part of 'event.dart';
 
-class GEventDrawDeckChoosing extends GEvent {
+class GEventDrawDeckCard extends GEvent {
   final String player;
   final String card;
 
-  GEventDrawDeckChoosing({
+  GEventDrawDeckCard({
     required this.player,
     required this.card,
   });

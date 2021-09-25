@@ -79,8 +79,8 @@ void main() {
     expect(
         events,
         equals([
-          GEventDrawDeckChoosing(player: 'p1', card: 'c1'),
-          GEventDrawDeckChoosing(player: 'p1', card: 'c2'),
+          GEventDrawDeckCard(player: 'p1', card: 'c1'),
+          GEventDrawDeckCard(player: 'p1', card: 'c2'),
           GEventRemoveHit(player: 'p1'),
           GEventSetPhase(phase: 2),
         ]));

@@ -34,7 +34,8 @@ void main() {
         events,
         equals([
           GEventDrawDeck(player: 'p1'),
-          GEventDrawDeckFlipping(player: 'p1'),
+          GEventDrawDeck(player: 'p1'),
+          GEventFlipHand(player: 'p1'),
           GEventDrawDeck(player: 'p1'),
           GEventSetPhase(phase: 2),
         ]));
@@ -61,7 +62,8 @@ void main() {
         events,
         equals([
           GEventDrawDeck(player: 'p1'),
-          GEventDrawDeckFlipping(player: 'p1'),
+          GEventDrawDeck(player: 'p1'),
+          GEventFlipHand(player: 'p1'),
           GEventSetPhase(phase: 2),
         ]));
   });
