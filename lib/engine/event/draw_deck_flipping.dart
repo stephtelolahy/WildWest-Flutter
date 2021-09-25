@@ -11,7 +11,7 @@ class GEventDrawDeckFlipping extends GEvent {
   List<Object?> get props => [player];
 
   @override
-  GState dispatch(GState state) {
+  GState? dispatch(GState aState) {
     throw UnimplementedError();
   }
 }

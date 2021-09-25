@@ -15,7 +15,7 @@ class GEventPassInPlay extends GEvent {
   List<Object?> get props => [player, card, other];
 
   @override
-  GState dispatch(GState state) {
+  GState? dispatch(GState aState) {
     throw UnimplementedError();
   }
 }

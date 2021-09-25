@@ -13,7 +13,7 @@ void main() {
     final event = GEventHandicap(player: 'p1', card: 'c1', other: 'p2');
 
     // When
-    final result = event.dispatch(state);
+    final result = event.dispatch(state)!;
 
     // Assert
     expect(result.player(identifier: 'p1').hand, isEmpty);

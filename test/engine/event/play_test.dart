@@ -9,7 +9,7 @@ void main() {
     final event = GEventPlay(move: GMove(ability: 'a2', actor: 'p1'));
 
     // When
-    final result = event.dispatch(state);
+    final result = event.dispatch(state)!;
 
     // Assert
     expect(result.played, equals(['a1', 'a2']));
@@ -21,7 +21,7 @@ void main() {
     final event = GEventPlay(move: GMove(ability: 'a1', actor: 'p1'));
 
     // When
-    final result = event.dispatch(state);
+    final result = event.dispatch(state)!;
 
     // Assert
     expect(result.history, equals([GMove(ability: 'a1', actor: 'p1')]));

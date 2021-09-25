@@ -11,7 +11,7 @@ class GEventRemoveHit extends GEvent {
   List<Object?> get props => [player];
 
   @override
-  GState dispatch(GState aState) {
+  GState? dispatch(GState aState) {
     final hit = aState.hit;
     if (hit == null) {
       throw UnsupportedError('Missing hit');

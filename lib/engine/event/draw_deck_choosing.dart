@@ -13,7 +13,7 @@ class GEventDrawDeckChoosing extends GEvent {
   List<Object?> get props => [player, card];
 
   @override
-  GState dispatch(GState state) {
+  GState? dispatch(GState aState) {
     throw UnimplementedError();
   }
 }

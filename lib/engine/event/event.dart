@@ -30,8 +30,8 @@ part 'set_turn.dart';
 part 'set_winner.dart';
 
 abstract class GEvent extends Equatable {
-  GState dispatch(GState state);
-  Duration duration() => Duration.zero;
+  GState? dispatch(GState state);
+  Duration? duration() => null;
 }
 
 const DEFAULT_EVENT_DURATION = Duration(milliseconds: 400);

@@ -11,7 +11,7 @@ class GEventSetWinner extends GEvent {
   });
 
   @override
-  GState dispatch(GState aState) {
+  GState? dispatch(GState aState) {
     final state = GState.copy(aState);
     state.winner = winner;
     return state;

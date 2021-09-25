@@ -11,7 +11,7 @@ class GEventGainHealth extends GEvent {
   });
 
   @override
-  GState dispatch(GState state) {
+  GState? dispatch(GState aState) {
     throw UnimplementedError();
   }
 }

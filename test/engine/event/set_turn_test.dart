@@ -9,7 +9,7 @@ void main() {
     final event = GEventSetTurn(player: 'p2');
 
     // When
-    final result = event.dispatch(state);
+    final result = event.dispatch(state)!;
 
     // Assert
     expect(result.turn, equals('p2'));
@@ -21,7 +21,7 @@ void main() {
     final event = GEventSetTurn(player: 'p2');
 
     // When
-    final result = event.dispatch(state);
+    final result = event.dispatch(state)!;
 
     // Assert
     expect(result.played, isEmpty);

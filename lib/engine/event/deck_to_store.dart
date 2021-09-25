@@ -5,7 +5,7 @@ class GEventDeckToStore extends GEvent {
   List<Object?> get props => [];
 
   @override
-  GState dispatch(GState state) {
+  GState? dispatch(GState aState) {
     throw UnimplementedError();
   }
 }

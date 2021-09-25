@@ -9,7 +9,7 @@ void main() {
     final event = GEventRemoveHit(player: 'p1');
 
     // When
-    final result = event.dispatch(state);
+    final result = event.dispatch(state)!;
 
     // Assert
     expect(result.hit?.players, equals(['p2']));
@@ -21,7 +21,7 @@ void main() {
     final event = GEventRemoveHit(player: 'p1');
 
     // When
-    final result = event.dispatch(state);
+    final result = event.dispatch(state)!;
 
     // Assert
     expect(result.hit?.players, equals(['p1']));
@@ -34,7 +34,7 @@ void main() {
     final event = GEventRemoveHit(player: 'p1');
 
     // When
-    final result = event.dispatch(state);
+    final result = event.dispatch(state)!;
 
     // Assert
     expect(result.hit, isNull);

@@ -12,7 +12,7 @@ void main() {
     final event = GEventDiscardHand(player: 'p1', card: 'c1');
 
     // When
-    final result = event.dispatch(state);
+    final result = event.dispatch(state)!;
 
     // Assert
     expect(result.player(identifier: 'p1').hand, isEmpty);

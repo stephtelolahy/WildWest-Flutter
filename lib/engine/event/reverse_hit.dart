@@ -2,7 +2,7 @@ part of 'event.dart';
 
 class GEventReverseHit extends GEvent {
   @override
-  GState dispatch(GState aState) {
+  GState? dispatch(GState aState) {
     final hit = aState.hit;
     if (hit == null) {
       throw UnsupportedError('Missing hit');

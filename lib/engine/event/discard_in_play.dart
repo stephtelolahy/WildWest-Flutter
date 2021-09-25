@@ -13,12 +13,12 @@ class GEventDiscardInPlay extends GEvent {
   List<Object?> get props => [player, card];
 
   @override
-  GState dispatch(GState state) {
+  GState? dispatch(GState aState) {
     throw UnimplementedError();
   }
 
   @override
-  Duration duration() {
+  Duration? duration() {
     throw UnimplementedError();
   }
 }

@@ -15,7 +15,7 @@ class GEventDrawHand extends GEvent {
   List<Object?> get props => [player, other, card];
 
   @override
-  GState dispatch(GState state) {
+  GState? dispatch(GState aState) {
     throw UnimplementedError();
   }
 }

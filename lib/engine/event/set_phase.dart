@@ -11,12 +11,12 @@ class GEventSetPhase extends GEvent {
   });
 
   @override
-  GState dispatch(GState aState) {
+  GState? dispatch(GState aState) {
     final state = GState.copy(aState);
     state.phase = phase;
     return state;
   }
 
   @override
-  Duration duration() => DEFAULT_EVENT_DURATION;
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }

@@ -3,15 +3,15 @@ import 'package:wildwest_flutter/engine/event/event.dart';
 import 'package:wildwest_flutter/engine/state/state.dart';
 
 void main() {
-  test('update flag if setting phase', () {
+  test('do nothing if activating hit', () {
     // Given
-    final state = GState(phase: 1);
-    final event = GEventSetPhase(phase: 2);
+    final state = GState();
+    final event = GEventActivate(moves: [GMove(ability: 'a1', actor: 'p1')]);
 
     // When
-    final result = event.dispatch(state)!;
+    final result = event.dispatch(state);
 
     // Assert
-    expect(result.phase, equals(2));
+    expect(result, isNull);
   });
 }

@@ -11,7 +11,7 @@ class GEventActivate extends GEvent {
   List<Object?> get props => [moves];
 
   @override
-  GState dispatch(GState state) {
-    throw UnimplementedError();
+  GState? dispatch(GState aState) {
+    return null;
   }
 }

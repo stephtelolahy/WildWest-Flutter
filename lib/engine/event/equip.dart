@@ -13,7 +13,7 @@ class GEventEquip extends GEvent {
   List<Object?> get props => [player, card];
 
   @override
-  GState dispatch(GState aState) {
+  GState? dispatch(GState aState) {
     final state = GState.copy(aState);
     final playerObject = state.player(identifier: player);
     final handIndex = playerObject.hand.indexWhere((e) => e.identifier == card);
@@ -23,5 +23,5 @@ class GEventEquip extends GEvent {
   }
 
   @override
-  Duration duration() => DEFAULT_EVENT_DURATION;
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }

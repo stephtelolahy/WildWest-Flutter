@@ -65,8 +65,16 @@ class GEngine {
 
   Future<void> _dispatch(GEvent event, GState state) async {
     eventSubject.add(event);
-    await new Future.delayed(event.duration());
-    stateSubject.add(event.dispatch(state));
+
+    final duration = event.duration();
+    if (duration != null) {
+      await new Future.delayed(duration);
+    }
+
+    final newState = event.dispatch(state);
+    if (newState != null) {
+      stateSubject.add(newState);
+    }
   }
 
   void _queueEffects(GMove move, GState state) {

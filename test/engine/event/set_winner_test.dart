@@ -9,7 +9,7 @@ void main() {
     final event = GEventSetWinner(winner: Role.outlaw);
 
     // When
-    final result = event.dispatch(state);
+    final result = event.dispatch(state)!;
 
     // Assert
     expect(result.winner, equals(Role.outlaw));

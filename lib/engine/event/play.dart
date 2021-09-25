@@ -11,7 +11,7 @@ class GEventPlay extends GEvent {
   List<Object?> get props => [move];
 
   @override
-  GState dispatch(GState aState) {
+  GState? dispatch(GState aState) {
     final state = GState.copy(aState);
     state.played.add(move.ability);
     state.history.add(move);
@@ -19,5 +19,5 @@ class GEventPlay extends GEvent {
   }
 
   @override
-  Duration duration() => Duration();
+  Duration? duration() => Duration();
 }

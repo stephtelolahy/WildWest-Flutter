@@ -11,7 +11,7 @@ class GEventSetTurn extends GEvent {
   });
 
   @override
-  GState dispatch(GState aState) {
+  GState? dispatch(GState aState) {
     final state = GState.copy(aState);
     state.turn = player;
     state.played.clear();
@@ -19,5 +19,5 @@ class GEventSetTurn extends GEvent {
   }
 
   @override
-  Duration duration() => DEFAULT_EVENT_DURATION;
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }

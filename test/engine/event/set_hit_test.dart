@@ -15,7 +15,7 @@ void main() {
     ));
 
     // When
-    final result = event.dispatch(state);
+    final result = event.dispatch(state)!;
 
     // Assert
     expect(result.hit?.name, equals('n1'));
