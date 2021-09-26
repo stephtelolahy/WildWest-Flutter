@@ -18,7 +18,6 @@ void main() {
     // Assert
     expect(result.player(id: 'p1').hand.map((e) => e.id), ['c1']);
     expect(result.deck.map((e) => e.id), equals(['c2', 'c3']));
-    expect(result.discard, isEmpty);
     expect(event.duration(), isNotNull);
   });
 

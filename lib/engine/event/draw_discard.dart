@@ -12,6 +12,12 @@ class GEventDrawDiscard extends GEvent {
 
   @override
   GState? dispatch(GState aState) {
-    throw UnimplementedError();
+    final state = GState.copy(aState);
+    final card = state.discard.removeLast();
+    state.player(id: player).hand.add(card);
+    return state;
   }
+
+  @override
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }
