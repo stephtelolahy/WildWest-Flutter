@@ -12,7 +12,7 @@ class GState {
   String turn;
   int phase;
   List<GCard> deck;
-  List<GCard> discard;
+  List<GCard> discard; // discard pile, only last element is visible to users
   List<GCard> store;
   GHit? hit;
   Role? winner;

@@ -14,11 +14,14 @@ class GEventDiscardInPlay extends GEvent {
 
   @override
   GState? dispatch(GState aState) {
-    throw UnimplementedError();
+    final state = GState.copy(aState);
+    final playerObject = state.player(id: player);
+    final index = playerObject.inPlay.indexWhere((e) => e.id == card);
+    final cardObject = playerObject.inPlay.removeAt(index);
+    state.discard.add(cardObject);
+    return state;
   }
 
   @override
-  Duration? duration() {
-    throw UnimplementedError();
-  }
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }

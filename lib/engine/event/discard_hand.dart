@@ -18,7 +18,7 @@ class GEventDiscardHand extends GEvent {
     final playerObject = state.player(id: player);
     final index = playerObject.hand.indexWhere((e) => e.id == card);
     final cardObject = playerObject.hand.removeAt(index);
-    state.discard.insert(0, cardObject);
+    state.discard.add(cardObject);
     return state;
   }
 
