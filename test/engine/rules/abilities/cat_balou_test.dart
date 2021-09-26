@@ -33,7 +33,8 @@ void main() {
               ability: 'catBalou',
               actor: 'p1',
               handCard: 'c1',
-              args: PlayArgs(target: 'p2', requiredTargetCard: '')),
+              target: 'p2',
+              requiredTargetCard: ''),
         ]));
 
     final events = sut.effects(moves.first, state);
@@ -65,7 +66,8 @@ void main() {
               ability: 'catBalou',
               actor: 'p1',
               handCard: 'c1',
-              args: PlayArgs(target: 'p2', requiredTargetCard: 'c2'))
+              target: 'p2',
+              requiredTargetCard: 'c2')
         ]));
 
     final events1 = sut.effects(moves.first, state);

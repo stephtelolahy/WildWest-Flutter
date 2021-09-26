@@ -55,7 +55,7 @@ void main() {
     expect(
         moves,
         equals([
-          GMove(ability: 'startTurnDrawingPlayer', actor: 'p1', args: PlayArgs(target: 'p2')),
+          GMove(ability: 'startTurnDrawingPlayer', actor: 'p1', target: 'p2'),
           GMove(ability: 'startTurnDrawingDeck', actor: 'p1')
         ]));
 

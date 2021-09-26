@@ -26,10 +26,7 @@ void main() {
     final moves = sut.active(state);
 
     // Assert
-    expect(
-        moves,
-        equals(
-            [GMove(ability: 'bang', actor: 'p1', handCard: 'c1', args: PlayArgs(target: 'p2'))]));
+    expect(moves, equals([GMove(ability: 'bang', actor: 'p1', handCard: 'c1', target: 'p2')]));
     final events = sut.effects(moves.first, state);
     expect(
         events,

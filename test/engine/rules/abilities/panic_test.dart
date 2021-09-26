@@ -30,10 +30,7 @@ void main() {
         moves,
         equals([
           GMove(
-              ability: 'panic',
-              actor: 'p1',
-              handCard: 'c1',
-              args: PlayArgs(target: 'p2', requiredTargetCard: '')),
+              ability: 'panic', actor: 'p1', handCard: 'c1', target: 'p2', requiredTargetCard: ''),
         ]));
 
     final events = sut.effects(moves.first, state);
@@ -62,10 +59,7 @@ void main() {
         moves,
         equals([
           GMove(
-              ability: 'panic',
-              actor: 'p1',
-              handCard: 'c1',
-              args: PlayArgs(target: 'p2', requiredTargetCard: 'c2'))
+              ability: 'panic', actor: 'p1', handCard: 'c1', target: 'p2', requiredTargetCard: 'c2')
         ]));
 
     final events1 = sut.effects(moves.first, state);

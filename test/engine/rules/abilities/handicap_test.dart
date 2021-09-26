@@ -29,8 +29,8 @@ void main() {
     expect(
         moves,
         equals([
-          GMove(ability: 'handicap', actor: 'p1', handCard: 'c1', args: PlayArgs(target: 'p2')),
-          GMove(ability: 'handicap', actor: 'p1', handCard: 'c1', args: PlayArgs(target: 'p3'))
+          GMove(ability: 'handicap', actor: 'p1', handCard: 'c1', target: 'p2'),
+          GMove(ability: 'handicap', actor: 'p1', handCard: 'c1', target: 'p3')
         ]));
     final events = sut.effects(moves.first, state);
     expect(events, equals([GEventHandicap(player: 'p1', card: 'c1', other: 'p2')]));

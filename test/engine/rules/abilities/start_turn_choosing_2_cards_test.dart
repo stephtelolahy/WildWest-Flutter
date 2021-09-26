@@ -61,18 +61,9 @@ void main() {
     expect(
         moves,
         equals([
-          GMove(
-              ability: 'startTurnDrawingDeckChoosing',
-              actor: 'p1',
-              args: PlayArgs(requiredDeck: ['c1', 'c2'])),
-          GMove(
-              ability: 'startTurnDrawingDeckChoosing',
-              actor: 'p1',
-              args: PlayArgs(requiredDeck: ['c1', 'c3'])),
-          GMove(
-              ability: 'startTurnDrawingDeckChoosing',
-              actor: 'p1',
-              args: PlayArgs(requiredDeck: ['c2', 'c3']))
+          GMove(ability: 'startTurnDrawingDeckChoosing', actor: 'p1', requiredDeck: ['c1', 'c2']),
+          GMove(ability: 'startTurnDrawingDeckChoosing', actor: 'p1', requiredDeck: ['c1', 'c3']),
+          GMove(ability: 'startTurnDrawingDeckChoosing', actor: 'p1', requiredDeck: ['c2', 'c3'])
         ]));
 
     final events = sut.effects(moves.first, state);

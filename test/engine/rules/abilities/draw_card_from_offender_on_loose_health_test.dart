@@ -25,14 +25,8 @@ void main() {
     final moves = sut.triggered(event, state);
 
     // Assert
-    expect(
-        moves,
-        equals([
-          GMove(
-              ability: 'drawCardFromOffenderOnLoseHealth',
-              actor: 'p1',
-              args: PlayArgs(target: 'p2'))
-        ]));
+    expect(moves,
+        equals([GMove(ability: 'drawCardFromOffenderOnLoseHealth', actor: 'p1', target: 'p2')]));
     final events = sut.effects(moves.first, state);
     expect(events, equals([GEventDrawHand(player: 'p1', other: 'p2', card: 'c2')]));
   });

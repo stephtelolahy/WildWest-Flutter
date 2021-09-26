@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wildwest_flutter/engine/engine.dart';
 import 'package:wildwest_flutter/engine/event/event.dart';
-import 'package:wildwest_flutter/engine/list_extensions.dart';
+import 'package:wildwest_flutter/engine/misc/list_extensions.dart';
 import 'package:wildwest_flutter/engine/rules/rules.dart';
 import 'package:wildwest_flutter/engine/setup/loader.dart';
 import 'package:wildwest_flutter/engine/setup/setup.dart';

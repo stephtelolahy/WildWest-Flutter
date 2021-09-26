@@ -35,18 +35,9 @@ void main() {
     expect(
         moves,
         equals([
-          GMove(
-              ability: 'discard2CardsFor1Health',
-              actor: 'p1',
-              args: PlayArgs(requiredHand: ['c1', 'c2'])),
-          GMove(
-              ability: 'discard2CardsFor1Health',
-              actor: 'p1',
-              args: PlayArgs(requiredHand: ['c1', 'c3'])),
-          GMove(
-              ability: 'discard2CardsFor1Health',
-              actor: 'p1',
-              args: PlayArgs(requiredHand: ['c2', 'c3'])),
+          GMove(ability: 'discard2CardsFor1Health', actor: 'p1', requiredHand: ['c1', 'c2']),
+          GMove(ability: 'discard2CardsFor1Health', actor: 'p1', requiredHand: ['c1', 'c3']),
+          GMove(ability: 'discard2CardsFor1Health', actor: 'p1', requiredHand: ['c2', 'c3']),
         ]));
     final events = sut.effects(moves.first, state);
     expect(

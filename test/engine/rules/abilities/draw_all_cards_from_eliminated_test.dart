@@ -30,10 +30,7 @@ void main() {
 
     // Assert
     expect(
-        moves,
-        equals([
-          GMove(ability: 'drawAllCardsFromEliminated', actor: 'p1', args: PlayArgs(target: 'p2'))
-        ]));
+        moves, equals([GMove(ability: 'drawAllCardsFromEliminated', actor: 'p1', target: 'p2')]));
     final events = sut.effects(moves.first, state);
     expect(
         events,

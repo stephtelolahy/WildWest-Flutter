@@ -32,8 +32,7 @@ void main() {
     final moves = sut.active(state);
 
     // Assert
-    expect(
-        moves, [GMove(ability: 'bang', actor: 'p1', handCard: 'c1', args: PlayArgs(target: 'p2'))]);
+    expect(moves, [GMove(ability: 'bang', actor: 'p1', handCard: 'c1', target: 'p2')]);
   });
 
   test('play bang as missed', () {

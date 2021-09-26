@@ -33,7 +33,7 @@ void main() {
     expect(
         moves,
         equals([
-          GMove(ability: 'drawAllCardsFromEliminated', actor: 'p2', args: PlayArgs(target: 'p1')),
+          GMove(ability: 'drawAllCardsFromEliminated', actor: 'p2', target: 'p1'),
           GMove(ability: 'discardAllCardsOnEliminated', actor: 'p1'),
           GMove(ability: 'nextTurnOnEliminated', actor: 'p1'),
         ]));

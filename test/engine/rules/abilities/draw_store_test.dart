@@ -28,8 +28,8 @@ void main() {
     expect(
         moves,
         equals([
-          GMove(ability: 'drawStore', actor: 'p1', args: PlayArgs(requiredStore: 'c1')),
-          GMove(ability: 'drawStore', actor: 'p1', args: PlayArgs(requiredStore: 'c2')),
+          GMove(ability: 'drawStore', actor: 'p1', requiredStore: 'c1'),
+          GMove(ability: 'drawStore', actor: 'p1', requiredStore: 'c2'),
         ]));
     final events = sut.effects(moves.first, state);
     expect(

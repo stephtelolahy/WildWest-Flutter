@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wildwest_flutter/engine/list_extensions.dart';
+import 'package:wildwest_flutter/engine/misc/list_extensions.dart';
 
 void main() {
   test('starting with', () {

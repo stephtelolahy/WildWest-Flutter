@@ -24,7 +24,7 @@ class GSetup {
   List<GCard> deck({required List<GCard> cards, required List<CardValue> values}) {
     return values.map((cardValue) {
       final card = cards.firstWhere((e) => e.name == cardValue.name);
-      return card.settingValue(cardValue.value);
+      return card.copyWithValue(cardValue.value);
     }).toList();
   }
 
@@ -75,7 +75,7 @@ class GSetup {
 }
 
 extension Merging on GCard {
-  GCard settingValue(String value) => GCard(
+  GCard copyWithValue(String value) => GCard(
         id: '$name-$value',
         name: name,
         desc: desc,
