@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wildwest_flutter/engine/event/event.dart';
+import 'package:wildwest_flutter/engine/move/move.dart';
 import 'package:wildwest_flutter/engine/state/state.dart';
 
 void main() {

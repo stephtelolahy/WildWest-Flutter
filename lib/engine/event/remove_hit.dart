@@ -16,12 +16,12 @@ class GEventRemoveHit extends GEvent {
 
     final hit = state.hit;
     if (hit == null) {
-      throw UnsupportedError('Missing hit');
+      return null;
     }
 
     final index = hit.players.indexOf(player);
     if (index == -1) {
-      throw UnsupportedError('Player not found');
+      return null;
     }
 
     hit.players.removeAt(index);

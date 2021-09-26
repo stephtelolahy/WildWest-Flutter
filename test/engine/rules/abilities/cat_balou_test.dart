@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wildwest_flutter/engine/event/event.dart';
+import 'package:wildwest_flutter/engine/move/move.dart';
 import 'package:wildwest_flutter/engine/rules/rules.dart';
 import 'package:wildwest_flutter/engine/setup/loader.dart';
 import 'package:wildwest_flutter/engine/state/state.dart';
@@ -33,7 +34,8 @@ void main() {
               ability: 'catBalou',
               actor: 'p1',
               handCard: 'c1',
-              args: PlayArgs(target: 'p2', requiredTargetCard: '')),
+              target: 'p2',
+              requiredTargetCard: ''),
         ]));
 
     final events = sut.effects(moves.first, state);
@@ -65,7 +67,8 @@ void main() {
               ability: 'catBalou',
               actor: 'p1',
               handCard: 'c1',
-              args: PlayArgs(target: 'p2', requiredTargetCard: 'c2'))
+              target: 'p2',
+              requiredTargetCard: 'c2')
         ]));
 
     final events1 = sut.effects(moves.first, state);

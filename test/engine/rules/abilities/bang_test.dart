@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wildwest_flutter/engine/event/event.dart';
+import 'package:wildwest_flutter/engine/move/move.dart';
 import 'package:wildwest_flutter/engine/rules/rules.dart';
 import 'package:wildwest_flutter/engine/setup/loader.dart';
 import 'package:wildwest_flutter/engine/state/state.dart';
@@ -26,10 +27,7 @@ void main() {
     final moves = sut.active(state);
 
     // Assert
-    expect(
-        moves,
-        equals(
-            [GMove(ability: 'bang', actor: 'p1', handCard: 'c1', args: PlayArgs(target: 'p2'))]));
+    expect(moves, equals([GMove(ability: 'bang', actor: 'p1', handCard: 'c1', target: 'p2')]));
     final events = sut.effects(moves.first, state);
     expect(
         events,

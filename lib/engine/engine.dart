@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:rxdart/subjects.dart';
 
 import 'event/event.dart';
+import 'move/move.dart';
 import 'rules/rules.dart';
 import 'state/state.dart';
 
@@ -12,12 +13,14 @@ class GEngine {
 
   final GRules _rules;
   final Queue<GEvent> _queue;
+  final int _maxEventDurationMillis;
 
-  GEngine({required GState state, required GRules rules})
+  GEngine({required GState state, required GRules rules, int maxEventDurationMillis = 0})
       : this.eventSubject = PublishSubject<GEvent>(),
         this.stateSubject = BehaviorSubject<GState>.seeded(state),
         this._rules = rules,
-        this._queue = Queue();
+        this._queue = Queue(),
+        this._maxEventDurationMillis = maxEventDurationMillis;
 
   Future<void> play(GMove move) async {
     if (_queue.isNotEmpty) {
@@ -66,10 +69,8 @@ class GEngine {
   Future<void> _dispatch(GEvent event, GState state) async {
     eventSubject.add(event);
 
-    final duration = event.duration();
-    if (duration != null) {
-      await new Future.delayed(duration);
-    }
+    final duration = Duration(milliseconds: (event.duration() * _maxEventDurationMillis).toInt());
+    await new Future.delayed(duration);
 
     final newState = event.dispatch(state);
     if (newState != null) {

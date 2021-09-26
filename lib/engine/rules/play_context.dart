@@ -20,3 +20,34 @@ class PlayContext {
     this.args,
   });
 }
+
+class PlayArgs {
+  final List<String> requiredHand;
+  final String? target;
+  final String? requiredTargetCard;
+  final String? requiredStore;
+  final List<String> requiredDeck;
+
+  const PlayArgs({
+    this.requiredHand = const [],
+    this.target,
+    this.requiredTargetCard,
+    this.requiredStore,
+    this.requiredDeck = const [],
+  });
+
+  PlayArgs copyWith(
+      {List<String>? requiredHand,
+      String? target,
+      String? requiredTargetCard,
+      String? requiredStore,
+      List<String>? requiredDeck}) {
+    return PlayArgs(
+      requiredHand: requiredHand ?? this.requiredHand,
+      target: target ?? this.target,
+      requiredTargetCard: requiredTargetCard ?? this.requiredTargetCard,
+      requiredStore: requiredStore ?? this.requiredStore,
+      requiredDeck: requiredDeck ?? this.requiredDeck,
+    );
+  }
+}

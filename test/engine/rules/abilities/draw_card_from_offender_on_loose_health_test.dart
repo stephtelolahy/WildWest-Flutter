@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wildwest_flutter/engine/event/event.dart';
+import 'package:wildwest_flutter/engine/move/move.dart';
 import 'package:wildwest_flutter/engine/rules/rules.dart';
 import 'package:wildwest_flutter/engine/setup/loader.dart';
 import 'package:wildwest_flutter/engine/state/state.dart';
@@ -25,14 +26,8 @@ void main() {
     final moves = sut.triggered(event, state);
 
     // Assert
-    expect(
-        moves,
-        equals([
-          GMove(
-              ability: 'drawCardFromOffenderOnLoseHealth',
-              actor: 'p1',
-              args: PlayArgs(target: 'p2'))
-        ]));
+    expect(moves,
+        equals([GMove(ability: 'drawCardFromOffenderOnLoseHealth', actor: 'p1', target: 'p2')]));
     final events = sut.effects(moves.first, state);
     expect(events, equals([GEventDrawHand(player: 'p1', other: 'p2', card: 'c2')]));
   });

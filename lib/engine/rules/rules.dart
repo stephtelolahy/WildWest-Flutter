@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 
 import '../event/event.dart';
+import '../move/move.dart';
 import '../state/state.dart';
 import 'ability.dart';
 import 'play_context.dart';
@@ -129,7 +130,13 @@ class GRules {
       state: state,
       handCard: move.handCard,
       inPlayCard: move.inPlayCard,
-      args: move.args,
+      args: PlayArgs(
+        requiredHand: move.requiredHand,
+        target: move.target,
+        requiredTargetCard: move.requiredTargetCard,
+        requiredDeck: move.requiredDeck,
+        requiredStore: move.requiredStore,
+      ),
     );
 
     for (var effect in abilityObject.onPlay) {
@@ -179,7 +186,11 @@ class GRules {
             actor: ctx.actor.id,
             handCard: ctx.handCard,
             inPlayCard: ctx.inPlayCard,
-            args: e,
+            requiredHand: e.requiredHand,
+            target: e.target,
+            requiredTargetCard: e.requiredTargetCard,
+            requiredDeck: e.requiredDeck,
+            requiredStore: e.requiredStore,
           )));
     } else {
       result.add(GMove(

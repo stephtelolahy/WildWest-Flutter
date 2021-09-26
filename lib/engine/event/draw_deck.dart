@@ -20,7 +20,7 @@ class GEventDrawDeck extends GEvent {
   }
 
   @override
-  Duration? duration() => DEFAULT_EVENT_DURATION;
+  double duration() => 1.0;
 }
 
 extension ResettingDeck on GState {
@@ -29,7 +29,9 @@ extension ResettingDeck on GState {
     final minDiscard = 2;
     if (deck.length <= minDeck && discard.length >= minDiscard) {
       final cards = List<GCard>.from(discard);
-      discard = [cards.removeLast()];
+      final lastDiscard = cards.removeLast();
+      discard.clear();
+      discard.add(lastDiscard);
       cards.shuffle();
       deck.addAll(cards);
     }
