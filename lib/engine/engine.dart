@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:rxdart/subjects.dart';
 
 import 'event/event.dart';
+import 'move/move.dart';
 import 'rules/rules.dart';
 import 'state/state.dart';
 

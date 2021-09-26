@@ -29,7 +29,9 @@ extension ResettingDeck on GState {
     final minDiscard = 2;
     if (deck.length <= minDeck && discard.length >= minDiscard) {
       final cards = List<GCard>.from(discard);
-      discard = [cards.removeLast()];
+      final lastDiscard = cards.removeLast();
+      discard.clear();
+      discard.add(lastDiscard);
       cards.shuffle();
       deck.addAll(cards);
     }

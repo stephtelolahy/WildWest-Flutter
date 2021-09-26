@@ -136,7 +136,6 @@ void main() {
     expect(state.discard, isEmpty);
     expect(state.store, isEmpty);
     expect(state.played, isEmpty);
-    expect(state.history, isEmpty);
     expect(state.winner, isNull);
     expect(state.hit, isNull);
 

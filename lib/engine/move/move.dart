@@ -1,4 +1,4 @@
-part of 'state.dart';
+import 'package:equatable/equatable.dart';
 
 class GMove extends Equatable {
   final String ability;

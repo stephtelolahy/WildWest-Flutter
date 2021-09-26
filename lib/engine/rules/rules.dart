@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 
 import '../event/event.dart';
+import '../move/move.dart';
 import '../state/state.dart';
 import 'ability.dart';
 import 'play_context.dart';

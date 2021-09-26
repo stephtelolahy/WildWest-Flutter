@@ -14,7 +14,6 @@ class GEventPlay extends GEvent {
   GState? dispatch(GState aState) {
     final state = GState.copy(aState);
     state.played.add(move.ability);
-    state.history.add(move);
     return state;
   }
 

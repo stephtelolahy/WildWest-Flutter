@@ -67,7 +67,6 @@ class GSetup {
       discard: [],
       store: [],
       played: [],
-      history: [],
       hit: null,
       winner: null,
     );

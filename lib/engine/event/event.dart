@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+import '../move/move.dart';
 import '../state/state.dart';
 
 part 'activate.dart';

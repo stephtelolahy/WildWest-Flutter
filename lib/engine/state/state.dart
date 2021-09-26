@@ -3,21 +3,19 @@ import 'package:equatable/equatable.dart';
 
 part 'card.dart';
 part 'hit.dart';
-part 'move.dart';
 part 'player.dart';
 
 class GState {
   final List<GPlayer> players;
-  List<String> playOrder;
+  final List<String> playOrder;
   String turn;
   int phase;
-  List<GCard> deck;
-  List<GCard> discard; // discard pile, only last element is visible to users
-  List<GCard> store;
+  final List<GCard> deck;
+  final List<GCard> discard; // discard pile, only last element is visible to users
+  final List<GCard> store;
+  final List<String> played;
   GHit? hit;
   Role? winner;
-  List<String> played;
-  List<GMove> history;
 
   GState({
     this.players = const [],
@@ -27,10 +25,9 @@ class GState {
     this.deck = const [],
     this.discard = const [],
     this.store = const [],
+    this.played = const [],
     this.hit,
     this.winner,
-    this.played = const [],
-    this.history = const [],
   });
 
   GState.copy(GState state)
@@ -41,10 +38,9 @@ class GState {
         deck = List.from(state.deck),
         discard = List.from(state.discard),
         store = List.from(state.store),
-        hit = state.hit != null ? GHit.copy(state.hit!) : null,
-        winner = state.winner,
         played = List.from(state.played),
-        history = List.from(state.history);
+        hit = state.hit != null ? GHit.copy(state.hit!) : null,
+        winner = state.winner;
 }
 
 extension GettingPlayer on GState {
