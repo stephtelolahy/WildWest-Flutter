@@ -44,8 +44,7 @@ class _GameView extends StatelessWidget {
           child: Icon(Icons.play_arrow_outlined),
         ),
       ),
-      listener: (context, state) => SchedulerBinding.instance
-          ?.addPostFrameCallback((_) => _handleEvent(context, state)),
+      listener: (context, state) => _handleEvent(context, state),
     );
   }
 
@@ -67,9 +66,7 @@ class _GameView extends StatelessWidget {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: players
-            .map((e) => PlayerWidget(name: e, maxWidth: maxWidth))
-            .toList(),
+        children: players.map((e) => PlayerWidget(name: e, maxWidth: maxWidth)).toList(),
       ),
     );
   }
@@ -81,15 +78,10 @@ class _GameView extends StatelessWidget {
         onWillAccept: (data) => true,
         onAcceptWithDetails: (details) {
           final playgroundOffset = _keyPlayground.offset();
-          final centerX = playgroundOffset.dx +
-              details.offset.dx +
-              CardWidget.CARD_WIDTH / 2;
-          final draggingDY = CardWidget.CARD_DRAGGING_HEIGHT *
-              CardWidget.CARD_DRAGGING_SHIFT_Y;
-          final centerY = playgroundOffset.dx +
-              details.offset.dy +
-              CardWidget.CARD_HEIGHT / 2 +
-              draggingDY;
+          final centerX = playgroundOffset.dx + details.offset.dx + CardWidget.CARD_WIDTH / 2;
+          final draggingDY = CardWidget.CARD_DRAGGING_HEIGHT * CardWidget.CARD_DRAGGING_SHIFT_Y;
+          final centerY =
+              playgroundOffset.dx + details.offset.dy + CardWidget.CARD_HEIGHT / 2 + draggingDY;
           final center = Offset(centerX, centerY);
           final card = details.data as String;
           context.read<GameCubit>().play(card: card, center: center);
@@ -167,8 +159,7 @@ class _GameView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
           cards.length,
-          (index) => CardWidget(
-              name: cards[index], maxWidth: maxWidth, draggable: true),
+          (index) => CardWidget(name: cards[index], maxWidth: maxWidth, draggable: true),
         ),
       ),
     );
@@ -178,10 +169,7 @@ class _GameView extends StatelessWidget {
     final event = state.event;
     if (event is GameEventPlay) {
       _keyAnimated.currentState?.animate(
-          duration: event.duration,
-          card: event.card,
-          from: event.center,
-          to: _keyDiscard.center());
+          duration: event.duration, card: event.card, from: event.center, to: _keyDiscard.center());
     } else if (event is GameEventDrawDeck) {
       _keyAnimated.currentState?.animate(
         duration: event.duration,
