@@ -13,9 +13,9 @@ class GEngine {
   final GRules _rules;
   final Queue<GEvent> _queue;
 
-  GEngine({required GState initialState, required GRules rules})
+  GEngine({required GState state, required GRules rules})
       : this.eventSubject = PublishSubject<GEvent>(),
-        this.stateSubject = BehaviorSubject<GState>.seeded(initialState),
+        this.stateSubject = BehaviorSubject<GState>.seeded(state),
         this._rules = rules,
         this._queue = Queue();
 

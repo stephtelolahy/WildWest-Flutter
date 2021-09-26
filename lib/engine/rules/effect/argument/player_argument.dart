@@ -36,10 +36,3 @@ extension GettingPlayers on PlayerArgument {
     }
   }
 }
-
-extension Rotating<T> on List<T> {
-  List<T> startingWith(T element) {
-    final index = this.indexOf(element);
-    return this.sublist(index)..addAll(this.sublist(0, index));
-  }
-}

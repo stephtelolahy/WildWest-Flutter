@@ -57,11 +57,3 @@ extension GettingCards on CardArgument {
     }
   }
 }
-
-extension GettingRandomItem<T> on List<T> {
-  T randomElement() {
-    final random = new Random();
-    var i = random.nextInt(this.length);
-    return this[i];
-  }
-}
