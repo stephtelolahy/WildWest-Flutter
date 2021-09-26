@@ -18,8 +18,8 @@ class GEventHandicap extends GEvent {
   GState? dispatch(GState aState) {
     final state = GState.copy(aState);
     final playerObject = state.player(id: player);
-    final handIndex = playerObject.hand.indexWhere((e) => e.id == card);
-    final cardObject = playerObject.hand.removeAt(handIndex);
+    final index = playerObject.hand.indexWhere((e) => e.id == card);
+    final cardObject = playerObject.hand.removeAt(index);
     final otherObject = state.player(id: other);
     otherObject.inPlay.add(cardObject);
     return state;
