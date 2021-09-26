@@ -16,11 +16,11 @@ void main() {
   test('discard all cards on eliminating deputy', () {
     // Given
     final player1 = GPlayer(
-        identifier: 'p1',
+        id: 'p1',
         abilities: ['discardAllCardsOnEliminatingDeputy'],
-        hand: [GCard(identifier: 'c1')],
-        inPlay: [GCard(identifier: 'c2')]);
-    final player2 = GPlayer(identifier: 'p2', role: Role.deputy);
+        hand: [GCard(id: 'c1')],
+        inPlay: [GCard(id: 'c2')]);
+    final player2 = GPlayer(id: 'p2', role: Role.deputy);
     final state = GState(players: [player1, player2], playOrder: ['p1'], turn: 'p1');
     final event = GEventEliminate(player: 'p2');
 

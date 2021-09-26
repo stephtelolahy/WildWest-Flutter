@@ -15,7 +15,7 @@ void main() {
 
   test('draw card on discard hand then hand empty', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['drawCardOnHandEmpty']);
+    final player1 = GPlayer(id: 'p1', abilities: ['drawCardOnHandEmpty']);
     final state = GState(players: [player1], playOrder: ['p1']);
     final event = GEventDiscardHand(player: 'p1', card: 'cX');
 
@@ -30,7 +30,7 @@ void main() {
 
   test('draw card on equip then hand empty', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['drawCardOnHandEmpty']);
+    final player1 = GPlayer(id: 'p1', abilities: ['drawCardOnHandEmpty']);
     final state = GState(players: [player1], playOrder: ['p1']);
     final event = GEventEquip(player: 'p1', card: 'cX');
 
@@ -45,7 +45,7 @@ void main() {
 
   test('draw card on handicap then hand empty', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['drawCardOnHandEmpty']);
+    final player1 = GPlayer(id: 'p1', abilities: ['drawCardOnHandEmpty']);
     final state = GState(players: [player1], playOrder: ['p1']);
     final event = GEventHandicap(player: 'p1', card: 'cX', other: 'pX');
 
@@ -60,7 +60,7 @@ void main() {
 
   test('draw card on draw hand then hand empty', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['drawCardOnHandEmpty']);
+    final player1 = GPlayer(id: 'p1', abilities: ['drawCardOnHandEmpty']);
     final state = GState(players: [player1], playOrder: ['p1']);
     final event = GEventDrawHand(player: 'pX', other: 'p1', card: 'cX');
 

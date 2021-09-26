@@ -12,7 +12,7 @@ class OnHitAbility extends PlayReq {
   bool match(PlayContext ctx, List<PlayArgs> args) {
     final event = ctx.event;
     return event is GEventSetHit &&
-        event.hit.players.first == ctx.actor.identifier &&
+        event.hit.players.first == ctx.actor.id &&
         event.hit.abilities.contains(ability);
   }
 }

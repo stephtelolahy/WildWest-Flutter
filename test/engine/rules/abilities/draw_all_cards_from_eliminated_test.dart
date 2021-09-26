@@ -15,12 +15,12 @@ void main() {
 
   test('take all cards from just eliminated player', () {
     // Given
-    final card1 = GCard(identifier: 'c1');
-    final card2 = GCard(identifier: 'c2');
-    final card3 = GCard(identifier: 'c3');
-    final card4 = GCard(identifier: 'c4');
-    final player1 = GPlayer(identifier: 'p1', abilities: ['drawAllCardsFromEliminated']);
-    final player2 = GPlayer(identifier: 'p2', hand: [card1, card2], inPlay: [card3, card4]);
+    final card1 = GCard(id: 'c1');
+    final card2 = GCard(id: 'c2');
+    final card3 = GCard(id: 'c3');
+    final card4 = GCard(id: 'c4');
+    final player1 = GPlayer(id: 'p1', abilities: ['drawAllCardsFromEliminated']);
+    final player2 = GPlayer(id: 'p2', hand: [card1, card2], inPlay: [card3, card4]);
 
     final state = GState(players: [player1, player2], playOrder: ['p1']);
     final event = GEventEliminate(player: 'p2');
@@ -47,10 +47,10 @@ void main() {
 
   test('do not take all cards if self eliminated', () {
     // Given
-    final card1 = GCard(identifier: 'c1');
-    final card2 = GCard(identifier: 'c2');
+    final card1 = GCard(id: 'c1');
+    final card2 = GCard(id: 'c2');
     final player1 = GPlayer(
-      identifier: 'p1',
+      id: 'p1',
       abilities: ['drawAllCardsFromEliminated'],
       hand: [card1],
       inPlay: [card2],

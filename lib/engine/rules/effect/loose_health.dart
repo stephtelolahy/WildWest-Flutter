@@ -12,7 +12,7 @@ class LooseHealth extends Effect {
   @override
   List<GEvent> apply(PlayContext ctx) {
     final playerId = player.get(ctx).first;
-    final playerObject = ctx.state.player(identifier: playerId);
+    final playerObject = ctx.state.player(id: playerId);
     if (playerObject.health > 1) {
       return [GEventLooseHealth(player: playerId)];
     } else {

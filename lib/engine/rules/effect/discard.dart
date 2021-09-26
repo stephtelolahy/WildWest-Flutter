@@ -15,9 +15,9 @@ class Discard extends Effect {
   List<GEvent> apply(PlayContext ctx) {
     final playerId = player.get(ctx).first;
     final cardIds = card.get(ctx, player: playerId);
-    final playerObject = ctx.state.player(identifier: playerId);
+    final playerObject = ctx.state.player(id: playerId);
     return cardIds.map((card) {
-      if (playerObject.hand.any((e) => e.identifier == card)) {
+      if (playerObject.hand.any((e) => e.id == card)) {
         return GEventDiscardHand(player: playerId, card: card);
       } else {
         return GEventDiscardInPlay(player: playerId, card: card);

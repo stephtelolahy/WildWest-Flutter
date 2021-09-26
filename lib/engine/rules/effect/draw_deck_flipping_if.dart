@@ -18,10 +18,10 @@ class DrawDeckFlippingIf extends Effect {
   List<GEvent> apply(PlayContext ctx) {
     final List<GEvent> result = [];
     final playerId = player.get(ctx).first;
-    for (var i = 0; i < amount - 1; i++) {
+    for (var i = 0; i < amount; i++) {
       result.add(GEventDrawDeck(player: playerId));
     }
-    result.add(GEventDrawDeckFlipping(player: playerId));
+    result.add(GEventFlipHand(player: playerId));
     final cardObject = ctx.state.deck[amount - 1];
     final success = cardObject.matchesRegex(regex);
     final effects = success ? thenEffects : elseEffects;

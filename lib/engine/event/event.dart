@@ -7,8 +7,7 @@ part 'deck_to_store.dart';
 part 'discard_hand.dart';
 part 'discard_in_play.dart';
 part 'draw_deck.dart';
-part 'draw_deck_choosing.dart';
-part 'draw_deck_flipping.dart';
+part 'draw_deck_card.dart';
 part 'draw_discard.dart';
 part 'draw_hand.dart';
 part 'draw_in_play.dart';
@@ -16,6 +15,7 @@ part 'draw_store.dart';
 part 'eliminate.dart';
 part 'equip.dart';
 part 'flip_deck.dart';
+part 'flip_hand.dart';
 part 'gain_health.dart';
 part 'handicap.dart';
 part 'idle.dart';
@@ -30,8 +30,8 @@ part 'set_turn.dart';
 part 'set_winner.dart';
 
 abstract class GEvent extends Equatable {
-  GState dispatch(GState state);
-  Duration duration();
+  GState? dispatch(GState state);
+  Duration? duration() => null;
 }
 
 const DEFAULT_EVENT_DURATION = Duration(milliseconds: 400);

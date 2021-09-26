@@ -15,7 +15,7 @@ class DrawDeckChoosing extends Effect {
     final cards = card.get(ctx);
     for (var p in players) {
       for (var card in cards) {
-        result.add(GEventDrawDeckChoosing(player: p, card: card));
+        result.add(GEventDrawDeckCard(player: p, card: card));
       }
     }
 

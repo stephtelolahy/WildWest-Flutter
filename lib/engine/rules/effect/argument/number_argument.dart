@@ -20,7 +20,7 @@ extension GettingValue on NumberArgument {
         return 3;
 
       case NumberArgument.excessHand:
-        return max(ctx.actor.hand.length - ctx.actor.handLimit(), 0);
+        return max(ctx.actor.hand.length - ctx.actor.maxHand(), 0);
 
       case NumberArgument.inPlayPlayers:
         return ctx.state.playOrder.length;

@@ -14,9 +14,9 @@ void main() {
 
   test('cannot play jail if target has silent jail', () {
     // Given
-    final card1 = GCard(identifier: 'c1', name: 'jail', abilities: ['handicap']);
-    final player1 = GPlayer(identifier: 'p1', hand: [card1]);
-    final player2 = GPlayer(identifier: 'p2', attributes: CardAttributes(silentCard: 'jail'));
+    final card1 = GCard(id: 'c1', name: 'jail', abilities: ['handicap']);
+    final player1 = GPlayer(id: 'p1', hand: [card1]);
+    final player2 = GPlayer(id: 'p2', silentCard: 'jail');
     final state = GState(
       players: [player1, player2],
       playOrder: ['p1', 'p2'],

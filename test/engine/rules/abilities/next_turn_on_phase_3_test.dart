@@ -15,8 +15,8 @@ void main() {
 
   test('should next turn on phase 3', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['nextTurnOnPhase3']);
-    final player2 = GPlayer(identifier: 'p2');
+    final player1 = GPlayer(id: 'p1', abilities: ['nextTurnOnPhase3']);
+    final player2 = GPlayer(id: 'p2');
     final state = GState(
       players: [player1, player2],
       playOrder: ['p2', 'p1'],

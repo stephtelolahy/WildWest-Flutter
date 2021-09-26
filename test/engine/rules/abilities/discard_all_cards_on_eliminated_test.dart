@@ -16,10 +16,10 @@ void main() {
   test('discard all cards on eliminated', () {
     // Given
     final player1 = GPlayer(
-        identifier: 'p1',
+        id: 'p1',
         abilities: ['discardAllCardsOnEliminated'],
-        hand: [GCard(identifier: 'c1')],
-        inPlay: [GCard(identifier: 'c2')]);
+        hand: [GCard(id: 'c1')],
+        inPlay: [GCard(id: 'c2')]);
     final state = GState(players: [player1]);
     final event = GEventEliminate(player: 'p1');
 
@@ -39,7 +39,7 @@ void main() {
 
   test('do nothing if eliminated without cards', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['discardAllCardsOnEliminated']);
+    final player1 = GPlayer(id: 'p1', abilities: ['discardAllCardsOnEliminated']);
     final state = GState(players: [player1]);
     final event = GEventEliminate(player: 'p1');
 

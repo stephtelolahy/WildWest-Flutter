@@ -5,10 +5,10 @@ import 'package:wildwest_flutter/engine/state/state.dart';
 
 void main() {
   final players = [
-    GPlayer(identifier: 'sheriff', role: Role.sheriff),
-    GPlayer(identifier: 'outlaw', role: Role.outlaw),
-    GPlayer(identifier: 'renegade', role: Role.renegade),
-    GPlayer(identifier: 'deputy', role: Role.deputy)
+    GPlayer(id: 'sheriff', role: Role.sheriff),
+    GPlayer(id: 'outlaw', role: Role.outlaw),
+    GPlayer(id: 'renegade', role: Role.renegade),
+    GPlayer(id: 'deputy', role: Role.deputy)
   ];
 
   late GRules sut;

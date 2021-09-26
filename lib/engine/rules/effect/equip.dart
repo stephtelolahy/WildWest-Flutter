@@ -20,8 +20,8 @@ class Equip extends Effect {
     final cardId = card.get(ctx).first;
 
     // <RULE> cannot have two copies of the same card in play
-    final playerObject = ctx.state.player(identifier: playerId);
-    final cardObject = playerObject.hand.firstWhere((e) => e.identifier == cardId);
+    final playerObject = ctx.state.player(id: playerId);
+    final cardObject = playerObject.hand.firstWhere((e) => e.id == cardId);
     if (playerObject.inPlay.any((e) => e.name.isNotEmpty && e.name == cardObject.name)) {
       return [];
     }
@@ -30,10 +30,9 @@ class Equip extends Effect {
     List<GEvent> result = [GEventEquip(player: playerId, card: cardId)];
 
     // <RULE> discard previous weapon if playing new one
-    if (cardObject.attributes.weapon != null &&
-        playerObject.inPlay.any((e) => e.attributes.weapon != null)) {
-      final previousWeapon = playerObject.inPlay.firstWhere((e) => e.attributes.weapon != null);
-      result.add(GEventDiscardInPlay(player: playerId, card: previousWeapon.identifier));
+    if (cardObject.weapon != null && playerObject.inPlay.any((e) => e.weapon != null)) {
+      final previousWeapon = playerObject.inPlay.firstWhere((e) => e.weapon != null);
+      result.add(GEventDiscardInPlay(player: playerId, card: previousWeapon.id));
     }
     // </RULE>
 

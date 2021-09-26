@@ -15,7 +15,7 @@ void main() {
 
   test('draw card on loose health', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['drawCardOnLoseHealth']);
+    final player1 = GPlayer(id: 'p1', abilities: ['drawCardOnLoseHealth']);
     final state = GState(players: [player1], playOrder: ['p1']);
     final event = GEventLooseHealth(player: 'p1');
 

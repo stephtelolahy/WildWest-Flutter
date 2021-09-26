@@ -24,15 +24,7 @@ class GSetup {
   List<GCard> deck({required List<GCard> cards, required List<CardValue> values}) {
     return values.map((cardValue) {
       final card = cards.firstWhere((e) => e.name == cardValue.name);
-      return GCard(
-        identifier: '${card.name}-${cardValue.value}',
-        name: card.name,
-        desc: card.desc,
-        type: card.type,
-        abilities: card.abilities,
-        attributes: card.attributes,
-        value: cardValue.value,
-      );
+      return card.settingValue(cardValue.value);
     }).toList();
   }
 
@@ -45,41 +37,31 @@ class GSetup {
     final defaultFigure = defaults.firstWhere((e) => e.name == 'default');
     final sheriffFigure = defaults.firstWhere((e) => e.name == 'sheriff');
 
+    roles.shuffle();
+    figures.shuffle();
+    deck.shuffle();
+
     final List<GPlayer> players = [];
+    late String sheriff;
     for (var i = 0; i < roles.length; i++) {
       final role = roles[i];
       final figure = figures[i];
 
-      var attributes = figure.attributes;
-      var abilities = figure.abilities;
-
-      attributes = attributes.mergeWith(defaultFigure.attributes);
-      abilities.addAll(defaultFigure.abilities);
-
+      var card = figure.mergeWith(defaultFigure);
       if (role == Role.sheriff) {
-        attributes = attributes.mergeWith(sheriffFigure.attributes);
-        abilities.addAll(sheriffFigure.abilities);
+        sheriff = figure.name;
+        card = card.mergeWith(sheriffFigure);
       }
 
-      final health = attributes.bullets!;
+      final health = card.bullets!;
       final hand = List.generate(health, (_) => deck.removeAt(0));
-      players.add(GPlayer(
-        role: role,
-        identifier: figure.name,
-        name: figure.name,
-        desc: figure.desc,
-        attributes: attributes,
-        abilities: abilities,
-        health: health,
-        hand: hand,
-        inPlay: [],
-      ));
+      players.add(GPlayer.fromCard(card, role: role, health: health, hand: hand, inPlay: []));
     }
-    final playOrder = players.map((e) => e.identifier).toList();
+    final playOrder = players.map((e) => e.id).toList();
     return GState(
       players: players,
       playOrder: playOrder,
-      turn: playOrder.first,
+      turn: sheriff,
       phase: 1,
       deck: deck,
       discard: [],
@@ -92,8 +74,23 @@ class GSetup {
   }
 }
 
-extension Merging on CardAttributes {
-  CardAttributes mergeWith(CardAttributes other) => CardAttributes(
+extension Merging on GCard {
+  GCard settingValue(String value) => GCard(
+        id: '$name-$value',
+        name: name,
+        desc: desc,
+        type: type,
+        abilities: abilities,
+        value: value,
+      );
+
+  GCard mergeWith(GCard other) => GCard(
+        id: id,
+        name: name,
+        type: type,
+        desc: desc,
+        value: value,
+        abilities: abilities + other.abilities,
         bullets: [bullets, other.bullets].sum(),
         mustang: [mustang, other.mustang].sum(),
         scope: [scope, other.scope].sum(),
@@ -116,7 +113,7 @@ extension MerginOptionalInt on List<int?> {
 
   int? max() {
     final values = this.whereType<int>().toList();
-    final result = values.isNotEmpty ? values.max() : null;
+    final result = values.isNotEmpty ? values.reduce((a, b) => a > b ? a : b) : null;
     return result;
   }
 }

@@ -61,8 +61,8 @@ extension Appending on List<PlayArgs> {
         return false;
       }
 
-      final playerObject = state.player(identifier: target);
-      List<String> cards = playerObject.inPlay.map((e) => e.identifier).toList();
+      final playerObject = state.player(id: target);
+      List<String> cards = playerObject.inPlay.map((e) => e.id).toList();
       if (playerObject.hand.isNotEmpty) {
         cards.add('');
       }
@@ -70,31 +70,5 @@ extension Appending on List<PlayArgs> {
     }
 
     return this.isNotEmpty;
-  }
-}
-
-extension Combining<T> on List<T> {
-  List<List<T>> combineBy(int size) {
-    if (size == 0 || size > length) {
-      return [];
-    } else if (size == this.length) {
-      return [this];
-    } else if (size == 1) {
-      return this.map((e) => [e]).toList();
-    }
-
-    final List<List<T>> result = [];
-    for (var array in combineBy(size - 1)) {
-      for (var element in this.where((e) => !array.contains(e))) {
-        final elementIndex = this.indexOf(element);
-        final lastArrayElement = array.last;
-        final lastArrayIndex = this.indexOf(lastArrayElement);
-        if (elementIndex > lastArrayIndex) {
-          result.add(array + [element]);
-        }
-      }
-    }
-
-    return result;
   }
 }

@@ -5,12 +5,7 @@ class GEventIdle extends GEvent {
   List<Object?> get props => [];
 
   @override
-  GState dispatch(GState state) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Duration duration() {
-    throw UnimplementedError();
+  GState? dispatch(GState aState) {
+    return null;
   }
 }

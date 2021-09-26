@@ -21,9 +21,9 @@ class Handicap extends Effect {
     final otherId = other.get(ctx).first;
 
     // <RULE> cannot have two copies of the same card in play
-    final playerObject = ctx.state.player(identifier: playerId);
-    final cardObject = playerObject.hand.firstWhere((e) => e.identifier == cardId);
-    final otherObject = ctx.state.player(identifier: otherId);
+    final playerObject = ctx.state.player(id: playerId);
+    final cardObject = playerObject.hand.firstWhere((e) => e.id == cardId);
+    final otherObject = ctx.state.player(id: otherId);
     if (otherObject.inPlay.any((e) => e.name.isNotEmpty && e.name == cardObject.name)) {
       return [];
     }

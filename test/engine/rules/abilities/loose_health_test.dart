@@ -15,7 +15,7 @@ void main() {
 
   test('can loose health if hit', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', health: 2);
+    final player1 = GPlayer(id: 'p1', health: 2);
     final hit = GHit(players: ['p1'], abilities: ['looseHealth']);
     final state = GState(players: [player1], hit: hit);
 
@@ -35,7 +35,7 @@ void main() {
 
   test('can be eliminated if hit with last health', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', health: 1);
+    final player1 = GPlayer(id: 'p1', health: 1);
     final hit = GHit(players: ['p1'], abilities: ['looseHealth']);
     final state = GState(players: [player1], hit: hit);
 

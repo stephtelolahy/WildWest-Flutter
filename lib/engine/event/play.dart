@@ -11,12 +11,13 @@ class GEventPlay extends GEvent {
   List<Object?> get props => [move];
 
   @override
-  GState dispatch(GState state) {
-    throw UnimplementedError();
+  GState? dispatch(GState aState) {
+    final state = GState.copy(aState);
+    state.played.add(move.ability);
+    state.history.add(move);
+    return state;
   }
 
   @override
-  Duration duration() {
-    throw UnimplementedError();
-  }
+  Duration? duration() => Duration();
 }

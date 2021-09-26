@@ -11,12 +11,12 @@ class GEventLooseHealth extends GEvent {
   List<Object?> get props => [player];
 
   @override
-  GState dispatch(GState state) {
-    throw UnimplementedError();
+  GState? dispatch(GState aState) {
+    final state = GState.copy(aState);
+    state.player(id: player).health -= 1;
+    return state;
   }
 
   @override
-  Duration duration() {
-    throw UnimplementedError();
-  }
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }

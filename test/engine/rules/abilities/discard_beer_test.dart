@@ -15,8 +15,8 @@ void main() {
 
   test('can discard beer if is target of shoot and will be eliminated', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['discardBeer'], type: CardType.brown);
-    final player1 = GPlayer(identifier: 'p1', health: 1, hand: [card1]);
+    final card1 = GCard(id: 'c1', abilities: ['discardBeer'], type: CardType.brown);
+    final player1 = GPlayer(id: 'p1', health: 1, hand: [card1]);
     final hit = GHit(players: ['p1'], abilities: ['looseHealth']);
     final state = GState(players: [player1], hit: hit, playOrder: ['p1', 'p2', 'p3']);
 
@@ -41,8 +41,8 @@ void main() {
 
   test('cannot discard beer if not last health', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['discardBeer'], type: CardType.brown);
-    final player1 = GPlayer(identifier: 'p1', health: 2, hand: [card1]);
+    final card1 = GCard(id: 'c1', abilities: ['discardBeer'], type: CardType.brown);
+    final player1 = GPlayer(id: 'p1', health: 2, hand: [card1]);
     final hit = GHit(players: ['p1'], abilities: ['looseHealth']);
     final state = GState(players: [player1], hit: hit, playOrder: ['p1', 'p2', 'p3']);
 
@@ -55,8 +55,8 @@ void main() {
 
   test('cannot discard beer if two players left', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['discardBeer'], type: CardType.brown);
-    final player1 = GPlayer(identifier: 'p1', health: 1, hand: [card1]);
+    final card1 = GCard(id: 'c1', abilities: ['discardBeer'], type: CardType.brown);
+    final player1 = GPlayer(id: 'p1', health: 1, hand: [card1]);
     final hit = GHit(players: ['p1'], abilities: ['looseHealth']);
     final state = GState(players: [player1], hit: hit, playOrder: ['p1', 'p2']);
 

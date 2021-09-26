@@ -13,12 +13,14 @@ class GEventDrawStore extends GEvent {
   List<Object?> get props => [player, card];
 
   @override
-  GState dispatch(GState state) {
-    throw UnimplementedError();
+  GState? dispatch(GState aState) {
+    final state = GState.copy(aState);
+    final index = state.store.indexWhere((e) => e.id == card);
+    final cardObject = state.store.removeAt(index);
+    state.player(id: player).hand.add(cardObject);
+    return state;
   }
 
   @override
-  Duration duration() {
-    throw UnimplementedError();
-  }
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }

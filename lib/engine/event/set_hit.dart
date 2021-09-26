@@ -11,12 +11,16 @@ class GEventSetHit extends GEvent {
   List<Object?> get props => [hit];
 
   @override
-  GState dispatch(GState state) {
-    throw UnimplementedError();
+  GState? dispatch(GState aState) {
+    if (aState.hit != null) {
+      throw UnsupportedError('A hit is already setted');
+    }
+
+    final state = GState.copy(aState);
+    state.hit = hit;
+    return state;
   }
 
   @override
-  Duration duration() {
-    throw UnimplementedError();
-  }
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }

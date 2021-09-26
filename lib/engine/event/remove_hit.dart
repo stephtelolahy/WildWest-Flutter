@@ -11,12 +11,29 @@ class GEventRemoveHit extends GEvent {
   List<Object?> get props => [player];
 
   @override
-  GState dispatch(GState state) {
-    throw UnimplementedError();
-  }
+  GState? dispatch(GState aState) {
+    final state = GState.copy(aState);
 
-  @override
-  Duration duration() {
-    throw UnimplementedError();
+    final hit = state.hit;
+    if (hit == null) {
+      throw UnsupportedError('Missing hit');
+    }
+
+    final index = hit.players.indexOf(player);
+    if (index == -1) {
+      throw UnsupportedError('Player not found');
+    }
+
+    hit.players.removeAt(index);
+
+    if (index < hit.targets.length) {
+      hit.targets.removeAt(index);
+    }
+
+    if (hit.players.isEmpty) {
+      state.hit = null;
+    }
+
+    return state;
   }
 }

@@ -15,13 +15,13 @@ void main() {
 
   test('flip 2 cards if having attribute', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['dynamite']);
+    final card1 = GCard(id: 'c1', abilities: ['dynamite']);
     final player1 = GPlayer(
-      identifier: 'p1',
-      attributes: CardAttributes(flippedCards: 2),
+      id: 'p1',
+      flippedCards: 2,
       inPlay: [card1],
     );
-    final player2 = GPlayer(identifier: 'p2');
+    final player2 = GPlayer(id: 'p2');
     final state = GState(
       players: [player1, player2],
       playOrder: ['p1', 'p2'],

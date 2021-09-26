@@ -15,8 +15,8 @@ void main() {
 
   test('can play missed to cancel shoot', () {
     // Given
-    final card1 = GCard(identifier: 'c1', abilities: ['missed'], type: CardType.brown);
-    final player1 = GPlayer(identifier: 'p1', hand: [card1]);
+    final card1 = GCard(id: 'c1', abilities: ['missed'], type: CardType.brown);
+    final player1 = GPlayer(id: 'p1', hand: [card1]);
     final hit = GHit(players: ['p1'], abilities: ['cancelShoot']);
     final state = GState(players: [player1], hit: hit);
 

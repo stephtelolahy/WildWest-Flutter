@@ -15,8 +15,8 @@ void main() {
 
   test('draw card from player damages him', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['drawCardFromOffenderOnLoseHealth']);
-    final player2 = GPlayer(identifier: 'p2', hand: [GCard(identifier: 'c2')]);
+    final player1 = GPlayer(id: 'p1', abilities: ['drawCardFromOffenderOnLoseHealth']);
+    final player2 = GPlayer(id: 'p2', hand: [GCard(id: 'c2')]);
 
     final state = GState(players: [player1, player2], playOrder: ['p1', 'p2'], turn: 'p2');
     final event = GEventLooseHealth(player: 'p1');
@@ -39,8 +39,8 @@ void main() {
 
   test('cannot draw card from player damages him if hand empty', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['drawCardFromOffenderOnLoseHealth']);
-    final player2 = GPlayer(identifier: 'p2');
+    final player1 = GPlayer(id: 'p1', abilities: ['drawCardFromOffenderOnLoseHealth']);
+    final player2 = GPlayer(id: 'p2');
 
     final state = GState(players: [player1, player2], playOrder: ['p1', 'p2'], turn: 'p2');
     final event = GEventLooseHealth(player: 'p1');
@@ -54,11 +54,9 @@ void main() {
 
   test('cannot draw card from player damages him if himself', () {
     // Given
-    final player1 = GPlayer(
-        identifier: 'p1',
-        abilities: ['drawCardFromOffenderOnLoseHealth'],
-        hand: [GCard(identifier: 'c1')]);
-    final player2 = GPlayer(identifier: 'p2');
+    final player1 =
+        GPlayer(id: 'p1', abilities: ['drawCardFromOffenderOnLoseHealth'], hand: [GCard(id: 'c1')]);
+    final player2 = GPlayer(id: 'p2');
 
     final state = GState(players: [player1, player2], playOrder: ['p1', 'p2'], turn: 'p1');
     final event = GEventLooseHealth(player: 'p1');

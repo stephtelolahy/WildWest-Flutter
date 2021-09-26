@@ -8,8 +8,8 @@ class RequireTargetOffender extends PlayReq {
   bool match(PlayContext ctx, List<PlayArgs> args) {
     final event = ctx.event;
     if (event is GEventLooseHealth &&
-        event.player == ctx.actor.identifier &&
-        ctx.state.turn != ctx.actor.identifier) {
+        event.player == ctx.actor.id &&
+        ctx.state.turn != ctx.actor.id) {
       return args.appendTarget([ctx.state.turn]);
     } else {
       return false;

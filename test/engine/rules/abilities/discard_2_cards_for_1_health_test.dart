@@ -16,14 +16,14 @@ void main() {
   test('can discard 2 cards for 1 health', () {
     // Given
     final player1 = GPlayer(
-      identifier: 'p1',
+      id: 'p1',
       health: 2,
-      attributes: CardAttributes(bullets: 4),
+      bullets: 4,
       abilities: ['discard2CardsFor1Health'],
       hand: [
-        GCard(identifier: 'c1'),
-        GCard(identifier: 'c2'),
-        GCard(identifier: 'c3'),
+        GCard(id: 'c1'),
+        GCard(id: 'c2'),
+        GCard(id: 'c3'),
       ],
     );
     final state = GState(players: [player1], turn: 'p1', phase: 2);

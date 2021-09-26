@@ -1,44 +1,12 @@
 part of 'state.dart';
 
 class GCard extends Equatable {
-  final String identifier;
+  final String id;
   final String name;
   final CardType type;
   final String desc;
-  final CardAttributes attributes;
-  final List<String> abilities;
-  final String value;
-
-  GCard(
-      {this.identifier = '',
-      this.name = '',
-      this.type = CardType.none,
-      this.desc = '',
-      this.attributes = const CardAttributes(),
-      this.abilities = const [],
-      this.value = ''});
-
-  GCard.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        type = EnumToString.fromString(CardType.values, json['type'])!,
-        desc = json['desc'],
-        attributes = CardAttributes.fromJson(json['attributes'] ?? {}),
-        abilities = List<String>.from(json['abilities'] ?? []),
-        identifier = '',
-        value = '';
-
-  @override
-  List<Object?> get props => [identifier, name, type, desc, attributes, abilities, value];
-}
-
-enum CardType {
-  brown,
-  blue,
-  figure,
-  none,
-}
-
-class CardAttributes extends Equatable {
+  final String value; // suit and value
+  final List<String> abilities; // effects when played
   final int? bullets; // max health
   final int? mustang; // increment distance from others
   final int? scope; // decrement distance to others
@@ -50,7 +18,13 @@ class CardAttributes extends Equatable {
   final String? silentAbility; // disable self ability matching given name
   final Map<String, dynamic>? playAs; // can play card matching [regex] with ability [name]
 
-  const CardAttributes({
+  GCard({
+    this.id = '',
+    this.name = '',
+    this.type = CardType.none,
+    this.desc = '',
+    this.value = '',
+    this.abilities = const [],
     this.bullets,
     this.mustang,
     this.scope,
@@ -63,8 +37,14 @@ class CardAttributes extends Equatable {
     this.playAs,
   });
 
-  CardAttributes.fromJson(Map<String, dynamic> json)
-      : bullets = json['bullets'],
+  GCard.fromJson(Map<String, dynamic> json)
+      : id = '',
+        name = json['name'],
+        type = EnumToString.fromString(CardType.values, json['type'])!,
+        desc = json['desc'],
+        value = '',
+        abilities = List<String>.from(json['abilities'] ?? []),
+        bullets = json['bullets'],
         mustang = json['mustang'],
         scope = json['scope'],
         weapon = json['weapon'],
@@ -77,6 +57,12 @@ class CardAttributes extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
+        name,
+        type,
+        desc,
+        value,
+        abilities,
         bullets,
         mustang,
         scope,
@@ -86,6 +72,13 @@ class CardAttributes extends Equatable {
         handLimit,
         silentCard,
         silentAbility,
-        playAs
+        playAs,
       ];
+}
+
+enum CardType {
+  brown,
+  blue,
+  figure,
+  none,
 }

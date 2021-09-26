@@ -11,12 +11,21 @@ class GEventEliminate extends GEvent {
   List<Object?> get props => [player];
 
   @override
-  GState dispatch(GState state) {
-    throw UnimplementedError();
+  GState? dispatch(GState aState) {
+    final state = GState.copy(aState);
+    state.playOrder.remove(player);
+    state.player(id: player).health = 0;
+    final hit = state.hit;
+    if (hit != null) {
+      hit.players.removeWhere((e) => e == player);
+      if (hit.players.isEmpty) {
+        state.hit = null;
+      }
+    }
+
+    return state;
   }
 
   @override
-  Duration duration() {
-    throw UnimplementedError();
-  }
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }

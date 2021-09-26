@@ -13,19 +13,21 @@ class GEngine {
   final GRules _rules;
   final Queue<GEvent> _queue;
 
-  GEngine({required GState initialState, required GRules rules})
+  GEngine({required GState state, required GRules rules})
       : this.eventSubject = PublishSubject<GEvent>(),
-        this.stateSubject = BehaviorSubject<GState>.seeded(initialState),
+        this.stateSubject = BehaviorSubject<GState>.seeded(state),
         this._rules = rules,
         this._queue = Queue();
 
   Future<void> play(GMove move) async {
     if (_queue.isNotEmpty) {
-      print("engine busy");
-      return;
+      throw UnsupportedError('Engine busy');
     }
-
     _queue.addLast(GEventPlay(move: move));
+    await refresh();
+  }
+
+  Future<void> refresh() async {
     await _update();
     _emitActiveMoves();
   }
@@ -63,8 +65,16 @@ class GEngine {
 
   Future<void> _dispatch(GEvent event, GState state) async {
     eventSubject.add(event);
-    await new Future.delayed(event.duration());
-    stateSubject.add(event.dispatch(state));
+
+    final duration = event.duration();
+    if (duration != null) {
+      await new Future.delayed(duration);
+    }
+
+    final newState = event.dispatch(state);
+    if (newState != null) {
+      stateSubject.add(newState);
+    }
   }
 
   void _queueEffects(GMove move, GState state) {

@@ -16,9 +16,9 @@ void main() {
   test('do not trigger start turn if silenced', () {
     // Given
     final player1 = GPlayer(
-      identifier: 'p1',
+      id: 'p1',
       abilities: ['startTurnDrawing2Cards'],
-      attributes: CardAttributes(silentAbility: 'startTurnDrawing2Cards'),
+      silentAbility: 'startTurnDrawing2Cards',
     );
     final state = GState(players: [player1], turn: 'p1', phase: 1, playOrder: ['p1']);
     final event = GEventIdle();

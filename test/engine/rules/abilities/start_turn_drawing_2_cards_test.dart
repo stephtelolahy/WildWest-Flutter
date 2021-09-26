@@ -15,7 +15,7 @@ void main() {
 
   test('trigger start turn drawing two cards on phase 1', () {
     // Given
-    final player1 = GPlayer(identifier: 'p1', abilities: ['startTurnDrawing2Cards']);
+    final player1 = GPlayer(id: 'p1', abilities: ['startTurnDrawing2Cards']);
     final state = GState(players: [player1], playOrder: ['p1'], turn: 'p1', phase: 1);
     final event = GEventIdle();
 
