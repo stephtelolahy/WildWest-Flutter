@@ -12,5 +12,5 @@ class GEventFlipHand extends GEvent {
   GState? dispatch(GState aState) => null;
 
   @override
-  Duration? duration() => DEFAULT_EVENT_DURATION;
+  double duration() => 1.0;
 }

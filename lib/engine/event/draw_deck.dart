@@ -20,7 +20,7 @@ class GEventDrawDeck extends GEvent {
   }
 
   @override
-  Duration? duration() => DEFAULT_EVENT_DURATION;
+  double duration() => 1.0;
 }
 
 extension ResettingDeck on GState {

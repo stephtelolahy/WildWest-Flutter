@@ -31,7 +31,5 @@ part 'set_winner.dart';
 
 abstract class GEvent extends Equatable {
   GState? dispatch(GState state);
-  Duration? duration() => null;
+  double duration() => 0.0;
 }
-
-const DEFAULT_EVENT_DURATION = Duration(milliseconds: 400);
