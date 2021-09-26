@@ -13,23 +13,25 @@ class GEventDrawDeck extends GEvent {
   @override
   GState? dispatch(GState aState) {
     final state = GState.copy(aState);
-    _resetDeckIfNeeded(state);
+    state.resetDeckIfNeeded();
     final card = state.deck.removeAt(0);
     state.player(id: player).hand.add(card);
     return state;
   }
 
-  void _resetDeckIfNeeded(GState state) {
-    final minDeck = 2;
-    final minDiscard = 2;
-    if (state.deck.length <= minDeck && state.discard.length >= minDiscard) {
-      final cards = List<GCard>.from(state.discard);
-      state.discard = [cards.removeLast()];
-      cards.shuffle();
-      state.deck.addAll(cards);
-    }
-  }
-
   @override
   Duration? duration() => DEFAULT_EVENT_DURATION;
+}
+
+extension ResettingDeck on GState {
+  void resetDeckIfNeeded() {
+    final minDeck = 2;
+    final minDiscard = 2;
+    if (deck.length <= minDeck && discard.length >= minDiscard) {
+      final cards = List<GCard>.from(discard);
+      discard = [cards.removeLast()];
+      cards.shuffle();
+      deck.addAll(cards);
+    }
+  }
 }

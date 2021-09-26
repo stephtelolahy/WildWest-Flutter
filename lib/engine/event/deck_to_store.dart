@@ -3,9 +3,15 @@ part of 'event.dart';
 class GEventDeckToStore extends GEvent {
   @override
   List<Object?> get props => [];
-
   @override
   GState? dispatch(GState aState) {
-    throw UnimplementedError();
+    final state = GState.copy(aState);
+    state.resetDeckIfNeeded();
+    final card = state.deck.removeAt(0);
+    state.store.add(card);
+    return state;
   }
+
+  @override
+  Duration? duration() => DEFAULT_EVENT_DURATION;
 }
