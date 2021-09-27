@@ -6,7 +6,6 @@ import 'package:wildwest_flutter/engine/rules/rules.dart';
 import 'package:wildwest_flutter/engine/setup/loader.dart';
 import 'package:wildwest_flutter/engine/setup/setup.dart';
 import 'package:wildwest_flutter/engine/state/state.dart';
-import 'package:wildwest_flutter/pages/game/cubit/game_cubit.dart';
 
 void main() {
   late GEngine sut;

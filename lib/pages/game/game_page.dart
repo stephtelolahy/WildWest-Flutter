@@ -1,19 +1,19 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wildwest_flutter/misc/size_utils.dart';
-import 'package:wildwest_flutter/pages/game/cubit/game_cubit.dart';
-import 'package:wildwest_flutter/pages/game/widgets/animated_card.dart';
-import 'package:wildwest_flutter/pages/game/widgets/card.dart';
-import 'package:wildwest_flutter/pages/game/widgets/player.dart';
+
+import '../../engine/state/state.dart';
+import '../../misc/size_utils.dart';
+import 'cubit/game_cubit.dart';
+import 'widgets/animated_card.dart';
+import 'widgets/card.dart';
+import 'widgets/player.dart';
 
 class GamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => GameCubit(),
+      create: (_) => GameCubit()..load(),
       child: _GameView(),
     );
   }
@@ -35,12 +35,12 @@ class _GameView extends StatelessWidget {
       builder: (context, state) => Scaffold(
         body: Stack(
           children: [
-            SafeArea(child: _buildGameBoard(context, state)),
-            AnimatedCard(key: _keyAnimated)
+            SafeArea(child: _buildState(context, state)),
+            AnimatedCard(key: _keyAnimated),
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => _showActions(context),
+          onPressed: () => context.read<GameCubit>().loop(), //_showActions(context),
           child: Icon(Icons.play_arrow_outlined),
         ),
       ),
@@ -48,35 +48,44 @@ class _GameView extends StatelessWidget {
     );
   }
 
-  Widget _buildGameBoard(BuildContext context, GameState state) {
+  Widget _buildState(BuildContext context, GameState state) {
+    if (state is GameStateLoading) {
+      return Container(child: Center(child: CircularProgressIndicator()));
+    } else if (state is GameStateLoaded) {
+      return _buildGameBoard(context, state);
+    } else {
+      return SizedBox.shrink();
+    }
+  }
+
+  Widget _buildGameBoard(BuildContext context, GameStateLoaded state) {
     return Column(
       children: [
-        _buildOthers(context, state.others),
-        _buildPlayground(
-          context,
-          discard: state.discard.lastOrNull,
-        ),
-        _buildHand(context, state.hand),
+        _buildOthers(state.others, context),
+        _buildPlayground(context, discard: state.discard),
+        _buildYou(context, state.you),
+        _buildHand(context, state.you.hand),
       ],
     );
   }
 
-  Widget _buildOthers(BuildContext context, List<String> players) {
+  Widget _buildOthers(List<GPlayer> players, BuildContext context) {
     final maxWidth = SizeUtils.maxItemWidthInARow(context, players.length);
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: players.map((e) => PlayerWidget(name: e, maxWidth: maxWidth)).toList(),
+        children: players.map((e) => PlayerWidget(player: e, maxWidth: maxWidth)).toList(),
       ),
     );
   }
 
-  Widget _buildPlayground(BuildContext context, {String? discard}) {
+  Widget _buildPlayground(BuildContext context, {GCard? discard}) {
     return Expanded(
       key: _keyPlayground,
       child: DragTarget(
         onWillAccept: (data) => true,
         onAcceptWithDetails: (details) {
+          /*
           final playgroundOffset = _keyPlayground.offset();
           final centerX = playgroundOffset.dx + details.offset.dx + CardWidget.CARD_WIDTH / 2;
           final draggingDY = CardWidget.CARD_DRAGGING_HEIGHT * CardWidget.CARD_DRAGGING_SHIFT_Y;
@@ -85,6 +94,7 @@ class _GameView extends StatelessWidget {
           final center = Offset(centerX, centerY);
           final card = details.data as String;
           context.read<GameCubit>().play(card: card, center: center);
+          */
         },
         builder: (context, candidateItems, rejectedItems) {
           final highlighted = candidateItems.isNotEmpty;
@@ -101,10 +111,6 @@ class _GameView extends StatelessWidget {
                     alignment: Alignment.center,
                     child: _buildDiscard(context, discard),
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: _buildYou(context),
-                  )
                 ],
               ));
         },
@@ -120,21 +126,21 @@ class _GameView extends StatelessWidget {
     );
   }
 
-  Widget _buildDiscard(BuildContext context, String? card) {
+  Widget _buildDiscard(BuildContext context, GCard? card) {
     return Container(
       key: _keyDiscard,
       width: CardWidget.CARD_WIDTH,
       height: CardWidget.CARD_HEIGHT,
-      child: card != null ? CardWidget(name: card) : null,
+      child: card != null ? CardWidget(name: card.id) : null,
     );
   }
 
-  Widget _buildYou(BuildContext context) {
+  Widget _buildYou(BuildContext context, GPlayer player) {
     return Container(
       child: Row(
         children: [
           _buildMessage(context),
-          PlayerWidget(key: _keyYou, name: 'you'),
+          PlayerWidget(key: _keyYou, player: player),
         ],
       ),
     );
@@ -150,7 +156,7 @@ class _GameView extends StatelessWidget {
     ));
   }
 
-  Widget _buildHand(BuildContext context, List<String> cards) {
+  Widget _buildHand(BuildContext context, List<GCard> cards) {
     final maxWidth = SizeUtils.maxItemWidthInARow(context, cards.length);
     return Container(
       key: _keyHand,
@@ -159,13 +165,14 @@ class _GameView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
           cards.length,
-          (index) => CardWidget(name: cards[index], maxWidth: maxWidth, draggable: true),
+          (index) => CardWidget(name: cards[index].id, maxWidth: maxWidth, draggable: true),
         ),
       ),
     );
   }
 
   void _handleEvent(BuildContext context, GameState state) {
+    /*
     final event = state.event;
     if (event is GameEventPlay) {
       _keyAnimated.currentState?.animate(
@@ -184,9 +191,11 @@ class _GameView extends StatelessWidget {
           from: _keyHand.center(),
           to: _keyDiscard.center());
     }
+    */
   }
 
   void _showActions(BuildContext context) {
+    /*
     final actions = ['drawDeck', 'discardHand'];
 
     showCupertinoModalPopup<String>(
@@ -210,5 +219,6 @@ class _GameView extends StatelessWidget {
         context.read<GameCubit>().discardHand();
       }
     });
+    */
   }
 }
