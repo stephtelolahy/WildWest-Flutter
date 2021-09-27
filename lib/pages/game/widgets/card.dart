@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:wildwest_flutter/engine/state/state.dart';
 
 class CardWidget extends StatelessWidget {
   static const double CARD_WIDTH = 96;
@@ -12,14 +13,14 @@ class CardWidget extends StatelessWidget {
   static const double CARD_DRAGGING_HEIGHT = CARD_HEIGHT * CARD_DRAGGING_SCALE;
   static const double CARD_DRAGGING_SHIFT_Y = -0.5;
 
-  final String name;
+  final GCard card;
   final double maxWidth;
   final bool draggable;
   final Color color;
 
   CardWidget({
     Key? key,
-    required this.name,
+    required this.card,
     this.maxWidth = CARD_WIDTH,
     this.draggable = false,
     this.color = Colors.blue,
@@ -37,20 +38,18 @@ class CardWidget extends StatelessWidget {
       width: width,
       child: Card(
         elevation: CARD_ELEVATION,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(CARD_RADIUS)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(CARD_RADIUS)),
         color: color,
-        child: Center(child: Text(name, textAlign: TextAlign.center)),
+        child: Center(child: Text('${card.name}\n${card.value}', textAlign: TextAlign.center)),
       ),
     );
   }
 
   Widget _buildDraggable(BuildContext context) {
-    final draggingDx =
-        (maxWidth < CARD_WIDTH) ? (maxWidth - CARD_WIDTH) / 2 : 0.0;
+    final draggingDx = (maxWidth < CARD_WIDTH) ? (maxWidth - CARD_WIDTH) / 2 : 0.0;
     final draggingDY = CARD_HEIGHT * CARD_DRAGGING_SHIFT_Y;
     return Draggable(
-        data: name,
+        data: card,
         childWhenDragging: SizedBox.shrink(),
         feedback: Transform.scale(
           scale: CARD_DRAGGING_SCALE,
@@ -62,7 +61,7 @@ class CardWidget extends StatelessWidget {
               child: Card(
                 elevation: CARD_ELEVATION,
                 color: Colors.amber,
-                child: Center(child: Text(name)),
+                child: Center(child: Text('${card.name}\n${card.value}')),
               ),
             ),
           ),

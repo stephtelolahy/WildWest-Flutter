@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../engine/state/state.dart';
+import '../../engine/event/event.dart';
 import '../../misc/size_utils.dart';
 import 'cubit/game_cubit.dart';
 import 'widgets/animated_card.dart';
@@ -61,20 +62,27 @@ class _GameView extends StatelessWidget {
   Widget _buildGameBoard(BuildContext context, GameStateLoaded state) {
     return Column(
       children: [
-        _buildOthers(state.others, context),
+        _buildOthers(context, state.others, state.gState),
         _buildPlayground(context, discard: state.discard),
-        _buildYou(context, state.you),
+        _buildYou(context, state.you, state.gState),
         _buildHand(context, state.you.hand),
       ],
     );
   }
 
-  Widget _buildOthers(List<GPlayer> players, BuildContext context) {
+  Widget _buildOthers(BuildContext context, List<GPlayer> players, GState state) {
     final maxWidth = SizeUtils.maxItemWidthInARow(context, players.length);
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: players.map((e) => PlayerWidget(player: e, maxWidth: maxWidth)).toList(),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: players
+            .map((e) => PlayerWidget(
+                  player: e,
+                  maxWidth: maxWidth,
+                  highlight: state.highlightFor(e),
+                ))
+            .toList(),
       ),
     );
   }
@@ -121,7 +129,7 @@ class _GameView extends StatelessWidget {
   Widget _buildDeck(BuildContext context) {
     return CardWidget(
       key: _keyDeck,
-      name: 'deck',
+      card: GCard(),
       maxWidth: DECK_WIDTH,
     );
   }
@@ -131,28 +139,34 @@ class _GameView extends StatelessWidget {
       key: _keyDiscard,
       width: CardWidget.CARD_WIDTH,
       height: CardWidget.CARD_HEIGHT,
-      child: card != null ? CardWidget(name: card.id) : null,
+      child: card != null ? CardWidget(card: card) : null,
     );
   }
 
-  Widget _buildYou(BuildContext context, GPlayer player) {
+  Widget _buildYou(BuildContext context, GPlayer player, GState state) {
     return Container(
       child: Row(
         children: [
-          _buildMessage(context),
-          PlayerWidget(key: _keyYou, player: player),
+          _buildMessage(context, state),
+          PlayerWidget(
+            key: _keyYou,
+            player: player,
+            highlight: state.highlightFor(player),
+            showInPlayUp: true,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildMessage(BuildContext context) {
-    final message =
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at sodales augue. Maecenas consequat odio in enim fringilla, id dapibus neque commodo.";
+  Widget _buildMessage(BuildContext context, GState state) {
     return Expanded(
         child: Padding(
       padding: EdgeInsets.all(8),
-      child: Text(message),
+      child: Center(
+          child: Text(
+        state.message(),
+      )),
     ));
   }
 
@@ -165,7 +179,7 @@ class _GameView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
           cards.length,
-          (index) => CardWidget(name: cards[index].id, maxWidth: maxWidth, draggable: true),
+          (index) => CardWidget(card: cards[index], maxWidth: maxWidth, draggable: true),
         ),
       ),
     );
@@ -220,5 +234,26 @@ class _GameView extends StatelessWidget {
       }
     });
     */
+  }
+}
+
+extension Rendering on GState {
+  Color? highlightFor(GPlayer aPlayer) {
+    final hit = this.hit;
+    if (hit != null && hit.players.any((e) => e == aPlayer.id)) {
+      return hit.abilities.contains('looseHealth') ? Colors.red : Colors.blue;
+    } else if (aPlayer.id == turn) {
+      return Colors.amber;
+    } else {
+      return null;
+    }
+  }
+
+  String message() {
+    if (played.isNotEmpty) {
+      return played.last;
+    } else {
+      return '';
+    }
   }
 }

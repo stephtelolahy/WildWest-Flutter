@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wildwest_flutter/engine/state/state.dart';
 import 'package:wildwest_flutter/pages/game/widgets/card.dart';
 
 // https://flutter.dev/docs/development/ui/animations/staggered-animations
@@ -9,12 +10,11 @@ class AnimatedCard extends StatefulWidget {
   AnimatedCardState createState() => AnimatedCardState();
 }
 
-class AnimatedCardState extends State<AnimatedCard>
-    with SingleTickerProviderStateMixin {
+class AnimatedCardState extends State<AnimatedCard> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   Animation<double>? _opacity;
   Animation<Offset>? _offset;
-  String? _card;
+  GCard _card = GCard();
 
   @override
   void initState() {
@@ -29,8 +29,7 @@ class AnimatedCardState extends State<AnimatedCard>
     _opacity = TweenSequence<double>(
       <TweenSequenceItem<double>>[
         TweenSequenceItem<double>(
-          tween: Tween<double>(begin: 0.0, end: 1.0)
-              .chain(CurveTween(curve: Curves.ease)),
+          tween: Tween<double>(begin: 0.0, end: 1.0).chain(CurveTween(curve: Curves.ease)),
           weight: 0.1,
         ),
         TweenSequenceItem<double>(
@@ -38,8 +37,7 @@ class AnimatedCardState extends State<AnimatedCard>
           weight: 99.8,
         ),
         TweenSequenceItem<double>(
-          tween: Tween<double>(begin: 1.0, end: 0.0)
-              .chain(CurveTween(curve: Curves.ease)),
+          tween: Tween<double>(begin: 1.0, end: 0.0).chain(CurveTween(curve: Curves.ease)),
           weight: 0.1,
         ),
       ],
@@ -57,7 +55,6 @@ class AnimatedCardState extends State<AnimatedCard>
     final left = (_offset?.value.dx ?? 0) - CardWidget.CARD_WIDTH / 2;
     final top = (_offset?.value.dy ?? 0) - CardWidget.CARD_HEIGHT / 2;
     final opacity = _opacity?.value ?? 0;
-    final name = _card ?? '';
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) => Positioned(
@@ -69,14 +66,14 @@ class AnimatedCardState extends State<AnimatedCard>
         ),
       ),
       child: IgnorePointer(
-        child: CardWidget(name: name, color: Colors.amber),
+        child: CardWidget(card: _card, color: Colors.amber),
       ),
     );
   }
 
   void animate(
       {required Duration duration,
-      required String card,
+      required GCard card,
       required Offset from,
       required Offset to}) async {
     _controller.duration = duration;
