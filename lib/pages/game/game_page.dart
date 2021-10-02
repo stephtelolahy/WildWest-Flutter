@@ -195,15 +195,20 @@ class _GameView extends StatelessWidget {
     final duration = Duration(milliseconds: (event.duration() * 400).toInt());
 
     if (event is GEventDrawDeck) {
-      // TODO: animate by actor
-      final actor = state.gState.players.firstWhere((e) => e.id == event.player);
-      final actorKey = _keyPlayers[state.gState.players.indexOf(actor)];
-      final card = state.gState.deck.first;
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
       _keyAnimated.currentState?.animate(
         duration: duration,
-        card: card,
+        cardId: null,
         from: _keyDeck.center(),
         to: actorKey.center(),
+      );
+    } else if (event is GEventDiscardHand) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: event.card,
+        from: actorKey.center(),
+        to: _keyDiscard.center(),
       );
     } else {
       print('Should animate $event');

@@ -73,11 +73,11 @@ class AnimatedCardState extends State<AnimatedCard> with SingleTickerProviderSta
 
   void animate(
       {required Duration duration,
-      required GCard card,
+      required String? cardId,
       required Offset from,
       required Offset to}) async {
     _controller.duration = duration;
-    _card = card;
+    _card = _cardFromId(cardId);
     _offset = Tween<Offset>(begin: from, end: to).animate(
       CurvedAnimation(
         parent: _controller,
@@ -90,5 +90,16 @@ class AnimatedCardState extends State<AnimatedCard> with SingleTickerProviderSta
     );
 
     await _controller.forward(from: 0.0);
+  }
+
+  GCard _cardFromId(String? cardId) {
+    if (cardId == null) {
+      return GCard();
+    } else {
+      final cardParts = cardId.split('-');
+      final cardName = cardParts[0];
+      final cardValue = cardParts[1];
+      return GCard(id: cardId, name: cardName, value: cardValue);
+    }
   }
 }
