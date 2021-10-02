@@ -26,27 +26,33 @@ class _GameView extends StatelessWidget {
   final _keyPlayground = GlobalKey();
   final _keyDeck = GlobalKey();
   final _keyDiscard = GlobalKey();
-  final _keyYou = GlobalKey();
+  final _keyPlayers = List.generate(8, (_) => GlobalKey());
   final _keyAnimated = GlobalKey<AnimatedCardState>();
   final _keyHand = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GameCubit, GameState>(
-      builder: (context, state) => Scaffold(
-        body: Stack(
-          children: [
-            SafeArea(child: _buildState(context, state)),
-            AnimatedCard(key: _keyAnimated),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => context.read<GameCubit>().loop(), //_showActions(context),
-          child: Icon(Icons.play_arrow_outlined),
-        ),
-      ),
-      listener: (context, state) => _handleEvent(context, state),
-    );
+        builder: (context, state) => Scaffold(
+              body: Stack(
+                children: [
+                  SafeArea(child: _buildState(context, state)),
+                  AnimatedCard(key: _keyAnimated),
+                ],
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () => context.read<GameCubit>().loop(), //_showActions(context),
+                child: Icon(Icons.play_arrow_outlined),
+              ),
+            ),
+        listener: (context, state) {
+          if (state is GameStateLoaded) {
+            final event = state.event;
+            if (event != null) {
+              _handleEvent(context, event, state);
+            }
+          }
+        });
   }
 
   Widget _buildState(BuildContext context, GameState state) {
@@ -78,6 +84,7 @@ class _GameView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: players
             .map((e) => PlayerWidget(
+                  key: _keyPlayers[state.players.indexOf(e)],
                   player: e,
                   maxWidth: maxWidth,
                   highlight: state.highlightFor(e),
@@ -149,7 +156,7 @@ class _GameView extends StatelessWidget {
         children: [
           _buildMessage(context, state),
           PlayerWidget(
-            key: _keyYou,
+            key: _keyPlayers[state.players.indexOf(player)],
             player: player,
             highlight: state.highlightFor(player),
             showInPlayUp: true,
@@ -185,7 +192,29 @@ class _GameView extends StatelessWidget {
     );
   }
 
-  void _handleEvent(BuildContext context, GameState state) {
+  void _handleEvent(BuildContext context, GEvent event, GameStateLoaded state) {
+    if (event.duration() == 0) {
+      return;
+    }
+
+    // TODO: set duration in event
+    final duration = Duration(milliseconds: (event.duration() * 400).toInt());
+
+    if (event is GEventDrawDeck) {
+      // TODO: animate by actor
+      final actor = state.gState.players.firstWhere((e) => e.id == event.player);
+      final actorKey = _keyPlayers[state.gState.players.indexOf(actor)];
+      final card = state.gState.deck.first;
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        card: card,
+        from: _keyDeck.center(),
+        to: actorKey.center(),
+      );
+    } else {
+      print('Should animate $event');
+    }
+
     /*
     final event = state.event;
     if (event is GameEventPlay) {

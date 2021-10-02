@@ -30,7 +30,7 @@ class GameCubit extends Cubit<GameState> {
     final figures = cards.where((e) => e.type == CardType.figure).toList();
     final defaults = cards.where((e) => e.type == CardType.none).toList();
     final initialState = setup.game(roles: roles, figures: figures, defaults: defaults, deck: deck);
-    engine = GEngine(state: initialState, rules: rules, maxEventDurationMillis: 400);
+    engine = GEngine(state: initialState, rules: rules, eventDurationMillis: 400);
 
     emit(createState(initialState, null));
 

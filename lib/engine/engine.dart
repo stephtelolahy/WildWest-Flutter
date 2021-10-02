@@ -13,14 +13,14 @@ class GEngine {
 
   final GRules _rules;
   final Queue<GEvent> _queue;
-  final int _maxEventDurationMillis;
+  final int _eventDurationMillis;
 
-  GEngine({required GState state, required GRules rules, int maxEventDurationMillis = 0})
+  GEngine({required GState state, required GRules rules, int eventDurationMillis = 0})
       : this.eventSubject = PublishSubject<GEvent>(),
         this.stateSubject = BehaviorSubject<GState>.seeded(state),
         this._rules = rules,
         this._queue = Queue(),
-        this._maxEventDurationMillis = maxEventDurationMillis;
+        this._eventDurationMillis = eventDurationMillis;
 
   Future<void> play(GMove move) async {
     if (_queue.isNotEmpty) {
@@ -69,7 +69,7 @@ class GEngine {
   Future<void> _dispatch(GEvent event, GState state) async {
     eventSubject.add(event);
 
-    final duration = Duration(milliseconds: (event.duration() * _maxEventDurationMillis).toInt());
+    final duration = Duration(milliseconds: (event.duration() * _eventDurationMillis).toInt());
     await new Future.delayed(duration);
 
     final newState = event.dispatch(state);
