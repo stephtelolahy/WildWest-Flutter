@@ -21,8 +21,6 @@ class GamePage extends StatelessWidget {
 }
 
 class _GameView extends StatelessWidget {
-  static const double DECK_WIDTH = 60;
-
   final _keyPlayground = GlobalKey();
   final _keyDeck = GlobalKey();
   final _keyDiscard = GlobalKey();
@@ -110,16 +108,11 @@ class _GameView extends StatelessWidget {
           final color = highlighted ? Colors.white12 : Colors.transparent;
           return Container(
               color: color,
-              child: Stack(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: _buildDeck(context),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: _buildDiscard(context, discard),
-                  ),
+                  _buildDeck(context),
+                  _buildDiscard(context, discard),
                 ],
               ));
         },
@@ -131,7 +124,6 @@ class _GameView extends StatelessWidget {
     return CardWidget(
       key: _keyDeck,
       card: GCard(),
-      maxWidth: DECK_WIDTH,
     );
   }
 
@@ -194,13 +186,13 @@ class _GameView extends StatelessWidget {
     // TODO: set duration in event
     final duration = Duration(milliseconds: (event.duration() * 400).toInt());
 
-    if (event is GEventDrawDeck) {
-      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+    if (event is GEventDeckToStore) {
+      final cardId = state.gState.deck.first.id;
       _keyAnimated.currentState?.animate(
         duration: duration,
-        cardId: null,
+        cardId: cardId,
         from: _keyDeck.center(),
-        to: actorKey.center(),
+        to: _keyDeck.center(),
       );
     } else if (event is GEventDiscardHand) {
       final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
@@ -210,30 +202,111 @@ class _GameView extends StatelessWidget {
         from: actorKey.center(),
         to: _keyDiscard.center(),
       );
-    } else {
-      print('Should animate $event');
-    }
-
-    /*
-    final event = state.event;
-    if (event is GameEventPlay) {
+    } else if (event is GEventDiscardInPlay) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
       _keyAnimated.currentState?.animate(
-          duration: event.duration, card: event.card, from: event.center, to: _keyDiscard.center());
-    } else if (event is GameEventDrawDeck) {
-      _keyAnimated.currentState?.animate(
-        duration: event.duration,
-        card: event.card,
-        from: _keyDeck.center(),
-        to: _keyHand.center(),
+        duration: duration,
+        cardId: event.card,
+        from: actorKey.center(),
+        to: _keyDiscard.center(),
       );
-    } else if (event is GameEventDiscardHand) {
+    } else if (event is GEventDrawDeck) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
       _keyAnimated.currentState?.animate(
-          duration: event.duration,
-          card: event.card,
-          from: _keyHand.center(),
-          to: _keyDiscard.center());
+        duration: duration,
+        cardId: null,
+        from: _keyDeck.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventDrawDeckCard) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: null,
+        from: _keyDeck.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventDrawDiscard) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      final cardId = state.gState.discard.last.id;
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: cardId,
+        from: _keyDiscard.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventDrawHand) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      final targetKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.other)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: null,
+        from: targetKey.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventDrawInPlay) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      final targetKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.other)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: event.card,
+        from: targetKey.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventDrawStore) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: event.card,
+        from: _keyDeck.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventEquip) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: event.card,
+        from: actorKey.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventFlipDeck) {
+      final cardId = state.gState.deck.first.id;
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: cardId,
+        from: _keyDeck.center(),
+        to: _keyDiscard.center(),
+      );
+    } else if (event is GEventFlipHand) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      final cardId = state.gState.player(id: event.player).hand.last.id;
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: cardId,
+        from: actorKey.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventHandicap) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      final targetKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.other)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: event.card,
+        from: actorKey.center(),
+        to: targetKey.center(),
+      );
+    } else if (event is GEventPassInPlay) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      final targetKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.other)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: event.card,
+        from: actorKey.center(),
+        to: targetKey.center(),
+      );
+    } else {
+      print('Missing animation for $event');
     }
-    */
   }
 
   void _showActions(BuildContext context) {
