@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../engine/state/state.dart';
 import '../../engine/event/event.dart';
+import '../../engine/state/state.dart';
 import '../../misc/size_utils.dart';
 import 'cubit/game_cubit.dart';
 import 'widgets/animated_card.dart';
@@ -32,7 +32,7 @@ class _GameView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<GameCubit, GameState>(
+    return BlocConsumer<GameCubit, GameState?>(
         builder: (context, state) => Scaffold(
               body: Stack(
                 children: [
@@ -46,7 +46,7 @@ class _GameView extends StatelessWidget {
               ),
             ),
         listener: (context, state) {
-          if (state is GameStateLoaded) {
+          if (state != null) {
             final event = state.event;
             if (event != null) {
               _handleEvent(context, event, state);
@@ -55,17 +55,11 @@ class _GameView extends StatelessWidget {
         });
   }
 
-  Widget _buildState(BuildContext context, GameState state) {
-    if (state is GameStateLoading) {
+  Widget _buildState(BuildContext context, GameState? state) {
+    if (state == null) {
       return Container(child: Center(child: CircularProgressIndicator()));
-    } else if (state is GameStateLoaded) {
-      return _buildGameBoard(context, state);
-    } else {
-      return SizedBox.shrink();
     }
-  }
 
-  Widget _buildGameBoard(BuildContext context, GameStateLoaded state) {
     return Column(
       children: [
         _buildOthers(context, state.others, state.gState),
@@ -192,7 +186,7 @@ class _GameView extends StatelessWidget {
     );
   }
 
-  void _handleEvent(BuildContext context, GEvent event, GameStateLoaded state) {
+  void _handleEvent(BuildContext context, GEvent event, GameState state) {
     if (event.duration() == 0) {
       return;
     }

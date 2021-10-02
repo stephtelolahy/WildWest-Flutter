@@ -12,8 +12,8 @@ import '../../../engine/state/state.dart';
 
 part 'game_state.dart';
 
-class GameCubit extends Cubit<GameState> {
-  GameCubit() : super(GameStateLoading());
+class GameCubit extends Cubit<GameState?> {
+  GameCubit() : super(null);
 
   late GEngine engine;
   late GState lastState;
@@ -59,7 +59,7 @@ class GameCubit extends Cubit<GameState> {
     final you = state.player(id: controlledId);
     final others = state.players.startingWhere((e) => e.id == controlledId).skip(1).toList();
     final discard = state.discard.isNotEmpty ? state.discard.last : null;
-    return GameStateLoaded(
+    return GameState(
       gState: state,
       others: others,
       you: you,
