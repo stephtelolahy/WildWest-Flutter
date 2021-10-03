@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:wildwest_flutter/engine/rules/rules.dart';
 import 'package:wildwest_flutter/engine/setup/card_value.dart';
+import 'package:wildwest_flutter/engine/setup/loader.dart';
 import 'package:wildwest_flutter/engine/setup/setup.dart';
 import 'package:wildwest_flutter/engine/state/state.dart';
 
@@ -153,5 +155,26 @@ void main() {
     expect(other.inPlay, isEmpty);
 
     expect(state.deck.length, equals(4));
+  });
+
+  test('default attributes', () async {
+    // Given
+    TestWidgetsFlutterBinding.ensureInitialized();
+    final loader = ResLoader();
+    final cards = await loader.loadCards();
+    final cardValues = await loader.loadCardValues();
+    final setup = GSetup();
+    final roles = setup.roles(playersCount: 2);
+    final deck = setup.deck(cards: cards, values: cardValues);
+    final figures = cards.where((e) => e.type == CardType.figure).toList();
+    final defaults = cards.where((e) => e.type == CardType.none).toList();
+    final state = setup.game(roles: roles, figures: figures, defaults: defaults, deck: deck);
+
+    // When
+    final sheriff = state.players.firstWhere((e) => e.role == Role.sheriff);
+
+    // Assert
+    expect(sheriff.silentCard, equals('jail'));
+    expect(sheriff.abilities, contains('discardAllCardsOnEliminatingDeputy'));
   });
 }
