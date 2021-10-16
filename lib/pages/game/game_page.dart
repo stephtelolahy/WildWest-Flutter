@@ -1,118 +1,118 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wildwest_flutter/misc/size_utils.dart';
-import 'package:wildwest_flutter/pages/game/cubit/game_cubit.dart';
-import 'package:wildwest_flutter/pages/game/widgets/animated_card.dart';
-import 'package:wildwest_flutter/pages/game/widgets/card.dart';
-import 'package:wildwest_flutter/pages/game/widgets/player.dart';
+
+import '../../engine/event/event.dart';
+import '../../engine/state/state.dart';
+import '../../misc/size_utils.dart';
+import 'cubit/game_cubit.dart';
+import 'widgets/animated_card.dart';
+import 'widgets/card.dart';
+import 'widgets/player.dart';
 
 class GamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => GameCubit(),
+      create: (_) => GameCubit()..load(),
       child: _GameView(),
     );
   }
 }
 
 class _GameView extends StatelessWidget {
-  static const double DECK_WIDTH = 60;
-
   final _keyPlayground = GlobalKey();
   final _keyDeck = GlobalKey();
   final _keyDiscard = GlobalKey();
-  final _keyYou = GlobalKey();
+  final _keyPlayers = List.generate(8, (_) => GlobalKey());
   final _keyAnimated = GlobalKey<AnimatedCardState>();
   final _keyHand = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<GameCubit, GameState>(
-      builder: (context, state) => Scaffold(
-        body: Stack(
-          children: [
-            SafeArea(child: _buildGameBoard(context, state)),
-            AnimatedCard(key: _keyAnimated)
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _showActions(context),
-          child: Icon(Icons.play_arrow_outlined),
-        ),
-      ),
-      listener: (context, state) => SchedulerBinding.instance
-          ?.addPostFrameCallback((_) => _handleEvent(context, state)),
-    );
+    return BlocConsumer<GameCubit, GameState?>(
+        builder: (context, state) => Scaffold(
+              body: Stack(
+                children: [
+                  SafeArea(child: _buildState(context, state)),
+                  AnimatedCard(key: _keyAnimated),
+                ],
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () => context.read<GameCubit>().loop(), //_showActions(context),
+                child: Icon(Icons.play_arrow_outlined),
+              ),
+            ),
+        listener: (context, state) {
+          if (state != null) {
+            final event = state.event;
+            if (event != null) {
+              _handleEvent(context, event, state);
+            }
+          }
+        });
   }
 
-  Widget _buildGameBoard(BuildContext context, GameState state) {
+  Widget _buildState(BuildContext context, GameState? state) {
+    if (state == null) {
+      return Container(child: Center(child: CircularProgressIndicator()));
+    }
+
     return Column(
       children: [
-        _buildOthers(context, state.others),
-        _buildPlayground(
-          context,
-          discard: state.discard.lastOrNull,
-        ),
-        _buildHand(context, state.hand),
+        _buildOthers(context, state.others, state.gState),
+        _buildPlayground(context, discard: state.discard),
+        _buildYou(context, state.you, state.gState),
+        _buildHand(context, state.you.hand),
       ],
     );
   }
 
-  Widget _buildOthers(BuildContext context, List<String> players) {
+  Widget _buildOthers(BuildContext context, List<GPlayer> players, GState state) {
     final maxWidth = SizeUtils.maxItemWidthInARow(context, players.length);
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: players
-            .map((e) => PlayerWidget(name: e, maxWidth: maxWidth))
+            .map((e) => PlayerWidget(
+                  key: _keyPlayers[state.players.indexOf(e)],
+                  player: e,
+                  maxWidth: maxWidth,
+                  highlight: state.highlightFor(e),
+                ))
             .toList(),
       ),
     );
   }
 
-  Widget _buildPlayground(BuildContext context, {String? discard}) {
+  Widget _buildPlayground(BuildContext context, {GCard? discard}) {
     return Expanded(
       key: _keyPlayground,
       child: DragTarget(
         onWillAccept: (data) => true,
         onAcceptWithDetails: (details) {
+          /*
           final playgroundOffset = _keyPlayground.offset();
-          final centerX = playgroundOffset.dx +
-              details.offset.dx +
-              CardWidget.CARD_WIDTH / 2;
-          final draggingDY = CardWidget.CARD_DRAGGING_HEIGHT *
-              CardWidget.CARD_DRAGGING_SHIFT_Y;
-          final centerY = playgroundOffset.dx +
-              details.offset.dy +
-              CardWidget.CARD_HEIGHT / 2 +
-              draggingDY;
+          final centerX = playgroundOffset.dx + details.offset.dx + CardWidget.CARD_WIDTH / 2;
+          final draggingDY = CardWidget.CARD_DRAGGING_HEIGHT * CardWidget.CARD_DRAGGING_SHIFT_Y;
+          final centerY =
+              playgroundOffset.dx + details.offset.dy + CardWidget.CARD_HEIGHT / 2 + draggingDY;
           final center = Offset(centerX, centerY);
           final card = details.data as String;
           context.read<GameCubit>().play(card: card, center: center);
+          */
         },
         builder: (context, candidateItems, rejectedItems) {
           final highlighted = candidateItems.isNotEmpty;
           final color = highlighted ? Colors.white12 : Colors.transparent;
           return Container(
               color: color,
-              child: Stack(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: _buildDeck(context),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: _buildDiscard(context, discard),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: _buildYou(context),
-                  )
+                  _buildDeck(context),
+                  _buildDiscard(context, discard),
                 ],
               ));
         },
@@ -123,42 +123,47 @@ class _GameView extends StatelessWidget {
   Widget _buildDeck(BuildContext context) {
     return CardWidget(
       key: _keyDeck,
-      name: 'deck',
-      maxWidth: DECK_WIDTH,
+      card: GCard(),
     );
   }
 
-  Widget _buildDiscard(BuildContext context, String? card) {
+  Widget _buildDiscard(BuildContext context, GCard? card) {
     return Container(
       key: _keyDiscard,
       width: CardWidget.CARD_WIDTH,
       height: CardWidget.CARD_HEIGHT,
-      child: card != null ? CardWidget(name: card) : null,
+      child: card != null ? CardWidget(card: card) : null,
     );
   }
 
-  Widget _buildYou(BuildContext context) {
+  Widget _buildYou(BuildContext context, GPlayer player, GState state) {
     return Container(
       child: Row(
         children: [
-          _buildMessage(context),
-          PlayerWidget(key: _keyYou, name: 'you'),
+          _buildMessage(context, state),
+          PlayerWidget(
+            key: _keyPlayers[state.players.indexOf(player)],
+            player: player,
+            highlight: state.highlightFor(player),
+            showInPlayUp: true,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildMessage(BuildContext context) {
-    final message =
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at sodales augue. Maecenas consequat odio in enim fringilla, id dapibus neque commodo.";
+  Widget _buildMessage(BuildContext context, GState state) {
     return Expanded(
         child: Padding(
       padding: EdgeInsets.all(8),
-      child: Text(message),
+      child: Center(
+          child: Text(
+        state.message(),
+      )),
     ));
   }
 
-  Widget _buildHand(BuildContext context, List<String> cards) {
+  Widget _buildHand(BuildContext context, List<GCard> cards) {
     final maxWidth = SizeUtils.maxItemWidthInARow(context, cards.length);
     return Container(
       key: _keyHand,
@@ -167,38 +172,145 @@ class _GameView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
           cards.length,
-          (index) => CardWidget(
-              name: cards[index], maxWidth: maxWidth, draggable: true),
+          (index) => CardWidget(card: cards[index], maxWidth: maxWidth, draggable: true),
         ),
       ),
     );
   }
 
-  void _handleEvent(BuildContext context, GameState state) {
-    final event = state.event;
-    if (event is GameEventPlay) {
+  void _handleEvent(BuildContext context, GEvent event, GameState state) {
+    if (event.duration() == 0) {
+      return;
+    }
+
+    // TODO: set duration in event
+    final duration = Duration(milliseconds: (event.duration() * 400).toInt());
+
+    if (event is GEventDeckToStore) {
+      final cardId = state.gState.deck.first.id;
       _keyAnimated.currentState?.animate(
-          duration: event.duration,
-          card: event.card,
-          from: event.center,
-          to: _keyDiscard.center());
-    } else if (event is GameEventDrawDeck) {
-      _keyAnimated.currentState?.animate(
-        duration: event.duration,
-        card: event.card,
+        duration: duration,
+        cardId: cardId,
         from: _keyDeck.center(),
-        to: _keyHand.center(),
+        to: _keyDeck.center(),
       );
-    } else if (event is GameEventDiscardHand) {
+    } else if (event is GEventDiscardHand) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
       _keyAnimated.currentState?.animate(
-          duration: event.duration,
-          card: event.card,
-          from: _keyHand.center(),
-          to: _keyDiscard.center());
+        duration: duration,
+        cardId: event.card,
+        from: actorKey.center(),
+        to: _keyDiscard.center(),
+      );
+    } else if (event is GEventDiscardInPlay) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: event.card,
+        from: actorKey.center(),
+        to: _keyDiscard.center(),
+      );
+    } else if (event is GEventDrawDeck) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: null,
+        from: _keyDeck.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventDrawDeckCard) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: null,
+        from: _keyDeck.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventDrawDiscard) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      final cardId = state.gState.discard.last.id;
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: cardId,
+        from: _keyDiscard.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventDrawHand) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      final targetKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.other)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: null,
+        from: targetKey.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventDrawInPlay) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      final targetKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.other)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: event.card,
+        from: targetKey.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventDrawStore) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: event.card,
+        from: _keyDeck.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventEquip) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: event.card,
+        from: actorKey.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventFlipDeck) {
+      final cardId = state.gState.deck.first.id;
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: cardId,
+        from: _keyDeck.center(),
+        to: _keyDiscard.center(),
+      );
+    } else if (event is GEventFlipHand) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      final cardId = state.gState.player(id: event.player).hand.last.id;
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: cardId,
+        from: actorKey.center(),
+        to: actorKey.center(),
+      );
+    } else if (event is GEventHandicap) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      final targetKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.other)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: event.card,
+        from: actorKey.center(),
+        to: targetKey.center(),
+      );
+    } else if (event is GEventPassInPlay) {
+      final actorKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.player)];
+      final targetKey = _keyPlayers[state.gState.players.indexWhere((e) => e.id == event.other)];
+      _keyAnimated.currentState?.animate(
+        duration: duration,
+        cardId: event.card,
+        from: actorKey.center(),
+        to: targetKey.center(),
+      );
+    } else {
+      print('Missing animation for $event');
     }
   }
 
   void _showActions(BuildContext context) {
+    /*
     final actions = ['drawDeck', 'discardHand'];
 
     showCupertinoModalPopup<String>(
@@ -222,5 +334,27 @@ class _GameView extends StatelessWidget {
         context.read<GameCubit>().discardHand();
       }
     });
+    */
+  }
+}
+
+extension Rendering on GState {
+  Color? highlightFor(GPlayer aPlayer) {
+    final hit = this.hit;
+    if (hit != null && hit.players.any((e) => e == aPlayer.id)) {
+      return hit.abilities.contains('looseHealth') ? Colors.red : Colors.blue;
+    } else if (aPlayer.id == turn) {
+      return Colors.amber;
+    } else {
+      return null;
+    }
+  }
+
+  String message() {
+    if (played.isNotEmpty) {
+      return played.last;
+    } else {
+      return '';
+    }
   }
 }

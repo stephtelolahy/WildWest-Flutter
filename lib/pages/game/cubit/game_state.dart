@@ -2,38 +2,17 @@ part of 'game_cubit.dart';
 
 @immutable
 class GameState {
-  final List<String> discard;
-  final List<String> hand;
-  final List<String> others;
-  final GameEvent? event;
+  final GState gState;
+  final List<GPlayer> others;
+  final GPlayer you;
+  final GCard? discard;
+  final GEvent? event;
 
   GameState({
+    required this.gState,
     required this.others,
-    required this.discard,
-    required this.hand,
-    required this.event,
+    required this.you,
+    this.discard,
+    this.event,
   });
-}
-
-abstract class GameEvent {
-  final Duration duration = Duration(milliseconds: 400);
-}
-
-class GameEventDrawDeck extends GameEvent {
-  final String card;
-
-  GameEventDrawDeck({required this.card});
-}
-
-class GameEventDiscardHand extends GameEvent {
-  final String card;
-
-  GameEventDiscardHand({required this.card});
-}
-
-class GameEventPlay extends GameEvent {
-  final String card;
-  final Offset center;
-
-  GameEventPlay({required this.card, required this.center});
 }

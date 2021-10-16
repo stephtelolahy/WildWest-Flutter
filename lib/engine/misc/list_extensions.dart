@@ -12,6 +12,11 @@ extension Convenience<T> on List<T> {
     return this.sublist(index)..addAll(this.sublist(0, index));
   }
 
+  List<T> startingWhere(bool test(T element)) {
+    final index = this.indexWhere(test);
+    return this.sublist(index)..addAll(this.sublist(0, index));
+  }
+
   List<List<T>> combineBy(int size) {
     if (size == 0 || size > length) {
       return [];
